@@ -35,6 +35,10 @@ export default function Home() {
       >
         <h1 style={{ fontSize: 32, fontWeight: 700, color: t.textPrimary, margin: 0 }}>
           FindMyIdealPillow
+          <br />
+          <span style={{ fontSize: 18, color: t.accent, fontWeight: 400 }}>
+            Test update: Pillow
+          </span>
         </h1>
         <p style={{ fontSize: 18, color: t.textSecondary, margin: 0 }}>
           Something great is coming soon.
