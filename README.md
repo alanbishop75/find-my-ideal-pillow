@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FindMyIdealGolfBall
 
-## Getting Started
+Free, personalised golf ball recommendations — no sign-up, no faff.  
+Live at: **[findmyidealgolfball.com](https://www.findmyidealgolfball.com)**
 
-First, run the development server:
+---
+
+## Stack
+
+- [Next.js](https://nextjs.org) (App Router, TypeScript)
+- Deployed on [Vercel](https://vercel.com)
+- No database — all scoring runs client-side in the browser
+
+---
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Key commands
 
-## Learn More
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start local dev server |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint check |
+| `npm test` | Jest unit tests |
+| `npx playwright test` | E2E smoke tests (requires local server running) |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/                  Pages (Next.js App Router)
+  golf-ball/
+    questionnaire/    Questionnaire page
+    results/          Results page
+    [slug]/           SEO landing pages (generated from seo-pages.ts)
+  about/              About page
+  privacy-policy/     Privacy policy
+  admin/              Admin UI
+components/           Shared UI components
+config/
+  golf-ball/
+    products.ts       Product catalogue
+    questionnaire.ts  Single active questionnaire (v1)
+    scoring.ts        Single active scoring engine
+    seo-pages.ts      SEO landing page definitions
+  registry.ts         Single-product config wiring
+  domain-map.ts       Domain → product mapping
+  global-theme.json   Active theme config
+core/                 Shared types, theme, context
+lib/                  Scoring engine types and tests
+pages/api/            Admin API routes (login, set-theme)
+tests/                Playwright E2E smoke tests
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Questionnaire policy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The golf-ball fitter now uses a single questionnaire and scoring model (`v1`).
+Version switching has been removed from the admin UI and API routes.
+
+---
+
+## Region handling
+
+The app resolves region-specific wording and legal views in this order:
+
+1. Manual region override selected by the visitor
+2. Server-side geo detection from Vercel's `x-vercel-ip-country` header
+3. Browser locale fallback when the geo country is missing
+4. Default to UK if none of the above is available
+
+Current locale mappings:
+- `en-US` -> `US`
+- `en-GB` -> `UK`
+
+---
+
+## Environment variables
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Yes | Full production URL, e.g. `https://www.findmyidealgolfball.com` |
+| `ADMIN_PASSWORD` | Yes | Password for the `/admin` route |
+
+Set these in Vercel → Project → Settings → Environment Variables.
+
+---
+
+## Deploy
+
+Use a pull request for every production release. Vercel deploys production only after the PR is merged to `main`.
+
+Before going live, verify:
+- [ ] `NEXT_PUBLIC_SITE_URL` set to production domain in Vercel
+- [ ] `/robots.txt` and `/sitemap.xml` visible on production host
+- [ ] Canonical tag correct on homepage (`<link rel="canonical" href="https://www.findmyidealgolfball.com/">`)
+- [ ] Admin login works at `/admin/login`
+- [ ] Questionnaire → results flow works end to end
+- [ ] Amazon affiliate tag (`findmyideal-21`) is your live Associates tag
+
+---
+
+## This repo is the FindMyIdeal runbook
+
+This is the reference architecture for all future FindMyIdeal single-product sites.  
+See the copy-paste scaffold prompt in the team notes for how to bootstrap a new product site from this pattern.

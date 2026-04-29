@@ -1,34 +1,120 @@
+
+import { headers } from "next/headers";
+import ClientRoot from "./client-root";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "../core/theme";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import CookieBanner from "../components/CookieBanner";
+import { categoryRegistry } from "../config/registry";
+import { categoryFromHost } from "../config/domain-map";
+import { CategoryProvider } from "../core/category-context";
+import { ThemeName, themeNames } from "../core/theme/tokens";
+import fs from "fs";
+import path from "path";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const BUILD_PHASE = "phase-production-build";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+async function resolveCategoryIdForRequest(): Promise<string> {
+  // During `next build`, there is no real request host context.
+  // Use the default category to keep metadata/layout resolution deterministic.
+  if (process.env.NEXT_PHASE === BUILD_PHASE) return "pillow";
 
-export const metadata: Metadata = {
-  title: "FindMyIdealPillow — Find Your Perfect Pillow",
-  description:
-    "Coming soon — free, personalised pillow recommendations tailored to how you sleep.",
-};
+  const host = (await headers()).get("host") ?? "";
+  return categoryFromHost(host);
+}
 
-export default function RootLayout({
+function resolveActiveTheme(categoryId: string): ThemeName {
+  const fallback = (categoryRegistry[categoryId]?.theme ?? "white") as ThemeName;
+  try {
+    const configPath = path.resolve(process.cwd(), "config/global-theme.json");
+    const raw = fs.readFileSync(configPath, "utf-8");
+    const parsed = JSON.parse(raw) as { themes?: Record<string, string>; theme?: string };
+    const fromConfig = parsed.themes?.[categoryId] ?? parsed.themes?.default ?? parsed.theme;
+    if (fromConfig && (themeNames as readonly string[]).includes(fromConfig)) {
+      return fromConfig as ThemeName;
+    }
+  } catch {
+    // Fall back to category default if config read/parse fails.
+  }
+  return fallback;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const categoryId = await resolveCategoryIdForRequest();
+  const config = categoryRegistry[categoryId];
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findmyidealpillow.com';
+    const title = config?.meta.title ?? "FindMyIdealPillow — Find Your Perfect Pillow";
+    const description = config?.meta.description ?? "Answer a few quick questions and get your personalised pillow recommendations. Free, no sign-up required.";
+  return {
+    metadataBase: new URL(siteUrl),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: siteUrl,
+      siteName: 'FindMyIdealPillow',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+      site: '@FMIdealPillow',
+    },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const categoryId = await resolveCategoryIdForRequest();
+  const activeTheme = resolveActiveTheme(categoryId);
+
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className="min-h-screen flex flex-col antialiased"
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        {/* Google Consent Mode v2 — must run before gtag.js loads */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            wait_for_update: 500
+          });
+          try {
+            if (localStorage.getItem('cookie_consent') === 'granted') {
+              gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+            }
+          } catch(e) {}
+        ` }} />
+        {/* Google tag (gtag.js) */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID ?? ''}`}></script>
+        <script dangerouslySetInnerHTML={{ __html: `
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID ?? ''}');
+        ` }} />
+      </head>
+      <body className="flex flex-col min-h-screen">
+        <ThemeProvider themeName={activeTheme}>
+          <CategoryProvider>
+            <Header />
+            <main className="p-0 m-0">
+              <ClientRoot>{children}</ClientRoot>
+            </main>
+            <Footer />
+            <CookieBanner />
+          </CategoryProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
