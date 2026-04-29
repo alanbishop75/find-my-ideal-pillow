@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { pillowSeoPages, pillowSeoPageMap } from "../../../config/pillow/seo-pages";
-import PillowSeoLandingPage from "./GolfBallSeoLandingPage";
+import PillowSeoLandingPage from "./PillowSeoLandingPage";
 
 type Props = { params: Promise<{ slug: string }> };
 

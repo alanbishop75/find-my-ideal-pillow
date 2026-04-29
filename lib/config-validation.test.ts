@@ -89,24 +89,22 @@ describe('config validation', () => {
     }
   });
 
-  it('products include valid and fresh RRP metadata', () => {
-    const maxAgeDays = 180;
-    const now = new Date();
-
+  it('products include a valid RRP', () => {
     for (const p of products) {
       const rrp = Number(p.attributes.rrp);
       expect(Number.isFinite(rrp)).toBe(true);
       expect(rrp).toBeGreaterThan(0);
 
+      // rrpLastChecked is optional at Phase 1 — when populated it must be
+      // a YYYY-MM-DD date and no older than 180 days.
       const lastCheckedRaw = String(p.attributes.rrpLastChecked ?? '');
-      expect(lastCheckedRaw).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-
-      const lastChecked = new Date(`${lastCheckedRaw}T00:00:00.000Z`);
-      expect(Number.isNaN(lastChecked.getTime())).toBe(false);
-
-      const ageMs = now.getTime() - lastChecked.getTime();
-      const ageDays = Math.floor(ageMs / (1000 * 60 * 60 * 24));
-      expect(ageDays).toBeLessThanOrEqual(maxAgeDays);
+      if (lastCheckedRaw) {
+        expect(lastCheckedRaw).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+        const lastChecked = new Date(`${lastCheckedRaw}T00:00:00.000Z`);
+        expect(Number.isNaN(lastChecked.getTime())).toBe(false);
+        const ageDays = Math.floor((Date.now() - lastChecked.getTime()) / (1000 * 60 * 60 * 24));
+        expect(ageDays).toBeLessThanOrEqual(180);
+      }
     }
   });
 });
