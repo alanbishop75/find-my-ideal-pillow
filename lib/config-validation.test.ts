@@ -45,8 +45,10 @@ describe('config validation', () => {
         expect(link.expectedDomain).toBe('amazon.co.uk');
       }
 
-      // No US links allowed in the UK-only phase
-      expect(asArray(links?.US).length).toBe(0);
+      // All US links must point to amazon.com only
+      for (const link of asArray(links?.US)) {
+        expect(link.expectedDomain).toBe('amazon.com');
+      }
     }
   });
 
@@ -104,7 +106,9 @@ describe('config validation', () => {
 
   it('products include a valid RRP', () => {
     for (const p of products) {
-      const rrp = Number(p.attributes.rrp);
+      // UK products use `rrp` (GBP); US products use `rrpUs` (USD).
+      const rrpField = p.attributes.availability === 'us' ? 'rrpUs' : 'rrp';
+      const rrp = Number(p.attributes[rrpField]);
       expect(Number.isFinite(rrp)).toBe(true);
       expect(rrp).toBeGreaterThan(0);
 

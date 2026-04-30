@@ -59,6 +59,32 @@ export function affiliateLink(url: string, asin: string): BuyLinks {
   };
 }
 
+// ── US Amazon affiliate links ────────────────────────────────────────────────
+// Tag is embedded directly into the /dp/ URL. This is fully Associates-compliant
+// (the standard `tag=` query parameter is the canonical attribution mechanism).
+// No SiteStripe step required.
+const US_ASSOCIATE_TAG = "findmyidealpillow-20";
+
+/** US Amazon link with tag embedded directly into /dp/ URL. */
+export function usLink(asin: string): BuyLinks {
+  return {
+    UK: [],
+    US: [
+      {
+        retailerKey: "amazon-us",
+        retailerName: "Amazon",
+        region: "US",
+        url: `https://www.amazon.com/dp/${asin}?tag=${US_ASSOCIATE_TAG}`,
+        expectedDomain: "amazon.com",
+        isTemporary: false,
+        source: "manual",
+        notes: `Verified ASIN ${asin} on Amazon US ${REVIEW_DATE}; tag=${US_ASSOCIATE_TAG} embedded.`,
+        isPrimary: true,
+      },
+    ],
+  };
+}
+
 export const pillowBuyLinks: Record<string, BuyLinks> = {
   "snuggledown-hungarian-goose-down": affiliateLink("https://amzn.to/48z2WwR", "B00XLGCYMC"),
   "yxtex-goose-feather-down-2pack": affiliateLink("https://amzn.to/3PaxA9a", "B095NN6BSR"),
@@ -90,6 +116,40 @@ export const pillowBuyLinks: Record<string, BuyLinks> = {
   "bedstory-shredded-cooling-2pack": affiliateLink("https://amzn.to/4ufaOf5", "B0BRSKN52L"),
   "rohi-hotel-quality-down-alt": affiliateLink("https://amzn.to/4n0oSa7", "B0GT58H2FC"),
   "talatex-natural-dunlop-latex": affiliateLink("https://amzn.to/4cTKXCu", "B0GJ54R9CT"),
+
+  // ── US Amazon entries ────────────────────────────────────────────────────
+  // Tag findmyidealpillow-20 embedded directly in /dp/ URL via usLink().
+  // All 30 ASINs verified live on amazon.com 2026-05-01.
+  "beckham-hotel-2pack-us": usLink("B01LYNW421"),
+  "utopia-bedding-cooling-2pack-us": usLink("B08DTH86Q2"),
+  "coop-original-adjustable-us": usLink("B00EINBSEW"),
+  "coop-eden-cooling-us": usLink("B01LYU7V4S"),
+  "coop-cool-plus-us": usLink("B0BQRBQ6C5"),
+  "coop-essence-down-alt-us": usLink("B0D366787V"),
+  "coop-adjustable-latex-us": usLink("B0DKVXC4QG"),
+  "tempur-symphony-us": usLink("B07CMK551C"),
+  "tempur-cloud-standard-us": usLink("B07CMKX3C7"),
+  "tempur-cloud-dual-cooling-us": usLink("B07CNRG34Q"),
+  "casper-original-us": usLink("B07KRKFLCT"),
+  "casper-essential-cooling-us": usLink("B0C35MFMXJ"),
+  "egohome-cooling-gel-us": usLink("B0DB1P81BF"),
+  "jollyvogue-cooling-2pack-us": usLink("B07LCKK117"),
+  "jollyvogue-soft-2pack-us": usLink("B0D8KLNGKS"),
+  "bedsure-hotel-2pack-us": usLink("B08HVJQ2YP"),
+  "eiue-hotel-2pack-us": usLink("B097CZCDQG"),
+  "sasttie-firm-2pack-us": usLink("B0DPMS4MWR"),
+  "amazon-basics-down-alt-2pack-us": usLink("B0835CHHZV"),
+  "roumea-gusseted-2pack-us": usLink("B0D1BC1TR5"),
+  "huxmeyson-4pack-us": usLink("B0D6R9LGBF"),
+  "utopia-bedding-premium-2pack-us": usLink("B071DFDF9N"),
+  "qutool-cooling-shredded-2pack-us": usLink("B07T7W7VR3"),
+  "dreamyblue-signature-us": usLink("B09ZKFK4JD"),
+  "sidney-sleep-curved-contour-us": usLink("B0993G154N"),
+  "nuzzle-adjustable-hotel-us": usLink("B0DX793MV8"),
+  "tempur-ergo-neck-medium-us": usLink("B07CMFSY97"),
+  "royal-therapy-contour-cervical-us": usLink("B07KBVS54W"),
+  "blissbury-thin-stomach-us": usLink("B0CG2N4723"),
+  "cooling-gel-bamboo-medium-firm-us": usLink("B0CZ7KPBGH"),
 };
 
 export function getRegionLinks(productId: string, region: Region) {

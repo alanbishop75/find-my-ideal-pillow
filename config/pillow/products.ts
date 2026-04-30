@@ -43,6 +43,17 @@ function ukVerified(asin: string, evidence: string) {
   };
 }
 
+const US_REVIEW_DATE = "2026-05-01";
+
+function usVerified(asin: string, evidence: string) {
+  return {
+    status: "AMAZON_US_VERIFIED_EXACT" as const,
+    notes: evidence,
+    amazonUsCandidateUrl: `https://www.amazon.com/dp/${asin}`,
+    lastReviewed: US_REVIEW_DATE,
+  };
+}
+
 export const products: Product[] = [
   {
     id: "snuggledown-hungarian-goose-down",
@@ -792,6 +803,764 @@ export const products: Product[] = [
       priceTier: "premium",
       rrp: 69.99,
       availability: "uk",
+    },
+  },
+
+  // ── US Amazon catalogue ────────────────────────────────────────────────────
+  // 30 products verified live on amazon.com via direct /dp/<ASIN> on 2026-05-01.
+  // Sources: Best Sellers in Bed Pillows & Positioners (cat 1199122) +
+  // Coop Home Goods, Tempur-Pedic, and cooling-pillow search result pages.
+  // All entries: availability="us" so the UK questionnaire/scoring excludes them
+  // and vice versa via region routing.
+
+  {
+    id: "beckham-hotel-2pack-us",
+    name: "Beckham Hotel Collection Bed Pillows 2-Pack",
+    brand: "Beckham Hotel Collection",
+    description:
+      "Standard/Queen 2-pack down-alternative pillows with soft hotel feel. Suitable for back, stomach, and side sleepers.",
+    imageUrl: "https://m.media-amazon.com/images/I/71329CVoVDL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B01LYNW421",
+      "Best Sellers #2 in Bed Pillows & Positioners. 4.4★, 259,973 ratings. Down-alternative, soft, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "soft",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 44.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "utopia-bedding-cooling-2pack-us",
+    name: "Utopia Bedding Cooling Bed Pillows 2-Pack",
+    brand: "Utopia Bedding",
+    description:
+      "Queen 2-pack down-alternative pillows, soft & fluffy with cooling cover and gusseted edges. Hotel quality.",
+    imageUrl: "https://m.media-amazon.com/images/I/61xfSz+1KOL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B08DTH86Q2",
+      "Best Sellers #1 in Bed Pillows & Positioners. 4.5★, 76,455 ratings. Down-alternative, cooling, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "soft",
+      fill: "hollow-fibre",
+      cooling: true,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 29.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "coop-original-adjustable-us",
+    name: "Coop Home Goods Original Adjustable Pillow",
+    brand: "Coop Home Goods",
+    description:
+      "Cross-cut memory foam adjustable pillow, medium-firm. Removable Lulltra cover. CertiPUR-US/GREENGUARD Gold certified. Add or remove fill to customise loft.",
+    imageUrl: "https://m.media-amazon.com/images/I/61hiruVCYbL._AC_SL1000_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B00EINBSEW",
+      "Best Sellers #16 in Bed Pillows & Positioners. 4.5★, 65,675 ratings. Adjustable cross-cut memory foam, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "premium",
+      rrpUs: 79.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "coop-eden-cooling-us",
+    name: "Coop Home Goods Eden Cooling Adjustable Pillow",
+    brand: "Coop Home Goods",
+    description:
+      "Cross-cut gel-infused memory foam with microfibre fill, medium-soft. Cooling Lulltra cover. CertiPUR-US/GREENGUARD Gold. Adjustable loft.",
+    imageUrl: "https://m.media-amazon.com/images/I/6165SNHE5KL._AC_SL1000_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B01LYU7V4S",
+      "Top result for 'Coop Home Goods pillow'. Memory foam + microfibre hybrid, cooling gel, adjustable, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium-soft",
+      fill: "hybrid",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "premium",
+      rrpUs: 99.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "coop-cool-plus-us",
+    name: "Coop Home Goods Cool+ Adjustable Pillow",
+    brand: "Coop Home Goods",
+    description:
+      "Plus-shaped memory foam pillow with cooling gel infusion and ergonomic neck cut-out. Adjustable loft for any sleep position.",
+    imageUrl: "https://m.media-amazon.com/images/I/51M5GEYaFOL._AC_SL1005_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0BQRBQ6C5",
+      "From Coop Home Goods search. Cool+ Plus-shaped memory foam with cooling gel, adjustable, neck support."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "premium",
+      rrpUs: 109.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "coop-essence-down-alt-us",
+    name: "Coop Home Goods Essence Down-Alternative Pillow Set of 2",
+    brand: "Coop Home Goods",
+    description:
+      "Queen 2-pack adjustable down-alternative pillows. Luxury hotel feel with the option to remove fill for custom firmness.",
+    imageUrl: "https://m.media-amazon.com/images/I/51-DfoMka6L._AC_SL1000_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0D366787V",
+      "From Coop Home Goods search. Adjustable down-alternative 2-pack, all-position, luxury hotel feel."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium-soft",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "mid",
+      rrpUs: 79.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "coop-adjustable-latex-us",
+    name: "Coop Home Goods Adjustable Latex Pillow",
+    brand: "Coop Home Goods",
+    description:
+      "Talalay latex shreds blended with microfibre, medium-firm. Naturally cooling and breathable. Eco-friendly. Adjustable loft.",
+    imageUrl: "https://m.media-amazon.com/images/I/51JFDpiIgcL._AC_SL1000_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0DKVXC4QG",
+      "From Coop Home Goods search. Talalay latex + microfibre, medium-firm, naturally cooling, adjustable, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "firm",
+      fill: "latex",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "premium",
+      rrpUs: 119.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "tempur-symphony-us",
+    name: "Tempur-Pedic TEMPUR-Symphony Pillow",
+    brand: "Tempur-Pedic",
+    description:
+      "Reversible TEMPUR memory foam pillow, luxury soft feel. Standard size. Made in the USA.",
+    imageUrl: "https://m.media-amazon.com/images/I/81S4OZJthtL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07CMK551C",
+      "Tempur-Pedic search result #8. Reversible TEMPUR memory foam pillow, soft feel, back/side sleepers."
+    ),
+    attributes: {
+      sleepPosition: "back",
+      firmness: "soft",
+      fill: "memory-foam",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "premium",
+      rrpUs: 99.0,
+      availability: "us",
+    },
+  },
+  {
+    id: "tempur-cloud-standard-us",
+    name: "Tempur-Pedic TEMPUR-Cloud Pillow",
+    brand: "Tempur-Pedic",
+    description:
+      "Adaptive TEMPUR memory foam pillow with washable cover. Standard profile, medium feel.",
+    imageUrl: "https://m.media-amazon.com/images/I/61NodvtQc-L._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07CMKX3C7",
+      "Tempur-Pedic search result #5. TEMPUR memory foam, washable cover, medium feel."
+    ),
+    attributes: {
+      sleepPosition: "back",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "premium",
+      rrpUs: 89.0,
+      availability: "us",
+    },
+  },
+  {
+    id: "tempur-cloud-dual-cooling-us",
+    name: "Tempur-Pedic TEMPUR-Cloud Dual Cooling Pillow",
+    brand: "Tempur-Pedic",
+    description:
+      "Queen size TEMPUR memory foam pillow with dual cooling cover for hot sleepers. Made in the USA.",
+    imageUrl: "https://m.media-amazon.com/images/I/71KeXuoonoL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07CNRG34Q",
+      "Tempur-Pedic search result. TEMPUR memory foam with dual cooling cover, queen size."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "premium",
+      rrpUs: 129.0,
+      availability: "us",
+    },
+  },
+  {
+    id: "casper-original-us",
+    name: "Casper Sleep Original Pillow",
+    brand: "Casper",
+    description:
+      "Standard size down-alternative pillow with medium-soft feel. Supports side, back, and stomach sleepers. Machine washable.",
+    imageUrl: "https://m.media-amazon.com/images/I/61oijjmB6QL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07KRKFLCT",
+      "Coop Home Goods search result #19. Casper down-alternative, medium-soft, all-position, machine washable."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium-soft",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "mid",
+      rrpUs: 65.0,
+      availability: "us",
+    },
+  },
+  {
+    id: "casper-essential-cooling-us",
+    name: "Casper Sleep Essential Cooling Foam Pillow",
+    brand: "Casper",
+    description:
+      "King size firm memory foam pillow with cooling cover. Designed for side sleepers. Breathable and pressure-relieving.",
+    imageUrl: "https://m.media-amazon.com/images/I/71GVBlthfOL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0C35MFMXJ",
+      "Cooling search result #59. Firm memory foam with cooling cover, supports side sleepers."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "firm",
+      fill: "memory-foam",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "mid",
+      rrpUs: 89.0,
+      availability: "us",
+    },
+  },
+  {
+    id: "egohome-cooling-gel-us",
+    name: "EGOHOME Cooling Gel Memory Foam Pillow",
+    brand: "EGOHOME",
+    description:
+      "Reversible cooling gel memory foam pillow with neck support for all sleep positions. Removable & machine-washable cover.",
+    imageUrl: "https://m.media-amazon.com/images/I/61ZNTUEnVzL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0DB1P81BF",
+      "Cooling Gel Memory Foam search result #6 & frequently shopped brand. Reversible cooling cover, neck support, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "mid",
+      rrpUs: 49.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "jollyvogue-cooling-2pack-us",
+    name: "JOLLYVOGUE Standard Cooling Pillows 2-Pack",
+    brand: "JOLLYVOGUE",
+    description:
+      "Standard 2-pack down-alternative pillows with cooling fabric. Hypoallergenic. Suited to side and back sleepers.",
+    imageUrl: "https://m.media-amazon.com/images/I/61pRymTJgRL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07LCKK117",
+      "Best Sellers #3 in Bed Pillows & Positioners. 4.4★, 21,986 ratings. Hypoallergenic down-alternative, cooling, side/back."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "medium",
+      fill: "hollow-fibre",
+      cooling: true,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 22.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "jollyvogue-soft-2pack-us",
+    name: "JOLLYVOGUE Queen Soft Pillows 2-Pack",
+    brand: "JOLLYVOGUE",
+    description:
+      "Queen 2-pack soft down-alternative pillows. Luxury fluffy hotel quality for side, back, and stomach sleepers.",
+    imageUrl: "https://m.media-amazon.com/images/I/61yOarbMUxL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0D8KLNGKS",
+      "Best Sellers #13 in Bed Pillows & Positioners. 4.4★, 7,563 ratings. Soft down-alternative, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "soft",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 19.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "bedsure-hotel-2pack-us",
+    name: "Bedsure Hotel Collection Pillows 2-Pack",
+    brand: "Bedsure",
+    description:
+      "Queen 2-pack hotel-collection down-alternative pillows. Soft support for back, stomach, and side sleepers. Hypoallergenic.",
+    imageUrl: "https://m.media-amazon.com/images/I/71y2-IRPMEL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B08HVJQ2YP",
+      "Best Sellers #29 in Bed Pillows & Positioners. 4.4★, 16,829 ratings. Hypoallergenic down-alternative, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "soft",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 24.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "eiue-hotel-2pack-us",
+    name: "EIUE Hotel Collection Pillows 2-Pack",
+    brand: "EIUE",
+    description:
+      "Queen 2-pack super-soft down-alternative microfibre pillows for side and back sleepers, 20x30 inches.",
+    imageUrl: "https://m.media-amazon.com/images/I/51gpc1r1PGL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B097CZCDQG",
+      "Best Sellers #8 in Bed Pillows & Positioners. 4.4★, 36,712 ratings. Super-soft down-alternative, side/back."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "soft",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 22.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "sasttie-firm-2pack-us",
+    name: "Sasttie Firm Pillows Queen 2-Pack",
+    brand: "Sasttie",
+    description:
+      "Queen 2-pack firm down-alternative pillows for side, back, and stomach sleepers. Oeko-Tex certified, machine washable.",
+    imageUrl: "https://m.media-amazon.com/images/I/61MLDfny75L._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0DPMS4MWR",
+      "Best Sellers #11 in Bed Pillows & Positioners. 4.5★, 5,376 ratings. Oeko-Tex down-alternative, firm, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "firm",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 24.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "amazon-basics-down-alt-2pack-us",
+    name: "Amazon Basics Down-Alternative Pillow 2-Pack",
+    brand: "Amazon Basics",
+    description:
+      "Standard size 2-pack down-alternative pillows, medium density, for side and back sleepers, 26x20 inches.",
+    imageUrl: "https://m.media-amazon.com/images/I/51ergTbpNlL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0835CHHZV",
+      "Best Sellers #9 in Bed Pillows & Positioners. 4.2★, 6,159 ratings. Medium-density down-alternative, side/back."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "medium",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 19.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "roumea-gusseted-2pack-us",
+    name: "ROUMEA Gusseted Bed Pillows 2-Pack",
+    brand: "ROUMEA",
+    description:
+      "Queen 2-pack gusseted down-alternative pillows. Luxury hotel quality, supportive, machine washable.",
+    imageUrl: "https://m.media-amazon.com/images/I/61jw9Y3WggL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0D1BC1TR5",
+      "Best Sellers #30 in Bed Pillows & Positioners. 4.4★, 2,016 ratings. Gusseted down-alternative, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 27.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "huxmeyson-4pack-us",
+    name: "HUXMEYSON Standard Pillows 4-Pack",
+    brand: "HUXMEYSON",
+    description:
+      "Standard 4-pack down-alternative luxury hotel pillows for side and back sleepers. Bulk-pack value.",
+    imageUrl: "https://m.media-amazon.com/images/I/61oVz3nnlkL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0D6R9LGBF",
+      "Best Sellers #21 in Bed Pillows & Positioners. 4.4★, 2,557 ratings. Down-alternative 4-pack, side/back."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "medium",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 29.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "utopia-bedding-premium-2pack-us",
+    name: "Utopia Bedding Premium Down-Alternative Pillows 2-Pack",
+    brand: "Utopia Bedding",
+    description:
+      "Queen 2-pack premium down-alternative pillows with cooling cover. Hotel quality for back, stomach, or side sleepers.",
+    imageUrl: "https://m.media-amazon.com/images/I/71pbS7L1IgL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B071DFDF9N",
+      "Best Sellers #14 in Bed Pillows & Positioners. 4.5★, 43,021 ratings. Cooling down-alternative, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "hollow-fibre",
+      cooling: true,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "budget",
+      rrpUs: 32.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "qutool-cooling-shredded-2pack-us",
+    name: "QUTOOL Cooling Shredded Memory Foam Pillows Queen 2-Pack",
+    brand: "QUTOOL",
+    description:
+      "Queen 2-pack CertiPUR-US shredded memory foam pillows with cooling cover. Adjustable firmness via zip.",
+    imageUrl: "https://m.media-amazon.com/images/I/81tcywwgQHL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07T7W7VR3",
+      "Best Sellers #7 in Bed Pillows & Positioners. 4.4★, 21,586 ratings. CertiPUR-US shredded foam, cooling, adjustable."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "mid",
+      rrpUs: 49.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "dreamyblue-signature-us",
+    name: "DreamyBlue Signature Adjustable Pillow",
+    brand: "DreamyBlue",
+    description:
+      "Queen size shredded memory foam adjustable loft pillow with washable bamboo rayon cover. CertiPUR-US certified foam.",
+    imageUrl: "https://m.media-amazon.com/images/I/61kV0vZosLL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B09ZKFK4JD",
+      "Tempur-Pedic and Cooling search results. CertiPUR-US shredded foam, adjustable, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "mid",
+      rrpUs: 49.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "sidney-sleep-curved-contour-us",
+    name: "Sidney Sleep Adjustable Curved Contour Pillow",
+    brand: "Sidney Sleep",
+    description:
+      "Queen size curved-contour adjustable fill pillow for side and back sleepers. Neck and shoulder comfort with extra fill included.",
+    imageUrl: "https://m.media-amazon.com/images/I/71cAU-fBr7L._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0993G154N",
+      "Best Sellers #27 in Bed Pillows & Positioners. 4.3★, 11,502 ratings. Curved-contour adjustable, side/back."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "medium",
+      fill: "hollow-fibre",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "mid",
+      rrpUs: 49.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "nuzzle-adjustable-hotel-us",
+    name: "Nuzzle Adjustable Firm Hotel Pillow",
+    brand: "Nuzzle",
+    description:
+      "Standard size luxury hotel-collection adjustable pillow. Soft cooling design with adjustable height for all sleep positions.",
+    imageUrl: "https://m.media-amazon.com/images/I/71UAIPBtI-L._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0DX793MV8",
+      "Best Sellers #6 in Bed Pillows & Positioners. 4.3★, 6,998 ratings. Adjustable hotel feel, cooling, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "medium",
+      fill: "hollow-fibre",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: true,
+      priceTier: "mid",
+      rrpUs: 59.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "tempur-ergo-neck-medium-us",
+    name: "Tempur-Pedic TEMPUR-Ergo Neck Pillow Medium",
+    brand: "Tempur-Pedic",
+    description:
+      "Ergonomic TEMPUR memory foam contour neck pillow, medium profile. Designed for cervical neck and shoulder support.",
+    imageUrl: "https://m.media-amazon.com/images/I/71rTYUIoQ3L._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07CMFSY97",
+      "Tempur-Pedic search result #6. Ergonomic contour memory foam neck pillow, medium profile."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "firm",
+      fill: "memory-foam",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "premium",
+      rrpUs: 89.0,
+      availability: "us",
+    },
+  },
+  {
+    id: "royal-therapy-contour-cervical-us",
+    name: "Royal Therapy Memory Foam Contour Cervical Pillow",
+    brand: "Royal Therapy",
+    description:
+      "Queen size memory foam contour cervical pillow for neck pain relief. Designed for side, back, and stomach sleepers.",
+    imageUrl: "https://m.media-amazon.com/images/I/71PIlZ6QKLL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B07KBVS54W",
+      "Tempur-Pedic search result #25. Contour cervical memory foam, queen size, neck pain relief, all-position."
+    ),
+    attributes: {
+      sleepPosition: "side",
+      firmness: "medium",
+      fill: "memory-foam",
+      cooling: false,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "mid",
+      rrpUs: 49.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "blissbury-thin-stomach-us",
+    name: "BLISSBURY Thin Cooling Memory Foam Pillow",
+    brand: "BLISSBURY",
+    description:
+      "Queen size 2.6-inch thin memory foam pillow for stomach and back sleepers. Removable cool-tech cover. CertiPUR-US certified.",
+    imageUrl: "https://m.media-amazon.com/images/I/81CCR6UwFUL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0CG2N4723",
+      "Cooling search result #30. Thin (2.6\") memory foam for stomach/back sleepers, CertiPUR-US, cooling cover."
+    ),
+    attributes: {
+      sleepPosition: "stomach",
+      firmness: "soft",
+      fill: "memory-foam",
+      cooling: true,
+      hypoallergenic: true,
+      support: "standard",
+      adjustable: false,
+      priceTier: "mid",
+      rrpUs: 39.99,
+      availability: "us",
+    },
+  },
+  {
+    id: "cooling-gel-bamboo-medium-firm-us",
+    name: "Cooling Gel Memory Foam Bamboo Pillow (Standard)",
+    brand: "Generic",
+    description:
+      "Standard size cooling gel memory foam bed pillow with bamboo viscose cover. Medium-firm, suitable for all sleep positions.",
+    imageUrl: "https://m.media-amazon.com/images/I/71sNH1l+ZyL._AC_SL1500_.jpg",
+    affiliateLinks: [],
+    usAmazonVerification: usVerified(
+      "B0CZ7KPBGH",
+      "Cooling search result #9 & also Beckham search #58. Medium-firm cooling gel foam, bamboo viscose cover, all-position."
+    ),
+    attributes: {
+      sleepPosition: "any",
+      firmness: "firm",
+      fill: "memory-foam",
+      cooling: true,
+      hypoallergenic: true,
+      support: "enhanced",
+      adjustable: false,
+      priceTier: "mid",
+      rrpUs: 39.99,
+      availability: "us",
     },
   },
 ];

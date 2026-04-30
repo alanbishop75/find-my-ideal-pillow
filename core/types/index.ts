@@ -39,6 +39,37 @@ export interface UKAmazonVerification {
   lastReviewed?: string;
 }
 
+// ── US Amazon Verification ────────────────────────────────────────────────────
+
+/**
+ * Strict verification status for US Amazon affiliate readiness.
+ * Mirrors UKAmazonVerificationStatus.
+ *
+ * Only AMAZON_US_VERIFIED_EXACT may show a buy button to users.
+ */
+export type USAmazonVerificationStatus =
+  | "AMAZON_US_VERIFIED_EXACT"
+  | "MANUFACTURER_VERIFIED_NEEDS_AMAZON_MATCH"
+  | "NEEDS_MANUAL_REVIEW"
+  | "NOT_FOUND"
+  | "WRONG_PRODUCT_REMOVE"
+  | "VARIANT_UNCLEAR"
+  | "REMOVE_FROM_CATALOGUE";
+
+export interface USAmazonVerification {
+  status: USAmazonVerificationStatus;
+  /** Human-readable explanation of the current status. */
+  notes: string;
+  /** Candidate Amazon.com product URL. */
+  amazonUsCandidateUrl?: string;
+  /** Manufacturer website URL confirming this product is real and correctly specified. */
+  manufacturerUrl?: string;
+  /** Suggested search query to find this product on Amazon US. */
+  amazonSearchHint?: string;
+  /** ISO date of last manual review (YYYY-MM-DD). */
+  lastReviewed?: string;
+}
+
 export type Product = {
   id: string;
   name: string;
@@ -62,6 +93,11 @@ export type Product = {
    * REMOVE_FROM_CATALOGUE products must be excluded from recommendations.
    */
   ukAmazonVerification?: UKAmazonVerification;
+  /**
+   * US Amazon affiliate verification status.
+   * Only AMAZON_US_VERIFIED_EXACT products may show a buy button to users.
+   */
+  usAmazonVerification?: USAmazonVerification;
 };
 
 export type AnswerOption = {

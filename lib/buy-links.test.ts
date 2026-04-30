@@ -71,10 +71,41 @@ describe('pillow buy-links — UK Amazon only phase', () => {
     expect(sitestripedCount).toBe(30);
   });
 
-  it('no US buy-links exist in this phase', () => {
-    for (const [id, links] of Object.entries(pillowBuyLinks)) {
-      expect((links.US ?? []).length).toBe(0);
+  it('US buy-links use amazon.com with embedded findmyidealpillow-20 tag', () => {
+    for (const [, links] of Object.entries(pillowBuyLinks)) {
+      for (const link of links.US ?? []) {
+        expect(link.expectedDomain).toBe('amazon.com');
+        expect(link.url).toMatch(/^https:\/\/www\.amazon\.com\/dp\//);
+        expect(link.url).toContain('tag=findmyidealpillow-20');
+      }
     }
+  });
+
+  it('every US product has a non-temporary US link with source=manual', () => {
+    for (const p of products) {
+      if (p.attributes.availability !== 'us') continue;
+      const usLinks = pillowBuyLinks[p.id]?.US ?? [];
+      expect(usLinks.length).toBe(1);
+      expect(usLinks[0].isTemporary).toBe(false);
+      expect(usLinks[0].source).toBe('manual');
+    }
+  });
+
+  it('every US product has usAmazonVerification = AMAZON_US_VERIFIED_EXACT', () => {
+    for (const p of products) {
+      if (p.attributes.availability !== 'us') continue;
+      expect(p.usAmazonVerification?.status).toBe('AMAZON_US_VERIFIED_EXACT');
+    }
+  });
+
+  it('UK and US product IDs are disjoint (separate entries)', () => {
+    const ukIds = new Set(
+      products.filter((p) => p.attributes.availability === 'uk').map((p) => p.id)
+    );
+    const usIds = new Set(
+      products.filter((p) => p.attributes.availability === 'us').map((p) => p.id)
+    );
+    for (const id of usIds) expect(ukIds.has(id)).toBe(false);
   });
 
   it('no non-Amazon UK links exist (no John Lewis, Dunelm, etc.)', () => {
@@ -138,14 +169,16 @@ describe('pillow buy-links — UK Amazon only phase', () => {
     expect(products.length).toBeGreaterThanOrEqual(25);
   });
 
-  it('every product is AMAZON_UK_VERIFIED_EXACT (post strict-rebuild)', () => {
+  it('every UK product is AMAZON_UK_VERIFIED_EXACT (post strict-rebuild)', () => {
     for (const p of products) {
+      if (p.attributes.availability !== 'uk') continue;
       expect(p.ukAmazonVerification?.status).toBe('AMAZON_UK_VERIFIED_EXACT');
     }
   });
 
-  it('all products have a ukAmazonVerification status', () => {
+  it('all UK products have a ukAmazonVerification status', () => {
     for (const p of products) {
+      if (p.attributes.availability !== 'uk') continue;
       expect(p.ukAmazonVerification).toBeDefined();
       expect(p.ukAmazonVerification?.status).toBeTruthy();
     }
