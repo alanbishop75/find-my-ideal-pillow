@@ -19,6 +19,15 @@ import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
  *        Last reviewed line
  *   3. Related guides (internal links)
  */
+function formatReviewDate(iso: string): string {
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December",
+  ];
+  const [year, month, day] = iso.split("-").map(Number);
+  return `${day} ${months[month - 1]} ${year}`;
+}
+
 export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) {
   const { tokens } = useTheme();
   const quizHref = `/pillow/questionnaire?ref=${page.slug}`;
@@ -352,11 +361,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             }}
           >
             Last reviewed:{" "}
-            {new Date(page.lastReviewed).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
+            {formatReviewDate(page.lastReviewed)}
             . We update this guide whenever our verified UK product list changes.
           </p>
         </article>
