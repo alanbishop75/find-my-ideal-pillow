@@ -90,8 +90,17 @@ function ResultsPageInner({ products, scoringEngine, resultsHeading, homeHref = 
     : 'Affiliate disclosure: Some links on this page are affiliate links. If you purchase through them, we may earn a small commission at no extra cost to you. This helps keep the tool free.';
 
   // Exclude products marked REMOVE_FROM_CATALOGUE — these have no UK purchase path.
+  // Also filter by availability so only region-appropriate products are scored;
+  // otherwise UK products fill the top 3 for US visitors (and vice versa).
   const resolvedProducts = (products ?? categoryRegistry['pillow'].products)
-    .filter((p) => p.ukAmazonVerification?.status !== 'REMOVE_FROM_CATALOGUE');
+    .filter((p) => p.ukAmazonVerification?.status !== 'REMOVE_FROM_CATALOGUE')
+    .filter((p) => {
+      const avail = String(p.attributes.availability ?? 'both');
+      if (avail === 'both') return true;
+      if (region === 'UK') return avail === 'uk';
+      if (region === 'US') return avail === 'us';
+      return true;
+    });
   const resolvedEngine = scoringEngine ?? categoryRegistry['pillow'].scoringEngine;
   const resolvedHeading = resultsHeading ?? categoryRegistry['pillow'].meta.resultsHeading;
 
