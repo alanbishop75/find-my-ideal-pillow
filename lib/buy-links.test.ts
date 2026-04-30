@@ -39,12 +39,36 @@ describe('pillow buy-links — UK Amazon only phase', () => {
     }
   });
 
-  it('all UK links point to amazon.co.uk only', () => {
+  it('all UK links are amazon.co.uk or amzn.to (SiteStripe short links)', () => {
     for (const [id, links] of Object.entries(pillowBuyLinks)) {
       for (const link of links.UK ?? []) {
-        expect(link.url).toMatch(/^https:\/\/www\.amazon\.co\.uk\//);
+        const isDirectAmazon = /^https:\/\/www\.amazon\.co\.uk\//.test(link.url);
+        const isSiteStripe = /^https:\/\/amzn\.to\//.test(link.url);
+        expect(isDirectAmazon || isSiteStripe).toBe(true);
+        // SiteStripe links must declare expectedDomain as amazon.co.uk
+        expect(link.expectedDomain).toBe('amazon.co.uk');
       }
     }
+  });
+
+  it('all SiteStripe links have source=sitestripe', () => {
+    for (const [id, links] of Object.entries(pillowBuyLinks)) {
+      for (const link of links.UK ?? []) {
+        if (/^https:\/\/amzn\.to\//.test(link.url)) {
+          expect(link.source).toBe('sitestripe');
+        }
+      }
+    }
+  });
+
+  it('all 30 products have a SiteStripe URL applied', () => {
+    let sitestripedCount = 0;
+    for (const [, links] of Object.entries(pillowBuyLinks)) {
+      for (const link of links.UK ?? []) {
+        if (link.source === 'sitestripe') sitestripedCount++;
+      }
+    }
+    expect(sitestripedCount).toBe(30);
   });
 
   it('no US buy-links exist in this phase', () => {

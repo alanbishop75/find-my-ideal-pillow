@@ -50,7 +50,7 @@ export const products: Product[] = [
     brand: "Snuggledown",
     description:
       "100% Hungarian goose down pillow with cotton cover, sized 48x74cm, naturally breathable.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71geVhytj4L._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B00XLGCYMC",
@@ -75,7 +75,7 @@ export const products: Product[] = [
     brand: "YXTEX",
     description:
       "2-pack pillows with 40% goose down and 60% goose feather, hypoallergenic cotton cover, 1200GSM filling.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/51QoBxgqwaL._AC_SL1024_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B095NN6BSR",
@@ -100,7 +100,7 @@ export const products: Product[] = [
     brand: "Silentnight",
     description:
       "Adjustable memory foam pillow with internal zip for custom firmness, cooling gel technology.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71Y09P-tLTL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0DK78ZGZS",
@@ -125,7 +125,7 @@ export const products: Product[] = [
     brand: "Cosi Home",
     description:
       "Memory foam pillow with cooling gel infused, breathable microfibre cover.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/81WZ4VHWlAL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B08YZ7FM5Z",
@@ -150,7 +150,7 @@ export const products: Product[] = [
     brand: "Aeyla",
     description:
       "2-in-1 dual-sided pillow with CloudAlign support, cooling breathable cover, adjustable loft. Down-alternative fill.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/61oONj+27cL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0BJMP44N2",
@@ -175,7 +175,7 @@ export const products: Product[] = [
     brand: "Silentnight",
     description:
       "2-pack 100% Hungarian goose down pillows, front/back sleeper optimised, premium cotton cover.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71xexoKfebL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0CNDBVGH7",
@@ -200,7 +200,7 @@ export const products: Product[] = [
     brand: "HOMEFOUCS",
     description:
       "Luxury goose feather and down pillows, striped cotton cover, 1200GSM filling.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/81QIM5C+vdL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0CZZXPB1B",
@@ -225,7 +225,7 @@ export const products: Product[] = [
     brand: "Glückstoff",
     description:
       "Certified orthopedic memory foam neck pillow for anti-snore and cervical support, suitable for all sleep positions.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/81hP8aHHnSL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0C28YW42Q",
@@ -250,7 +250,7 @@ export const products: Product[] = [
     brand: "Talatex",
     description:
       "Dunlop latex cervical pillow with adjustable fill, washable cover, pressure-relieving support.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/61cbwSSLDbL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0FF4HQGM7",
@@ -275,7 +275,7 @@ export const products: Product[] = [
     brand: "Ecosafeter",
     description:
       "Ergonomic high-density memory foam pillow with removable cover, hypoallergenic design.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/619sQKtN2uL._AC_SL1315_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0FCF2MLHV",
@@ -300,7 +300,7 @@ export const products: Product[] = [
     brand: "Derila",
     description:
       "Ergonomic memory foam pillow with cooling gel, cervical neck support, all sleep positions.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71j7iI+vviL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0F3NTQCYP",
@@ -325,7 +325,7 @@ export const products: Product[] = [
     brand: "CloudÉtoile",
     description:
       "Adjustable shredded memory foam pillow with cooling gel, CertiPUR-US certified, washable cover.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71exMzKAwAL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0GX91Z25D",
@@ -350,7 +350,7 @@ export const products: Product[] = [
     brand: "ANALIN",
     description:
       "2-pack goose feather pillows with 50% down, non-allergenic cotton cover.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/51MG0FUAQOL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0841XM678",
@@ -375,7 +375,7 @@ export const products: Product[] = [
     brand: "Silentnight",
     description:
       "2-pack hollowfibre pillows, anti-allergy treatment, washable design.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71t-9HMgotL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B006DDGCI2",
@@ -400,7 +400,7 @@ export const products: Product[] = [
     brand: "Silentnight",
     description:
       "2-pack anti-bacterial hollowfibre pillows, hypoallergenic, side sleeper optimised.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/712COeF6hEL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B01CR9IRWY",
@@ -425,7 +425,7 @@ export const products: Product[] = [
     brand: "Silentnight",
     description:
       "Single Hungarian goose down pillow, front/back sleeper design, premium cotton.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71HM8Ax3MSL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B07MVRYJQ4",
@@ -450,7 +450,7 @@ export const products: Product[] = [
     brand: "Slumberdown",
     description:
       "2-pack firm, plump rebound hollowfibre pillows, soft-touch microfibre cover, UK-made, hypoallergenic, machine washable, 48x74cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/817KvS7ZRZL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0CFRF6HMX",
@@ -475,7 +475,7 @@ export const products: Product[] = [
     brand: "The Fine Bedding Company",
     description:
       "Hotel-quality firm pillow with Smartfil microfibre fill (down-alternative), 100% cotton cover, hypoallergenic, machine washable at 60°C, used in InterContinental hotels.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/817WcxXSigL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B00H0DO0I8",
@@ -500,7 +500,7 @@ export const products: Product[] = [
     brand: "SUFUEE",
     description:
       "2-pack goose feather and down (85/15 blend) pillows, 100% cotton cover, 48x74cm. Oeko-Tex certified.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/51kQCP9SY2L._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B07CNQFPL4",
@@ -525,7 +525,7 @@ export const products: Product[] = [
     brand: "BedStory",
     description:
       "2-pack down-alternative pillows, hotel quality fibres, microfibre cover, 42x70cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/61jr9c6dOeL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B07TP6192S",
@@ -550,7 +550,7 @@ export const products: Product[] = [
     brand: "Martian Dreams",
     description:
       "2-pack ultra-soft microfibre pillows with adjustable fill, bamboo cover, hypoallergenic.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71VeMRwyUyL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B07XM72XC6",
@@ -575,7 +575,7 @@ export const products: Product[] = [
     brand: "Martian Dreams",
     description:
       "2-pack hybrid pillow with shredded memory foam and microfibre, adjustable, hypoallergenic.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/81AxiOUzQFL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0B18H4D1R",
@@ -600,7 +600,7 @@ export const products: Product[] = [
     brand: "Littens",
     description:
       "Premium 100% Hungarian goose down pillows, 300TC cotton cover, gold piping, 48x74cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/61Ux9VunxTL._AC_SL1418_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B019E3GM2S",
@@ -625,7 +625,7 @@ export const products: Product[] = [
     brand: "Winthome",
     description:
       "Two-sided memory foam pillow (soft and firm sides), neck pain relief, cooling effect, 60x40x10cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/61-XBSyoqXL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0DZ6C4W6X",
@@ -650,7 +650,7 @@ export const products: Product[] = [
     brand: "Panda",
     description:
       "Orthopaedic memory foam pillow with bamboo cover, thermoregulating, 10-year guarantee, 60x40x12cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/6198lGwW81L._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0D89ZSKGQ",
@@ -675,7 +675,7 @@ export const products: Product[] = [
     brand: "Utopia Bedding",
     description:
       "2-pack microfibre hotel quality pillows, double-needle stitching, 50x75cm, all sleep positions.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/71AFNEtoeJL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0BCWYV9QT",
@@ -700,7 +700,7 @@ export const products: Product[] = [
     brand: "Martian Made",
     description:
       "Hybrid cooling pillow with gel-infused memory foam, adjustable fill, bamboo cover, 50x75cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/81GK+3wxSaL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0CQPQXGL5",
@@ -725,7 +725,7 @@ export const products: Product[] = [
     brand: "BedStory",
     description:
       "2-pack shredded memory foam pillows with cooling gel, adjustable fill, 3D ice fabric cover.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/614g2qpZMjL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0BRSKN52L",
@@ -750,7 +750,7 @@ export const products: Product[] = [
     brand: "Rohi",
     description:
       "2-pack down-alternative pillows, breathable cotton blend cover, all sleep positions, 45x66cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/51alENJPfxL._AC_SL1200_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0GT58H2FC",
@@ -775,7 +775,7 @@ export const products: Product[] = [
     brand: "Talatex",
     description:
       "100% pure natural Dunlop latex pillow, neck pain relief, breathable ventilation, 60x40x13cm.",
-    imageUrl: "/images/placeholder.png",
+    imageUrl: "https://m.media-amazon.com/images/I/61zKVRuS0XL._AC_SL1500_.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0GJ54R9CT",

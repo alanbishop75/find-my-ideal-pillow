@@ -103,6 +103,15 @@ export default function AdminHubPage() {
           />
 
           <AdminCard
+            href="/admin/affiliate-uk-temp"
+            icon={<PillowIcon size={24} color="#16a34a" />}
+            title="UK Affiliate Audit"
+            description="All 30 UK catalogue entries with verified Amazon ASIN links. Paste SiteStripe-tagged URLs here before launch."
+            tags={["30 products", "ASIN links", "SiteStripe", "Affiliate"]}
+            accentColor="#16a34a"
+          />
+
+          <AdminCard
             href="/admin/theme"
             icon={<FindMyIdealIcon size={24} color={tokens.accent} />}
             title="Theme Settings"

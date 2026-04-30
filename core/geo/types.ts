@@ -6,6 +6,7 @@ export type LinkSource =
   | "existing"   // Carried over from the previous amazonAffiliateUrl field
   | "imported"   // Bulk-imported from a spreadsheet / external source
   | "manual"     // Hand-entered by an admin
+  | "sitestripe" // Amazon SiteStripe-tagged affiliate URL
   | "temporary"  // Placeholder entered while waiting for a real URL
   | "generated"; // Auto-generated search/category link — must be replaced before going fully live
 
