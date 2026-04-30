@@ -108,7 +108,7 @@ export default async function RootLayout({
       </head>
       <body className="flex flex-col min-h-screen">
         <ThemeProvider themeName={activeTheme}>
-          <CategoryProvider>
+          <CategoryProvider categoryId={categoryId} brandName={categoryRegistry[categoryId]?.meta.brandName ?? 'FindMyIdealPillow'}>
             <Header />
             <main className="p-0 m-0">
               <ClientRoot>{children}</ClientRoot>

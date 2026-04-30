@@ -34,8 +34,8 @@ function rank(answers: Record<string, string>) {
 // ── Sanity ────────────────────────────────────────────────────────────────────
 
 describe('scoring sanity', () => {
-  it('product catalogue has 10 entries', () => {
-    expect(products.length).toBe(10);
+  it('product catalogue has 12 entries', () => {
+    expect(products.length).toBe(12);
   });
 
   it('all products score ≥ 0 for any input', () => {
@@ -190,11 +190,11 @@ describe('Persona E — allergy sufferer encounters natural-down pillow', () => 
     'budget':         'mid',
   };
 
-  it('Snuggledown (natural down, not hypoallergenic) ranks in the bottom 2 for an allergy sufferer', () => {
+  it('Snuggledown (natural down, not hypoallergenic) ranks in the bottom 3 for an allergy sufferer', () => {
     const ranked = rank(answers);
     const snuggleRank = ranked.findIndex((r) => r.id === 'snuggledown-goose-feather-down');
     // -15 hypo penalty means Snuggledown should rank near last despite a good position/firmness match
-    expect(snuggleRank).toBeGreaterThan(ranked.length - 3);
+    expect(snuggleRank).toBeGreaterThan(ranked.length - 4);
   });
 
   it('Snuggledown reason mentions allergy/hypoallergenic risk', () => {

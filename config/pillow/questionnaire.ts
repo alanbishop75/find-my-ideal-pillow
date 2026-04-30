@@ -115,11 +115,11 @@ export const pillowQuestionnaire: Questionnaire = {
     {
       id: "budget",
       text: "What's your budget per pillow?",
-      helpText: "UK prices shown. US equivalents are similar in USD.",
+      helpText: "We'll show recommendations that fit your budget tier.",
       options: [
-        { id: "budget",  label: "Under £30 / $35 — good value options" },
-        { id: "mid",     label: "£30–£70 / $35–$80 — quality mid-range" },
-        { id: "premium", label: "£70+ / $80+ — best-in-class" },
+        { id: "budget",  label: "Under £30 — good value options" },
+        { id: "mid",     label: "£30-£70 — quality mid-range" },
+        { id: "premium", label: "£70+ — best-in-class" },
       ],
     },
   ],

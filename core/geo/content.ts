@@ -5,7 +5,13 @@ const HOMEPAGE_INTRO_US = "Free, personalized pillow recommendations - no sign-u
 
 const QUESTION_TEXT_US_OVERRIDES: Record<string, string> = {};
 
-const OPTION_LABEL_US_OVERRIDES: Record<string, Record<string, string>> = {};
+const OPTION_LABEL_US_OVERRIDES: Record<string, Record<string, string>> = {
+  budget: {
+    budget: "Under $35 - good value options",
+    mid: "$35-$80 - quality mid-range",
+    premium: "$80+ - best-in-class",
+  },
+};
 
 export function getHomepageIntro(region: Region): string {
   return region === "US" ? HOMEPAGE_INTRO_US : HOMEPAGE_INTRO_UK;

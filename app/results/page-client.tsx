@@ -205,6 +205,14 @@ function ResultsPageInner({ products, scoringEngine, resultsHeading, homeHref = 
     return Array.from(new Set(product._reasons)).slice(0, 3).map(String);
   }
 
+  function getPriceHint(product: typeof scored[0]): string | undefined {
+    const rrpUk = Number(product.attributes.rrp);
+    const rrpUs = Number(product.attributes.rrpUs);
+    if (region === 'UK' && Number.isFinite(rrpUk) && rrpUk > 0) return `~£${rrpUk}`;
+    if (region === 'US' && Number.isFinite(rrpUs) && rrpUs > 0) return `~$${rrpUs}`;
+    return undefined;
+  }
+
   const cards = [
     { label: 'Best Match', product: best },
     { label: 'Strong Alternative', product: alt },
@@ -245,12 +253,9 @@ function ResultsPageInner({ products, scoringEngine, resultsHeading, homeHref = 
               image={product.imageUrl}
               title={`${product.brand} ${product.name}`}
               explanation={getSummary(product, i > 0 ? (best._reasons as string[]) : undefined)}
-              badges={
-                label === 'Best Value' && usedValueFitFallback
-                  ? getBullets(product)
-                  : getBullets(product)
-              }
+              badges={getBullets(product)}
               priceTier={String(product.attributes.priceTier ?? '')}
+              priceHint={getPriceHint(product)}
               buyLinks={getRegionLinks(product.id, region)}
               onCtaClick={() => trackEvent('affiliate_click', { product_id: product.id, slot: label, position: i })}
             />

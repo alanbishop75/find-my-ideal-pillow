@@ -316,6 +316,82 @@ export const pillowBuyLinks: Record<string, BuyLinks> = {
     ],
   },
 
+  // ── slumberdown-front-sleeper ─────────────────────────────────────────────
+  "slumberdown-front-sleeper": {
+    UK: [
+      {
+        retailerKey:    "amazon",
+        retailerName:   "Amazon UK",
+        region:         "UK",
+        url:            "https://www.amazon.co.uk/s?k=Slumberdown+front+sleeper+soft+pillow&tag=findmyideal-21",
+        expectedDomain: "amazon.co.uk",
+        isTemporary:    true,
+        source:         "generated",
+        notes:          "Search URL — replace with ASIN before launch",
+      },
+      {
+        retailerKey:    "dunelm",
+        retailerName:   "Dunelm",
+        region:         "UK",
+        url:            "https://www.dunelm.com/search?query=slumberdown+front+sleeper+pillow",
+        expectedDomain: "dunelm.com",
+        isTemporary:    true,
+        source:         "generated",
+        notes:          "Search URL — verify direct product URL before launch",
+      },
+    ],
+    US: [
+      {
+        retailerKey:    "amazon",
+        retailerName:   "Amazon US",
+        region:         "US",
+        url:            "https://www.amazon.com/s?k=soft+stomach+sleeper+low+profile+pillow&tag=findmyideal-20",
+        expectedDomain: "amazon.com",
+        isTemporary:    true,
+        source:         "generated",
+        notes:          "Search URL — Slumberdown primarily UK; use equivalent stomach/front sleeper search",
+      },
+    ],
+  },
+
+  // ── fine-bedding-breathe-easy-soft ────────────────────────────────────────
+  "fine-bedding-breathe-easy-soft": {
+    UK: [
+      {
+        retailerKey:    "johnlewis",
+        retailerName:   "John Lewis",
+        region:         "UK",
+        url:            "https://www.johnlewis.com/search?search-term=fine+bedding+company+breathe+easy+soft+pillow",
+        expectedDomain: "johnlewis.com",
+        isTemporary:    true,
+        source:         "generated",
+        notes:          "Search URL — The Fine Bedding Company is stocked at John Lewis",
+      },
+      {
+        retailerKey:    "amazon",
+        retailerName:   "Amazon UK",
+        region:         "UK",
+        url:            "https://www.amazon.co.uk/s?k=Fine+Bedding+Company+Breathe+Easy+soft+pillow&tag=findmyideal-21",
+        expectedDomain: "amazon.co.uk",
+        isTemporary:    true,
+        source:         "generated",
+        notes:          "Search URL — replace with ASIN before launch",
+      },
+    ],
+    US: [
+      {
+        retailerKey:    "amazon",
+        retailerName:   "Amazon US",
+        region:         "US",
+        url:            "https://www.amazon.com/s?k=hotel+soft+hollow+fibre+pillow+breathable&tag=findmyideal-20",
+        expectedDomain: "amazon.com",
+        isTemporary:    true,
+        source:         "generated",
+        notes:          "Search URL — The Fine Bedding Company has limited US availability; use equivalent search",
+      },
+    ],
+  },
+
   // ── purple-harmony-pillow ─────────────────────────────────────────────────
   "purple-harmony-pillow": {
     UK: [

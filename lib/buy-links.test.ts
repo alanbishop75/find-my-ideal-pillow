@@ -57,8 +57,8 @@ describe('pillow buy-links — structural validation', () => {
     expect(typeof scorePillow).toBe('function');
   });
 
-  it('products list has 10 entries', () => {
-    expect(products.length).toBe(10);
+  it('products list has 12 entries', () => {
+    expect(products.length).toBe(12);
   });
 });
 

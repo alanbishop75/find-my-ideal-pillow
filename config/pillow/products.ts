@@ -204,7 +204,7 @@ export const products: Product[] = [
     name: "Original Pillow",
     brand: "TEMPUR",
     description:
-      "Tempur's iconic viscoelastic memory foam mould precisely to the shape of your head and neck — and stays there all night. Firm and dense: ideal for back sleepers and anyone with persistent neck pain. Hospital-grade pressure relief.",
+      "Tempur's iconic viscoelastic memory foam moulds precisely to the shape of your head and neck — and stays there all night. Firm and dense: ideal for back sleepers and anyone with persistent neck pain. Clinically validated pressure relief.",
     imageUrl: "/images/placeholder.png",
     affiliateLinks: [],
     attributes: {
@@ -241,7 +241,7 @@ export const products: Product[] = [
       hypoallergenic: true,
       support:        "enhanced",
       adjustable:     true,
-      priceTier:      "mid",
+      priceTier:      "premium",
       rrp:            80,
       rrpUs:          80,
       availability:   "both",
@@ -253,7 +253,7 @@ export const products: Product[] = [
     name: "Harmony Pillow",
     brand: "Purple",
     description:
-      "Purple's signature hex grid sits over a Talalay latex core, creating a uniquely springy and cooling pillow that never traps heat. The grid flexes under pressure but bounces back instantly — exceptional for hot sleepers and combination sleepers who need a pillow that adapts as they move.",
+      "Purple's signature hex grid sits over a Talalay latex core, creating a uniquely springy and cooling pillow that runs significantly cooler than traditional foam. The grid flexes under pressure but bounces back instantly — exceptional for hot sleepers and combination sleepers who need a pillow that adapts as they move.",
     imageUrl: "/images/placeholder.png",
     affiliateLinks: [],
     attributes: {
@@ -267,6 +267,56 @@ export const products: Product[] = [
       priceTier:      "premium",
       rrp:            155,
       rrpUs:          155,
+      availability:   "both",
+    },
+  },
+
+  // ── FRONT SLEEPER ─────────────────────────────────────────────────────────
+
+  {
+    id: "slumberdown-front-sleeper",
+    name: "Simply Soft Front Sleeper Pillow",
+    brand: "Slumberdown",
+    description:
+      "A soft, low-profile hollow-fibre pillow purpose-built for front and stomach sleepers. The reduced loft keeps the neck in a neutral position overnight, avoiding the backwards arch that commonly causes front-sleeper neck and shoulder strain. Machine washable and hypoallergenic.",
+    imageUrl: "/images/placeholder.png",
+    affiliateLinks: [],
+    attributes: {
+      sleepPosition:  "stomach",
+      firmness:       "soft",
+      fill:           "hollow-fibre",
+      cooling:        false,
+      hypoallergenic: true,
+      support:        "standard",
+      adjustable:     false,
+      priceTier:      "budget",
+      rrp:            12,
+      rrpUs:          15,
+      availability:   "both",
+    },
+  },
+
+  // ── SOFT / HOTEL-STYLE ────────────────────────────────────────────────────
+
+  {
+    id: "fine-bedding-breathe-easy-soft",
+    name: "Breathe Easy Soft Pillow",
+    brand: "The Fine Bedding Company",
+    description:
+      "A plush, hotel-style soft pillow with a breathable hollow-fibre fill and a cool-touch cover. Ideal for back sleepers and anyone who loves the sumptuous sink-in feel of a hotel bed. Oeko-Tex certified fill. Available at John Lewis.",
+    imageUrl: "/images/placeholder.png",
+    affiliateLinks: [],
+    attributes: {
+      sleepPosition:  "back",
+      firmness:       "soft",
+      fill:           "hollow-fibre",
+      cooling:        false,
+      hypoallergenic: true,
+      support:        "standard",
+      adjustable:     false,
+      priceTier:      "mid",
+      rrp:            25,
+      rrpUs:          32,
       availability:   "both",
     },
   },

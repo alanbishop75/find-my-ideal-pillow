@@ -21,6 +21,8 @@ interface ResultsCardProps {
   label?: string;
   isBest?: boolean;
   priceTier?: string;
+  /** Approximate price string shown on the card, e.g. "~£40" or "~$50". */
+  priceHint?: string;
   onCtaClick?: () => void;
 }
 
@@ -120,7 +122,7 @@ function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
 
 // ── Card ──────────────────────────────────────────────────────────────────────
 
-export function ResultsCard({ image, title, explanation, badges, buyLinks, label, isBest, priceTier, onCtaClick }: ResultsCardProps) {
+export function ResultsCard({ image, title, explanation, badges, buyLinks, label, isBest, priceTier, priceHint, onCtaClick }: ResultsCardProps) {
   const { tokens } = useTheme();
 
   const hasBuyLinks = buyLinks && buyLinks.length > 0;
@@ -167,6 +169,9 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
           {priceTier && (
             <p style={{ fontSize: 13, color: tokens.textSecondary, margin: "0 0 6px 0", fontWeight: 500 }}>
               {priceTierLabel[priceTier] ?? priceTier}
+              {priceHint && (
+                <span style={{ marginLeft: 6, fontWeight: 400, opacity: 0.75 }}>· {priceHint}</span>
+              )}
             </p>
           )}
           <p style={{ fontSize: 14, color: tokens.textSecondary, margin: 0, lineHeight: 1.5 }}>{explanation}</p>
