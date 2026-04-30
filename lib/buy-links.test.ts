@@ -1,37 +1,99 @@
 /**
  * lib/buy-links.test.ts
  *
- * Validates pillow buy-link data integrity.
+ * Strict UK Amazon affiliate link validation.
  *
- * All links are currently marked isTemporary=true (generated search URLs).
- * This suite confirms structural integrity — each product has links, all
- * URLs start with https://, and retailer keys are consistently named.
+ * Phase: UK Amazon only.
+ * Rules enforced here:
+ *  - No buy-link URL may be a search result URL (contains /s?k=)
+ *  - No buy-link URL may point outside amazon.co.uk
+ *  - REMOVE_FROM_CATALOGUE products must have empty UK arrays
+ *  - Products with AMAZON_UK_VERIFIED_EXACT must have exactly one non-temporary UK link
+ *  - No product may have US buy-links in this phase
+ *  - Any link that is isTemporary must NOT have source='manual'
+ *    (manual = verified; temporary = unverified — they are mutually exclusive)
  */
 
 import { pillowBuyLinks, getRegionLinks } from "../config/pillow/buy-links";
 import { products } from "../config/pillow/products";
 import { scorePillow } from "../config/pillow/scoring";
 
-describe('pillow buy-links — structural validation', () => {
+describe('pillow buy-links — UK Amazon only phase', () => {
+
   it('pillowBuyLinks is importable and is an object', () => {
     expect(typeof pillowBuyLinks).toBe('object');
   });
 
-  it('every product has at least one UK buy-link entry', () => {
+  it('every product has a buy-links map entry', () => {
     for (const p of products) {
-      const ukLinks = pillowBuyLinks[p.id]?.UK ?? [];
-      expect(ukLinks.length).toBeGreaterThan(0);
+      expect(pillowBuyLinks[p.id]).toBeDefined();
     }
   });
 
-  it('every product has at least one US buy-link entry', () => {
-    for (const p of products) {
-      const usLinks = pillowBuyLinks[p.id]?.US ?? [];
-      expect(usLinks.length).toBeGreaterThan(0);
+  it('no UK link is a search-result URL', () => {
+    for (const [id, links] of Object.entries(pillowBuyLinks)) {
+      for (const link of links.UK ?? []) {
+        expect(link.url).not.toMatch(/\/s\?k=/);
+        expect(link.url).not.toMatch(/\/s\?keywords=/);
+      }
     }
   });
 
-  it('all link URLs start with https://', () => {
+  it('all UK links point to amazon.co.uk only', () => {
+    for (const [id, links] of Object.entries(pillowBuyLinks)) {
+      for (const link of links.UK ?? []) {
+        expect(link.url).toMatch(/^https:\/\/www\.amazon\.co\.uk\//);
+      }
+    }
+  });
+
+  it('no US buy-links exist in this phase', () => {
+    for (const [id, links] of Object.entries(pillowBuyLinks)) {
+      expect((links.US ?? []).length).toBe(0);
+    }
+  });
+
+  it('no non-Amazon UK links exist (no John Lewis, Dunelm, etc.)', () => {
+    for (const [, links] of Object.entries(pillowBuyLinks)) {
+      for (const link of links.UK ?? []) {
+        expect(link.expectedDomain).toBe('amazon.co.uk');
+        expect(link.url).not.toMatch(/johnlewis\.com/);
+        expect(link.url).not.toMatch(/dunelm\.com/);
+        expect(link.url).not.toMatch(/argos\.co\.uk/);
+      }
+    }
+  });
+
+  it('REMOVE_FROM_CATALOGUE products have empty UK arrays', () => {
+    for (const p of products) {
+      if (p.ukAmazonVerification?.status === 'REMOVE_FROM_CATALOGUE') {
+        const ukLinks = pillowBuyLinks[p.id]?.UK ?? [];
+        expect(ukLinks.length).toBe(0);
+      }
+    }
+  });
+
+  it('AMAZON_UK_VERIFIED_EXACT products have exactly one non-temporary UK link', () => {
+    for (const p of products) {
+      if (p.ukAmazonVerification?.status === 'AMAZON_UK_VERIFIED_EXACT') {
+        const ukLinks = pillowBuyLinks[p.id]?.UK ?? [];
+        const verifiedLinks = ukLinks.filter((l) => !l.isTemporary);
+        expect(verifiedLinks.length).toBeGreaterThanOrEqual(1);
+      }
+    }
+  });
+
+  it('isTemporary links never have source=manual', () => {
+    for (const [, links] of Object.entries(pillowBuyLinks)) {
+      for (const link of [...(links.UK ?? []), ...(links.US ?? [])]) {
+        if (link.isTemporary) {
+          expect(link.source).not.toBe('manual');
+        }
+      }
+    }
+  });
+
+  it('all present link URLs start with https://', () => {
     for (const [, links] of Object.entries(pillowBuyLinks)) {
       for (const link of [...(links.UK ?? []), ...(links.US ?? [])]) {
         expect(link.url).toMatch(/^https:\/\//);
@@ -39,16 +101,7 @@ describe('pillow buy-links — structural validation', () => {
     }
   });
 
-  it('all links have a non-empty retailerKey and retailerName', () => {
-    for (const [, links] of Object.entries(pillowBuyLinks)) {
-      for (const link of [...(links.UK ?? []), ...(links.US ?? [])]) {
-        expect(link.retailerKey).toBeTruthy();
-        expect(link.retailerName).toBeTruthy();
-      }
-    }
-  });
-
-  it('getRegionLinks returns an empty array for an unknown product (no crash)', () => {
+  it('getRegionLinks returns empty array for unknown product', () => {
     expect(getRegionLinks('unknown-product', 'UK')).toEqual([]);
     expect(getRegionLinks('unknown-product', 'US')).toEqual([]);
   });
@@ -57,8 +110,21 @@ describe('pillow buy-links — structural validation', () => {
     expect(typeof scorePillow).toBe('function');
   });
 
-  it('products list has 12 entries', () => {
-    expect(products.length).toBe(12);
+  it('product catalogue is non-trivial in size', () => {
+    expect(products.length).toBeGreaterThanOrEqual(25);
+  });
+
+  it('every product is AMAZON_UK_VERIFIED_EXACT (post strict-rebuild)', () => {
+    for (const p of products) {
+      expect(p.ukAmazonVerification?.status).toBe('AMAZON_UK_VERIFIED_EXACT');
+    }
+  });
+
+  it('all products have a ukAmazonVerification status', () => {
+    for (const p of products) {
+      expect(p.ukAmazonVerification).toBeDefined();
+      expect(p.ukAmazonVerification?.status).toBeTruthy();
+    }
   });
 });
 

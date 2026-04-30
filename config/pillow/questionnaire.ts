@@ -120,6 +120,7 @@ export const pillowQuestionnaire: Questionnaire = {
         { id: "budget",  label: "Under £30 — good value options" },
         { id: "mid",     label: "£30-£70 — quality mid-range" },
         { id: "premium", label: "£70+ — best-in-class" },
+        { id: "any",     label: "No budget limit — show me the best fit" },
       ],
     },
   ],

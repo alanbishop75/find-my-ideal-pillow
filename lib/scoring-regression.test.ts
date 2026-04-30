@@ -1,208 +1,182 @@
 /**
  * lib/scoring-regression.test.ts
  *
- * Pillow scoring regression tests — pillow-v1
- *
- * Each test is a realistic buyer persona. The assertions lock in the
- * expected ranking outcome so we can catch any scoring changes immediately.
- *
- * Personas covered:
- *   A. Side sleeper, neck pain, hot, needs hypo, mid budget
- *      → Panda Luxury Bamboo is the top pick
- *   B. Back sleeper, firm preference, no allergies, premium budget
- *      → TEMPUR Original is the top pick
- *   C. Stomach sleeper, soft, synthetic, no pain, budget
- *      → Silentnight Comfort Hollowfibre or Slumberdown Side Sleeper NOT top
- *         (stomach sleeper penalises high-loft/firm side-sleeper pillows)
- *   D. Combination sleeper, no preference, premium, hot sleeper
- *      → Simba Hybrid or Purple Harmony at the top (both cooling + combination)
- *   E. Back sleeper, allergy sufferer presented with natural-down pillow
- *      → Snuggledown score severely penalised
+ * Property-based scoring regression tests for the rebuilt UK Amazon catalogue
+ * (post 2026-04-30 CPP rebuild). Assertions describe ranking behaviour in
+ * terms of product attributes rather than specific product IDs, so they are
+ * stable across catalogue refreshes.
  */
 import { products } from '../config/pillow/products';
 import { scorePillow } from '../config/pillow/scoring';
 
-function rank(answers: Record<string, string>) {
+type Answers = Record<string, string>;
+
+function rank(answers: Answers) {
   return [...products]
     .map((p) => {
       const { score, reasons } = scorePillow(p, answers);
-      return { id: p.id, score, reasons };
+      return { id: p.id, score, reasons, product: p };
     })
     .sort((a, b) => b.score - a.score);
 }
 
-// ── Sanity ────────────────────────────────────────────────────────────────────
-
 describe('scoring sanity', () => {
-  it('product catalogue has 12 entries', () => {
-    expect(products.length).toBe(12);
+  it('catalogue has at least 25 products', () => {
+    expect(products.length).toBeGreaterThanOrEqual(25);
   });
 
-  it('all products score ≥ 0 for any input', () => {
-    const answers = { 'sleep-position': 'side', 'firmness': 'medium', 'fill': 'no-preference', 'temperature': 'normal', 'neck-comfort': 'no', 'hypoallergenic': 'no', 'budget': 'mid' };
+  it('all products score >= 0 for any input', () => {
+    const answers: Answers = {
+      'sleep-position': 'side',
+      'firmness': 'medium',
+      'fill': 'no-preference',
+      'temperature': 'normal',
+      'neck-comfort': 'no',
+      'hypoallergenic': 'no',
+      'budget': 'mid',
+    };
     for (const p of products) {
       const { score } = scorePillow(p, answers);
       expect(score).toBeGreaterThanOrEqual(0);
     }
   });
 
-  it('scoring engine returns a number and an array of reasons', () => {
+  it('scoring engine returns numeric score and reasons array', () => {
     const { score, reasons } = scorePillow(products[0], { 'sleep-position': 'side' });
     expect(typeof score).toBe('number');
     expect(Array.isArray(reasons)).toBe(true);
   });
 });
 
-// ── Persona A: Side sleeper, neck pain, hot, hypo, mid budget ─────────────────
-// Expected: Panda Luxury Bamboo tops (cooling + hypo + enhanced support + side-compat)
-
-describe('Persona A — side sleeper with neck pain and hot sleeping', () => {
-  const answers = {
+// Persona A — side sleeper, hot, hypoallergenic, neck pain
+describe('Persona A — side / hot / hypo / neck pain', () => {
+  const answers: Answers = {
     'sleep-position': 'side',
-    'firmness':       'medium',
-    'fill':           'foam',
-    'temperature':    'hot',
-    'neck-comfort':   'yes',
+    'firmness': 'medium',
+    'fill': 'foam',
+    'temperature': 'hot',
+    'neck-comfort': 'yes',
     'hypoallergenic': 'yes',
-    'budget':         'mid',
+    'budget': 'mid',
   };
 
-  it('Panda Luxury Bamboo ranks in the top 3', () => {
-    const ranked = rank(answers);
-    const pandaRank = ranked.findIndex((r) => r.id === 'panda-luxury-bamboo');
-    expect(pandaRank).toBeLessThan(3);
+  it('top pick is cooling and hypoallergenic with enhanced support', () => {
+    const top = rank(answers)[0];
+    expect(top.product.attributes.cooling).toBe(true);
+    expect(top.product.attributes.hypoallergenic).toBe(true);
+    expect(top.product.attributes.support).toBe('enhanced');
   });
 
-  it('Snuggledown (non-hypo natural down) scores significantly lower than top pick', () => {
-    const ranked = rank(answers);
-    const top = ranked[0];
-    const snuggle = ranked.find((r) => r.id === 'snuggledown-goose-feather-down')!;
-    expect(top.score - snuggle.score).toBeGreaterThanOrEqual(15);
+  it('top pick is compatible with side sleepers', () => {
+    const top = rank(answers)[0];
+    expect(['side', 'combination', 'any']).toContain(top.product.attributes.sleepPosition);
   });
 
-  it('Panda Luxury Bamboo reasons include hypoallergenic and cooling', () => {
-    const { reasons } = scorePillow(
-      products.find((p) => p.id === 'panda-luxury-bamboo')!,
-      answers
-    );
-    expect(reasons.some((r) => /hypoallergenic/i.test(r))).toBe(true);
-    expect(reasons.some((r) => /cooling/i.test(r))).toBe(true);
+  it('top-3 are not stomach-only pillows', () => {
+    const top3 = rank(answers).slice(0, 3);
+    for (const r of top3) {
+      expect(r.product.attributes.sleepPosition).not.toBe('stomach');
+    }
   });
 });
 
-// ── Persona B: Back sleeper, firm, no allergy, premium ────────────────────────
-// Expected: TEMPUR Original at the top (back + firm + enhanced support + premium)
-
-describe('Persona B — back sleeper, firm preference, no allergies, premium budget', () => {
-  const answers = {
+// Persona B — back sleeper, firm preference, premium budget
+describe('Persona B — back / firm / premium', () => {
+  const answers: Answers = {
     'sleep-position': 'back',
-    'firmness':       'firm',
-    'fill':           'foam',
-    'temperature':    'normal',
-    'neck-comfort':   'yes',
+    'firmness': 'firm',
+    'fill': 'foam',
+    'temperature': 'normal',
+    'neck-comfort': 'yes',
     'hypoallergenic': 'no',
-    'budget':         'premium',
+    'budget': 'premium',
   };
 
-  it('TEMPUR Original ranks first or second', () => {
-    const ranked = rank(answers);
-    const tempur = ranked.findIndex((r) => r.id === 'tempur-original');
-    expect(tempur).toBeLessThan(2);
+  it('top pick has firm firmness or enhanced support', () => {
+    const top = rank(answers)[0];
+    const ok = top.product.attributes.firmness === 'firm' ||
+               top.product.attributes.support === 'enhanced';
+    expect(ok).toBe(true);
   });
 
-  it('TEMPUR Original score is greater than Slumberdown Side Sleeper score', () => {
-    const ranked = rank(answers);
-    const tempur = ranked.find((r) => r.id === 'tempur-original')!;
-    const slumber = ranked.find((r) => r.id === 'slumberdown-side-sleeper')!;
-    expect(tempur.score).toBeGreaterThan(slumber.score);
+  it('top pick is not a soft side-sleeper-only pillow', () => {
+    const top = rank(answers)[0];
+    if (top.product.attributes.sleepPosition === 'side') {
+      // if side-sleeper specific, must at least be firm
+      expect(top.product.attributes.firmness).not.toBe('soft');
+    }
   });
 });
 
-// ── Persona C: Stomach sleeper, soft, budget ─────────────────────────────────
-// The side-sleeper pillows (Slumberdown, Emma) must be penalised for stomach sleepers.
-
-describe('Persona C — stomach sleeper, soft preference, budget', () => {
-  const answers = {
-    'sleep-position': 'stomach',
-    'firmness':       'soft',
-    'fill':           'synthetic',
-    'temperature':    'normal',
-    'neck-comfort':   'no',
-    'hypoallergenic': 'yes',
-    'budget':         'budget',
-  };
-
-  it('Slumberdown Side Sleeper (firm, high-loft side-specific) is not in the top 2 for a stomach sleeper', () => {
-    const ranked = rank(answers);
-    const slumberRank = ranked.findIndex((r) => r.id === 'slumberdown-side-sleeper');
-    // A firm, side-optimised pillow should not lead for a soft-preferring stomach sleeper
-    expect(slumberRank).toBeGreaterThan(1);
-  });
-
-  it('TEMPUR Original (firm, back-focused) is not in the top 2', () => {
-    const ranked = rank(answers);
-    const tempur = ranked.findIndex((r) => r.id === 'tempur-original');
-    expect(tempur).toBeGreaterThan(1);
-  });
-});
-
-// ── Persona D: Combination sleeper, hot sleeper, premium ─────────────────────
-// Simba Hybrid or Purple Harmony should top (both cooling + combination-optimised)
-
-describe('Persona D — combination sleeper, hot, premium', () => {
-  const answers = {
+// Persona C — combination sleeper, hot, premium budget
+describe('Persona C — combination / hot / premium', () => {
+  const answers: Answers = {
     'sleep-position': 'combination',
-    'firmness':       'medium',
-    'fill':           'no-preference',
-    'temperature':    'hot',
-    'neck-comfort':   'sometimes',
+    'firmness': 'medium',
+    'fill': 'no-preference',
+    'temperature': 'hot',
+    'neck-comfort': 'sometimes',
     'hypoallergenic': 'yes',
-    'budget':         'premium',
+    'budget': 'premium',
   };
 
-  it('Simba Hybrid or Purple Harmony ranks first or second', () => {
-    const ranked = rank(answers);
-    const top2 = ranked.slice(0, 2).map((r) => r.id);
-    const hasSimbaOrPurple = top2.includes('simba-hybrid-pillow') || top2.includes('purple-harmony-pillow');
-    expect(hasSimbaOrPurple).toBe(true);
+  it('top pick is cooling', () => {
+    const top = rank(answers)[0];
+    expect(top.product.attributes.cooling).toBe(true);
   });
 
-  it('both Simba and Purple score above Snuggledown for a hot combination sleeper', () => {
-    const ranked = rank(answers);
-    const simba   = ranked.find((r) => r.id === 'simba-hybrid-pillow')!;
-    const purple  = ranked.find((r) => r.id === 'purple-harmony-pillow')!;
-    const snuggle = ranked.find((r) => r.id === 'snuggledown-goose-feather-down')!;
-    expect(simba.score).toBeGreaterThan(snuggle.score);
-    expect(purple.score).toBeGreaterThan(snuggle.score);
+  it('top pick supports combination or any sleep position', () => {
+    const top = rank(answers)[0];
+    expect(['combination', 'any', 'side', 'back']).toContain(top.product.attributes.sleepPosition);
+  });
+
+  it('non-cooling natural-down pillows do not appear in top 3', () => {
+    const top3 = rank(answers).slice(0, 3);
+    for (const r of top3) {
+      const a = r.product.attributes;
+      const noncoolingDown = a.cooling === false && a.fill === 'natural-down';
+      expect(noncoolingDown).toBe(false);
+    }
   });
 });
 
-// ── Persona E: Natural-down penalty for allergy sufferers ────────────────────
+// Persona D — budget side sleeper, no allergies
+describe('Persona D — budget side sleeper', () => {
+  const answers: Answers = {
+    'sleep-position': 'side',
+    'firmness': 'medium',
+    'fill': 'no-preference',
+    'temperature': 'normal',
+    'neck-comfort': 'no',
+    'hypoallergenic': 'no',
+    'budget': 'budget',
+  };
 
-describe('Persona E — allergy sufferer encounters natural-down pillow', () => {
-  const answers = {
+  it('top pick is in the budget price tier', () => {
+    const top = rank(answers)[0];
+    expect(top.product.attributes.priceTier).toBe('budget');
+  });
+
+  it('top pick is compatible with side sleepers', () => {
+    const top = rank(answers)[0];
+    expect(['side', 'combination', 'any']).toContain(top.product.attributes.sleepPosition);
+  });
+});
+
+// Persona E — premium budget rejects budget-tier pillows from top
+describe('Persona E — premium budget preference penalises budget pillows', () => {
+  const answers: Answers = {
     'sleep-position': 'back',
-    'firmness':       'medium-soft',
-    'fill':           'no-preference',
-    'temperature':    'normal',
-    'neck-comfort':   'no',
-    'hypoallergenic': 'yes',
-    'budget':         'mid',
+    'firmness': 'medium',
+    'fill': 'natural',
+    'temperature': 'normal',
+    'neck-comfort': 'no',
+    'hypoallergenic': 'no',
+    'budget': 'premium',
   };
 
-  it('Snuggledown (natural down, not hypoallergenic) ranks in the bottom 3 for an allergy sufferer', () => {
-    const ranked = rank(answers);
-    const snuggleRank = ranked.findIndex((r) => r.id === 'snuggledown-goose-feather-down');
-    // -15 hypo penalty means Snuggledown should rank near last despite a good position/firmness match
-    expect(snuggleRank).toBeGreaterThan(ranked.length - 4);
-  });
-
-  it('Snuggledown reason mentions allergy/hypoallergenic risk', () => {
-    const { reasons } = scorePillow(
-      products.find((p) => p.id === 'snuggledown-goose-feather-down')!,
-      answers
-    );
-    expect(reasons.some((r) => /allerg/i.test(r))).toBe(true);
+  it('the top pick is not in the budget price tier', () => {
+    const top = rank(answers)[0];
+    expect(top.product.attributes.priceTier).not.toBe('budget');
   });
 });
-

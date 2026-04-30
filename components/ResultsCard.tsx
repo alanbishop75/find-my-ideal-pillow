@@ -35,10 +35,14 @@ interface BuyLinksProps {
 }
 
 function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
-  if (links.length === 0) return null;
+  // Strict rule: only show links that are fully verified (isTemporary: false).
+  // Search URLs, generated candidates, and unverified ASINs must not be
+  // shown to users regardless of how they arrive in the links array.
+  const verifiedLinks = links.filter((l) => !l.isTemporary);
+  if (verifiedLinks.length === 0) return null;
 
-  const primary = links.find((l) => l.isPrimary) ?? links[0];
-  const secondary = links.filter((l) => l.retailerKey !== primary.retailerKey);
+  const primary = verifiedLinks.find((l) => l.isPrimary) ?? verifiedLinks[0];
+  const secondary = verifiedLinks.filter((l) => l.retailerKey !== primary.retailerKey);
 
   return (
     <div style={{ marginTop: 14 }}>
@@ -75,9 +79,6 @@ function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
         }}
       >
         {primary.retailerName}
-        {primary.isTemporary && (
-          <span style={{ fontSize: 10, fontWeight: 500, opacity: 0.75, marginLeft: 6 }}>(search)</span>
-        )}
       </a>
 
       {/* Secondary retailers — compact pill row */}
@@ -109,9 +110,6 @@ function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
               }}
             >
               {link.retailerName}
-              {link.isTemporary && (
-                <span style={{ fontSize: 10, fontWeight: 400, opacity: 0.6, marginLeft: 4 }}>(search)</span>
-              )}
             </a>
           ))}
         </div>

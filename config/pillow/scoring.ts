@@ -202,23 +202,26 @@ export const scorePillow: ScoringEngine = (product, answers) => {
   // Out-of-budget is a soft penalty, not a hard block — the best-value card
   // can still surface a mid-tier product to a budget user.
   //
-  const budgetRank: Record<string, number> = { budget: 0, mid: 1, premium: 2 };
   const userBudget = answers["budget"] ?? "mid";
-  const prodTier   = String(attr.priceTier ?? "mid");
-  const userBudgetRank = budgetRank[userBudget] ?? 1;
-  const prodBudgetRank = budgetRank[prodTier] ?? 1;
-  const budgetDelta = prodBudgetRank - userBudgetRank; // positive = over budget
 
-  if (budgetDelta === 0) {
-    score += 5;
-  } else if (budgetDelta === -1) {
-    score += 2; // good value find — slightly under budget
-    reasons.push("Good value for money");
-  } else if (budgetDelta === 1) {
-    score -= 5;
-  } else if (budgetDelta >= 2) {
-    score -= 15;
-    reasons.push("Above your budget");
+  if (userBudget !== "any") {
+    const budgetRank: Record<string, number> = { budget: 0, mid: 1, premium: 2 };
+    const prodTier   = String(attr.priceTier ?? "mid");
+    const userBudgetRank = budgetRank[userBudget] ?? 1;
+    const prodBudgetRank = budgetRank[prodTier] ?? 1;
+    const budgetDelta = prodBudgetRank - userBudgetRank; // positive = over budget
+
+    if (budgetDelta === 0) {
+      score += 5;
+    } else if (budgetDelta === -1) {
+      score += 2; // good value find — slightly under budget
+      reasons.push("Good value for money");
+    } else if (budgetDelta === 1) {
+      score -= 5;
+    } else if (budgetDelta >= 2) {
+      score -= 15;
+      reasons.push("Above your budget");
+    }
   }
 
   // ── 8. Adjustable bonus (+4) ─────────────────────────────────────────────

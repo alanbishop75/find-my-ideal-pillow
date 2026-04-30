@@ -89,8 +89,9 @@ function ResultsPageInner({ products, scoringEngine, resultsHeading, homeHref = 
     ? 'Affiliate disclosure: Some links on this page are affiliate links. As an Amazon Associate, we earn from qualifying purchases. We may also earn a commission from other retailer partners at no extra cost to you. This helps keep the tool free.'
     : 'Affiliate disclosure: Some links on this page are affiliate links. If you purchase through them, we may earn a small commission at no extra cost to you. This helps keep the tool free.';
 
-  // Fall back to pillow defaults for the legacy /results route
-  const resolvedProducts = products ?? categoryRegistry['pillow'].products;
+  // Exclude products marked REMOVE_FROM_CATALOGUE — these have no UK purchase path.
+  const resolvedProducts = (products ?? categoryRegistry['pillow'].products)
+    .filter((p) => p.ukAmazonVerification?.status !== 'REMOVE_FROM_CATALOGUE');
   const resolvedEngine = scoringEngine ?? categoryRegistry['pillow'].scoringEngine;
   const resolvedHeading = resultsHeading ?? categoryRegistry['pillow'].meta.resultsHeading;
 

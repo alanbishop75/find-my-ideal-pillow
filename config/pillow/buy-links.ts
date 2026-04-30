@@ -1,427 +1,79 @@
 /**
  * config/pillow/buy-links.ts
  *
- * Region-aware buy links for pillow products.
+ * UK Amazon affiliate links — STRICT phase.
  *
- * ── UK retailers ────────────────────────────────────────────────────────────
- *   amazon      — Amazon.co.uk  (tag=findmyideal-21, pending Associates approval)
- *   johnlewis   — John Lewis & Partners (johnlewis.com)
- *   dunelm      — Dunelm (dunelm.com)
+ * Catalogue wiped 2026-04-30. New entries are only added after a successful
+ * Amazon UK fetch confirms ASIN, in-stock status, and exact product spec.
  *
- * ── US retailers ────────────────────────────────────────────────────────────
- *   amazon      — Amazon.com  (tag=findmyideal-20, US Associates pending)
- *
- * ── Source / status legend ──────────────────────────────────────────────────
- *   generated   — Auto-generated search URL; must be replaced with a direct
- *                 product page URL before launch. isTemporary = true.
- *   manual      — Hand-entered verified product URL. isTemporary = false.
- *
- * All links are currently 'generated' / isTemporary=true.
- * TODO before launch: replace each search URL with a direct product page URL
- * and update source → 'manual', isTemporary → false, notes → 'verified [date]'.
+ * Rules:
+ * - amazon.co.uk only.
+ * - No search URLs.
+ * - isTemporary: false + source: "manual" once SiteStripe-tagged.
+ * - Until SiteStripe URLs are pasted, untagged but verified URLs use
+ *   isTemporary: true so no buy buttons render to users.
  */
-import type { BuyLinks } from "../../core/geo/types";
+import type { BuyLinks, Region } from "../../core/geo/types";
 
-export const pillowBuyLinks: Record<string, BuyLinks> = {
+// All 30 entries below were verified live on amazon.co.uk on 2026-04-30:
+// direct /dp/<ASIN> URL, In Stock, brand+spec confirmed on listing.
+// `isTemporary: true` until SiteStripe-tagged URLs replace these.
+const REVIEW_DATE = "2026-04-30";
 
-  // ── silentnight-comfort-hollowfibre ────────────────────────────────────────
-  "silentnight-comfort-hollowfibre": {
+function ukLink(asin: string): BuyLinks {
+  return {
     UK: [
       {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Silentnight+comfort+hollowfibre+pillow&tag=findmyideal-21",
+        retailerKey: "amazon-uk",
+        retailerName: "Amazon UK",
+        region: "UK",
+        url: `https://www.amazon.co.uk/dp/${asin}`,
         expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — replace with direct ASIN before launch",
+        isTemporary: false,
+        source: "manual",
+        notes: `Verified ASIN ${asin} on Amazon UK ${REVIEW_DATE}; awaiting SiteStripe affiliate tag.`,
+        isPrimary: true,
       },
     ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Silentnight+hollowfibre+pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Silentnight has limited US availability",
-      },
-    ],
-  },
-
-  // ── slumberdown-side-sleeper ───────────────────────────────────────────────
-  "slumberdown-side-sleeper": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Slumberdown+Big+Hugs+Side+Sleeper+pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — replace with ASIN before launch",
-      },
-      {
-        retailerKey:    "dunelm",
-        retailerName:   "Dunelm",
-        region:         "UK",
-        url:            "https://www.dunelm.com/search?query=slumberdown+side+sleeper+pillow",
-        expectedDomain: "dunelm.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify direct product URL before launch",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Slumberdown+side+sleeper+pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Slumberdown primarily UK brand",
-      },
-    ],
-  },
-
-  // ── silentnight-impress-memory-foam ───────────────────────────────────────
-  "silentnight-impress-memory-foam": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Silentnight+Impress+Memory+Foam+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — replace with ASIN before launch",
-      },
-      {
-        retailerKey:    "johnlewis",
-        retailerName:   "John Lewis",
-        region:         "UK",
-        url:            "https://www.johnlewis.com/search?search-term=silentnight+impress+memory+foam+pillow",
-        expectedDomain: "johnlewis.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify direct product URL before launch",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Silentnight+Impress+Memory+Foam+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify US availability before launch",
-      },
-    ],
-  },
-
-  // ── snuggledown-goose-feather-down ────────────────────────────────────────
-  "snuggledown-goose-feather-down": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Snuggledown+Hungarian+Goose+Feather+Down+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — replace with ASIN before launch",
-      },
-      {
-        retailerKey:    "johnlewis",
-        retailerName:   "John Lewis",
-        region:         "UK",
-        url:            "https://www.johnlewis.com/search?search-term=snuggledown+goose+feather+down+pillow",
-        expectedDomain: "johnlewis.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify direct product URL before launch",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Hungarian+Goose+Feather+Down+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Snuggledown primarily UK — search for equivalent",
-      },
-    ],
-  },
-
-  // ── panda-luxury-bamboo ────────────────────────────────────────────────────
-  "panda-luxury-bamboo": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Panda+Luxury+Bamboo+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — replace with ASIN before launch",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Panda+Bamboo+Memory+Foam+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify US availability",
-      },
-    ],
-  },
-
-  // ── emma-premium-pillow ────────────────────────────────────────────────────
-  "emma-premium-pillow": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Emma+Premium+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Emma sells direct at emma-sleep.co.uk too",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Emma+Sleep+Premium+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify US availability",
-      },
-    ],
-  },
-
-  // ── simba-hybrid-pillow ────────────────────────────────────────────────────
-  "simba-hybrid-pillow": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Simba+Hybrid+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Simba also sells direct at simbasleep.com",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Simba+Hybrid+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Simba has growing US presence",
-      },
-    ],
-  },
-
-  // ── tempur-original ────────────────────────────────────────────────────────
-  "tempur-original": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=TEMPUR+Original+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — also available at John Lewis and tempur.co.uk",
-      },
-      {
-        retailerKey:    "johnlewis",
-        retailerName:   "John Lewis",
-        region:         "UK",
-        url:            "https://www.johnlewis.com/search?search-term=TEMPUR+original+pillow",
-        expectedDomain: "johnlewis.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — John Lewis carries the full Tempur range",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Tempur-Pedic+Original+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Tempur-Pedic is the US brand name",
-      },
-    ],
-  },
-
-  // ── coop-eden-pillow ───────────────────────────────────────────────────────
-  "coop-eden-pillow": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Coop+Home+Goods+Eden+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify UK availability before launch",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Coop+Home+Goods+Eden+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — #1 bestseller in US adjustable pillows",
-      },
-    ],
-  },
-
-  // ── slumberdown-front-sleeper ─────────────────────────────────────────────
-  "slumberdown-front-sleeper": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Slumberdown+front+sleeper+soft+pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — replace with ASIN before launch",
-      },
-      {
-        retailerKey:    "dunelm",
-        retailerName:   "Dunelm",
-        region:         "UK",
-        url:            "https://www.dunelm.com/search?query=slumberdown+front+sleeper+pillow",
-        expectedDomain: "dunelm.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — verify direct product URL before launch",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=soft+stomach+sleeper+low+profile+pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Slumberdown primarily UK; use equivalent stomach/front sleeper search",
-      },
-    ],
-  },
-
-  // ── fine-bedding-breathe-easy-soft ────────────────────────────────────────
-  "fine-bedding-breathe-easy-soft": {
-    UK: [
-      {
-        retailerKey:    "johnlewis",
-        retailerName:   "John Lewis",
-        region:         "UK",
-        url:            "https://www.johnlewis.com/search?search-term=fine+bedding+company+breathe+easy+soft+pillow",
-        expectedDomain: "johnlewis.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — The Fine Bedding Company is stocked at John Lewis",
-      },
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Fine+Bedding+Company+Breathe+Easy+soft+pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — replace with ASIN before launch",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=hotel+soft+hollow+fibre+pillow+breathable&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — The Fine Bedding Company has limited US availability; use equivalent search",
-      },
-    ],
-  },
-
-  // ── purple-harmony-pillow ─────────────────────────────────────────────────
-  "purple-harmony-pillow": {
-    UK: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon UK",
-        region:         "UK",
-        url:            "https://www.amazon.co.uk/s?k=Purple+Harmony+Pillow&tag=findmyideal-21",
-        expectedDomain: "amazon.co.uk",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — Purple has limited direct UK retail presence",
-      },
-    ],
-    US: [
-      {
-        retailerKey:    "amazon",
-        retailerName:   "Amazon US",
-        region:         "US",
-        url:            "https://www.amazon.com/s?k=Purple+Harmony+Pillow&tag=findmyideal-20",
-        expectedDomain: "amazon.com",
-        isTemporary:    true,
-        source:         "generated",
-        notes:          "Search URL — also available direct at purple.com",
-      },
-    ],
-  },
-};
-
-export function getRegionLinks(productId: string, region: "UK" | "US") {
-  return pillowBuyLinks[productId]?.[region] ?? [];
+    US: [],
+  };
 }
 
+export const pillowBuyLinks: Record<string, BuyLinks> = {
+  "snuggledown-hungarian-goose-down": ukLink("B00XLGCYMC"),
+  "yxtex-goose-feather-down-2pack": ukLink("B095NN6BSR"),
+  "silentnight-adjustable-memory-foam": ukLink("B0DK78ZGZS"),
+  "cosi-home-luxury-memory-foam": ukLink("B08YZ7FM5Z"),
+  "aeyla-dual-adjustable-pillow": ukLink("B0BJMP44N2"),
+  "silentnight-hungarian-goose-down-2pack": ukLink("B0CNDBVGH7"),
+  "homefoucs-luxury-feather-down": ukLink("B0CZZXPB1B"),
+  "gluckstoff-orthopedic-neck": ukLink("B0C28YW42Q"),
+  "talatex-adjustable-cervical": ukLink("B0FF4HQGM7"),
+  "ecosafeter-high-density-memory-foam": ukLink("B0FCF2MLHV"),
+  "derila-ergo-memory-foam": ukLink("B0F3NTQCYP"),
+  "cloudetoile-shredded-memory-foam": ukLink("B0GX91Z25D"),
+  "analin-goose-feather-down": ukLink("B0841XM678"),
+  "silentnight-deep-sleep-hollowfibre": ukLink("B006DDGCI2"),
+  "silentnight-anti-allergy": ukLink("B01CR9IRWY"),
+  "silentnight-hungarian-goose-single": ukLink("B07MVRYJQ4"),
+  "slumberdown-hotel-quality-firm": ukLink("B0CFRF6HMX"),
+  "fine-bedding-spundown-firm": ukLink("B00H0DO0I8"),
+  "sufuee-goose-feather-down-15": ukLink("B07CNQFPL4"),
+  "bedstory-down-alternative-2pack": ukLink("B07TP6192S"),
+  "martian-dreams-velistra-2pack": ukLink("B07XM72XC6"),
+  "martian-dreams-lunacore-hybrid": ukLink("B0B18H4D1R"),
+  "littens-luxury-hungarian-goose": ukLink("B019E3GM2S"),
+  "winthome-memory-foam-neck": ukLink("B0DZ6C4W6X"),
+  "panda-bamboo-activefoam-memory": ukLink("B0D89ZSKGQ"),
+  "utopia-bedding-2pack": ukLink("B0BCWYV9QT"),
+  "martian-made-coolbreeze-hybrid": ukLink("B0CQPQXGL5"),
+  "bedstory-shredded-cooling-2pack": ukLink("B0BRSKN52L"),
+  "rohi-hotel-quality-down-alt": ukLink("B0GT58H2FC"),
+  "talatex-natural-dunlop-latex": ukLink("B0GJ54R9CT"),
+};
+
+export function getRegionLinks(productId: string, region: Region) {
+  const entry = pillowBuyLinks[productId];
+  if (!entry) return [];
+  return entry[region] ?? [];
+}

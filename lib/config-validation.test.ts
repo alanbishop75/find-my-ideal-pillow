@@ -24,16 +24,29 @@ describe('config validation', () => {
     }
   });
 
-  it('buy-links map has an entry for each product with valid URL structure', () => {
+  it('buy-links map has an entry for each product; any present UK URLs must be amazon.co.uk direct product pages', () => {
     for (const p of products) {
       const links = pillowBuyLinks[p.id];
+      // Every product must have a buy-links map entry (even if arrays are empty)
       expect(links).toBeDefined();
 
+      // Validate any links that ARE present
       for (const link of [...asArray(links?.UK), ...asArray(links?.US)]) {
         expect(link.url).toMatch(/^https:\/\//);
         expect(link.retailerName).toBeTruthy();
         expect(link.expectedDomain).toBeTruthy();
+        // No search result URLs allowed in this phase
+        expect(link.url).not.toMatch(/\/s\?k=/);
+        expect(link.url).not.toMatch(/\/s\?keywords=/);
       }
+
+      // All UK links must point to amazon.co.uk only
+      for (const link of asArray(links?.UK)) {
+        expect(link.expectedDomain).toBe('amazon.co.uk');
+      }
+
+      // No US links allowed in the UK-only phase
+      expect(asArray(links?.US).length).toBe(0);
     }
   });
 
