@@ -71,9 +71,17 @@ export default async function Page({ params }: Props) {
     mainEntityOfPage: pageUrl,
     dateModified: page.lastReviewed,
     datePublished: page.lastReviewed,
-    author: { "@type": "Organisation", name: "FindMyIdealPillow" },
+    image: [
+      {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+    author: { "@type": "Organization", name: "FindMyIdealPillow", url: SITE_URL },
     publisher: {
-      "@type": "Organisation",
+      "@type": "Organization",
       name: "FindMyIdealPillow",
       url: SITE_URL,
     },
