@@ -18,8 +18,11 @@ const BUILD_PHASE = "phase-production-build";
 
 async function resolveCategoryIdForRequest(): Promise<string> {
   // During `next build`, there is no real request host context.
-  // Use the default category to keep metadata/layout resolution deterministic.
-  if (process.env.NEXT_PHASE === BUILD_PHASE) return "pillow";
+  // Use the DEFAULT_CATEGORY_ID env var (or the domain-map default) to keep
+  // metadata/layout resolution deterministic. Set this in .env.local and Vercel.
+  if (process.env.NEXT_PHASE === BUILD_PHASE) {
+    return process.env.DEFAULT_CATEGORY_ID ?? "pillow";
+  }
 
   const host = (await headers()).get("host") ?? "";
   return categoryFromHost(host);
@@ -44,7 +47,7 @@ function resolveActiveTheme(categoryId: string): ThemeName {
 export async function generateMetadata(): Promise<Metadata> {
   const categoryId = await resolveCategoryIdForRequest();
   const config = categoryRegistry[categoryId];
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findmyidealpillow.com';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://www.findmyideal${categoryId}.com`;
     const title = config?.meta.title ?? "FindMyIdealPillow — Find Your Perfect Pillow";
     const description = config?.meta.description ?? "Answer a few quick questions and get your personalised pillow recommendations. Free, no sign-up required.";
   return {

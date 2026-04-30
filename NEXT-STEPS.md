@@ -1,112 +1,80 @@
-# Golf Ball Fitter — Next Steps Guide
+# Pillow Finder � Next Steps Guide
 
-_Product review completed 22 April 2026. All items grounded in code review of questionnaire.v2.ts, scoring.ts, products.ts, results/page.tsx._
+_Pillow v0.1 shipped April 2026. All items grounded in code review of questionnaire.ts, scoring.ts, products.ts._
 
 ---
 
-## 🔴 Must Fix Before Any Live Traffic
+## ?? Must Fix Before Any Live Traffic
 
 | # | What | Where |
 |---|---|---|
-| 1 | **Invert the `spins-back` wedge logic** — currently recommends more spin to players whose wedges already spin back too much. Should reward spin 6–7 (controlled), not spin ≥ 8. | `config/golf-ball/scoring.ts` |
-| 2 | **Change Bridgestone e6 compression from `mid` to `low`** — e6 scores zero for its primary audience (180–210y players) because the distance gating only rewards `low` in that band. | `config/golf-ball/products.ts` |
-| 3 | **Add affiliate disclosure to results page** — required by UK ASA and Amazon Associates. UK is now initially approved, so UK pages may also include: _"As an Amazon Associate, we earn from qualifying purchases."_ Keep US wording generic until Amazon.com approval exists. | `app/results/page.tsx` |
-| 4 | **Create `/privacy-policy` static page** — Amazon Associates application will be rejected without it. Standard UK-compliant policy, ~300 words. | New page |
-| 5 | **Replace all `/placeholder.png`** with real product images — site looks like a dev template. Use brand press-pack images or sourced product photos. | `config/golf-ball/products.ts` |
-| 6 | **Improve result card explanations** — `getSummary` currently returns the first scoring reason string (e.g. "High forgiveness for fade/slice"). This is a label, not a conversion-worthy sentence. Write human copy per product keyed to key scoring signals. | `app/results/page.tsx` + `config/golf-ball/products.ts` |
+| 1 | **Replace all `/placeholder.png`** with real product images � site looks like a dev template. Use brand press-pack images or sourced product photos. | `config/pillow/products.ts` |
+| 2 | **Add affiliate disclosure to results page** � required by UK ASA and Amazon Associates. UK pages: _"As an Amazon Associate, we earn from qualifying purchases."_ Keep US wording generic until Amazon.com approval exists. | `app/results/page.tsx` |
+| 3 | **Improve result card explanations** � `reasons[]` currently returns raw scoring labels. Write human copy per product keyed to the top 1�2 scoring signals. | `config/pillow/scoring.ts` reason strings |
+| 4 | **Replace all temporary buy-links** � all 10 products currently have `isTemporary: true` search URLs. Replace with direct product page ASINs/URLs before any affiliate tracking matters. | `config/pillow/buy-links.ts` |
 
 ---
 
-## 🟡 Fix Soon — Before Promotion / SEO Launch
+## ?? Fix Soon � Before Promotion / SEO Launch
 
 | # | What | Notes |
 |---|---|---|
-| 7 | **Add a budget question** (`<£20 / £20–£35 / £35+`) and use it to gate the Best Value slot. Without it, a premium product can land in Best Value. | New question + scoring rule |
-| 8 | **Cut `tee-cross` question** — near-identical intent and scoring to `trade-off`. Adds friction for ≤+2 bonus. Redistribute weight. | `questionnaire.v2.ts` + `scoring.ts` |
-| 9 | **Cut or re-branch `start-direction` question** — high friction at Q2, low signal return (+1/+2 max). If kept, show only as a branch for confirmed slicers/hookers. | `questionnaire.v2.ts` |
-| 10 | **Reduce `iron-distance` to a tiebreaker or cut it** — the middle 80% of users (100–170y range) get zero contribution from this question. Add friction, add nothing. | `questionnaire.v2.ts` + `scoring.ts` |
-| 11 | **Add `straightFlight: true` attribute to e6 and e12 Contact** and score it explicitly for `curve-right`/`curve-left` misses (+3). Makes the e6 the clear slicer recommendation and enables a strong result explanation. | `products.ts` + `scoring.ts` |
-| 12 | **Separate Q-Star Tour from Tour Response** — both score identically for most users (both: spin 7, forgiveness 7, compression mid, priceTier mid). Adjust Tour Response spin to 6. | `products.ts` |
-| 13 | **Raise `feel` weight from 2 to 3** — feel preference is one of the top three stated criteria for ball purchase. Currently underweighted. | `scoring.ts` |
-| 14 | **Add GA4 analytics events** from day one: `quiz_start`, `question_answered`, `quiz_abandoned`, `results_viewed`, `affiliate_click`, `start_again_clicked`. | `app/questionnaire/v2-page.tsx` + `app/results/page.tsx` |
-| 15 | **Add About page and homepage description** — Amazon reviewers check for site legitimacy. One paragraph explaining the tool is sufficient. | New page |
+| 5 | **Build SEO landing pages** (4�6 pages, 500+ words each): `/best-pillow-for-side-sleepers`, `/best-pillow-for-hot-sleepers`, `/best-memory-foam-pillow-uk`, `/best-pillow-for-neck-pain`, `/best-budget-pillow-uk` | `config/pillow/seo-pages.ts` (currently empty stub) |
+| 6 | **Add GA4 analytics events** from day one: `quiz_start`, `question_answered`, `quiz_abandoned`, `results_viewed`, `affiliate_click` | `lib/analytics.ts` + questionnaire/results pages |
+| 7 | **Add About page content** describing how the algorithm works. Helps Amazon reviewer credibility. | `app/about/AboutPageClient.tsx` |
+| 8 | **Add Open Graph / Twitter card meta** � `og:title`, `og:description`, `og:url`, `og:image`. Create a 1200x630 share image. | `app/layout.tsx` |
+| 9 | **Verify canonical tags** after first deploy � confirm homepage canonical is `https://www.findmyidealpillow.com/` | Post-deploy check |
 
 ---
 
-## 🟢 Fix Later — Post-Launch
+## ?? Fix Later � Post-Launch
 
 | # | What | Notes |
 |---|---|---|
-| 16 | **Implement scoring override rules**: (a) hard gate on premium products for `spins-back` + `driver-distance < 210`; (b) compounding short-game signal when `wedge-behaviour = release` AND `trade-off = control` | `scoring.ts` |
-| 17 | **Build SEO landing pages**: `/best-golf-balls-for-slicers`, `/best-golf-balls-for-beginners-uk`, `/best-low-compression-golf-balls-uk`, `/bridgestone-e6-review` | New static pages |
-| 18 | **Add email capture on results page** — single field + "Email me my results" — builds list, creates second affiliate click opportunity | `app/results/page.tsx` |
-| 19 | **Implement results share URL** with answers encoded in query string. Share text: _"Found my ideal golf ball in 6 questions"_ | `app/results/page.tsx` |
-| 20 | **Review the 4 Bridgestone tour balls** (RX, RXS, X, XS) — once scoring fixes are in, check whether they separate cleanly. If RX ≈ Q-Star Tour and XS ≈ Z-Star in results, drop the weaker pairs. | `products.ts` |
-| 21 | **Expand to Amazon US** — same quiz, US ASINs, `.com` affiliate tag. Doubles addressable market with minimal rework. | New config variant |
-| 22 | **Add retailer diversity** — American Golf UK, Direct Golf. Commission typically 5–8% vs Amazon's 3–5%, and converts well from independent fitters. | `products.ts` + `affiliateLinks` field |
+| 10 | **Scoring tuning pass** � once GA4 data shows over/under-recommended products, adjust signal weights. | `config/pillow/scoring.ts` |
+| 11 | **Implement results share URL** � encode quiz answers in query string. Share text: _"Found my ideal pillow in 7 questions"_ | `app/results/page.tsx` |
+| 12 | **Add email capture on results page** � "Email me my results" builds list, creates second affiliate click | `app/results/page.tsx` |
+| 13 | **Expand UK specialist retailers** � Dunelm (direct), John Lewis (direct), Dreams. Commission typically 5-8% vs Amazon 3-5%. Register via Awin. | `config/pillow/buy-links.ts` |
+| 14 | **Review product catalogue** � check if any two products score near-identically for most personas. Replace the weaker with a more distinct alternative. | `config/pillow/products.ts` |
+| 15 | **Add product descriptions** � all 10 products have empty `description` fields. Add 30-60 word copy per product. | `config/pillow/products.ts` |
+| 16 | **Apply for specialist affiliate programmes** � Dunelm, John Lewis via Awin. | External |
 
 ---
 
-## Key Logic Bugs Summary
+## Key Known Scoring Behaviours
 
-### Bug 1 — Inverted wedge spins-back (scoring.ts ~line 148)
-```ts
-// CURRENT (wrong):
-if (answers['wedge-behaviour'] === 'spins-back' && n(product.attributes.spin) >= 8) {
-  score += WEIGHTS['wedge-behaviour']; // recommends MORE spin to player with too much spin
-}
+### Hypoallergenic constraint
+Snuggledown (natural-down, not hypoallergenic) correctly scores near-zero for allergy sufferers. The -15 penalty suppresses it without hard-zeroing.
 
-// FIX — reward controlled spin (6–7), not maximum spin:
-if (answers['wedge-behaviour'] === 'spins-back') {
-  const sp = n(product.attributes.spin);
-  if (sp >= 6 && sp <= 7) { score += 2; reasons.push('Controlled spin suits your short game'); }
-  else if (sp >= 8) score -= 1; // penalise ultra-high-spin
-}
+### Budget is a soft signal
+Products 1 tier over budget get -5, not a hard block. A premium product can still win for a budget user on sleep position + neck comfort merit.
+
+### Adjustable fill bonus (+4)
+Only activates for `combination` sleep position or `no-preference` fill. Rewards Simba Hybrid and Coop Eden for flexible buyers.
+
+### Temperature / cooling
+Hot sleepers penalise memory foam without cooling (-5). Panda Bamboo and Purple Harmony Pillow benefit most (+10 cooling match).
+
+---
+
+## Recommended Question Order (current order is correct)
+
+1. Sleep position _(highest signal)_
+2. Firmness
+3. Fill preference
+4. Temperature / cooling
+5. Neck/shoulder comfort _(hard constraint for ~30% of users)_
+6. Hypoallergenic _(hard constraint for allergy sufferers)_
+7. Budget _(last � lowest emotional friction, highest product-impact)_
+
+---
+
+## Vercel Environment Variables (production)
+
 ```
-
-### Bug 2 — e6 compression mismatch (products.ts)
-```ts
-// CURRENT (wrong — scores 0 for 180-210y players):
-attributes: { ..., compression: 'mid', ... }
-
-// FIX:
-attributes: { ..., compression: 'low', ... }
+NEXT_PUBLIC_SITE_URL=https://www.findmyidealpillow.com
+NEXT_PUBLIC_GA4_ID=<pillow GA4 measurement ID>
+ADMIN_PASSWORD=<strong random string>
+ADMIN_TOKEN_SECRET=<strong random string>
+DEFAULT_CATEGORY_ID=pillow
 ```
-
----
-
-## Recommended Question Order (post-cuts)
-
-1. Driver distance _(most important signal — gates compression)_
-2. Trade-off priority _(stated intent anchor)_
-3. Stock-shot / ball flight _(merged with miss-pattern)_
-4. Miss severity _(branch from Q3 if curve answer)_
-5. Wedge behaviour / short game
-6. Feel preference
-7. Budget _(new — gates Best Value slot)_
-
-**7 questions. Cleaner, higher-signal, better mobile completion rate.**
-
----
-
-## Amazon Affiliate Application Checklist
-
-Before applying:
-
-- [ ] Privacy Policy page exists (`/privacy-policy`)
-- [ ] Affiliate disclosure on results page
-- [ ] About / homepage description paragraph
-- [ ] Real product images (no placeholders)
-- [ ] Site has received real traffic (50–100+ sessions)
-- [ ] All affiliate links use `?tag=findmyideal-21` format
-- [ ] All CTA anchors have `rel="noopener noreferrer sponsored"`
-
----
-
-## Conversion Priorities (in order of impact)
-
-1. Write human explanation copy per product for the Best Match card
-2. Fix scoring bugs (spins-back, e6 compression) before results pages are shared
-3. Add affiliate disclosure
-4. Add real product images
-5. Build one SEO landing page (`/best-golf-balls-for-slicers`) — this is your highest organic revenue path

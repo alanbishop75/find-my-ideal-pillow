@@ -181,7 +181,7 @@ function OverviewTab() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-      <SectionHeading>Golf Ball — Overview</SectionHeading>
+      <SectionHeading>Pillow — Overview</SectionHeading>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12 }}>
         {stats.map(s => (
           <div key={s.label} style={{ background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 10, padding: "14px 16px" }}>
@@ -288,7 +288,7 @@ function SEOTab() {
       <div>
         <SectionHeading>SEO Landing Pages ({seoLandingPages.length})</SectionHeading>
         <p style={{ fontSize: 13, color: "#6b7280", margin: "0 0 12px 0" }}>
-          Statically pre-rendered keyword landing pages. Each links to the fitting quiz via &quot;Find My Perfect Golf Ball&quot;.
+          Statically pre-rendered keyword landing pages. Each links to the fitting quiz via &quot;Find My Perfect Pillow&quot;.
         </p>
         <PageTable pages={seoLandingPages} />
       </div>
@@ -394,7 +394,7 @@ function MITab() {
                         <span style={{ color: "#9ca3af", fontSize: 12 }}>—</span>
                       ) : (
                         <a
-                          href={`/golf-ball/${src}`}
+                          href={`/pillow/${src}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{ color: "#3b82f6", textDecoration: "none", fontSize: 12 }}
@@ -507,7 +507,7 @@ function QuestionnaireTab() {
         border: "1px solid #bbf7d0",
         color: "#166534",
       }}>
-        Version switching has been removed. Golf Ball uses a single questionnaire and scoring model.
+        Version switching has been removed. Pillow uses a single questionnaire and scoring model.
       </div>
 
       <SectionHeading>Question Detail</SectionHeading>
@@ -848,7 +848,7 @@ function AffiliateTab() {
       <div style={{ fontSize: 12, color: "#9ca3af", display: "flex", flexDirection: "column", gap: 4 }}>
         <p style={{ margin: 0 }}>UK Amazon links use tag <code>findmyideal-21</code> and <code>rel=&quot;sponsored&quot;</code> on rendered CTAs.</p>
         <p style={{ margin: 0 }}>US Amazon links are direct product URLs. Add the US Associates tag once the Amazon.com account is approved.</p>
-        <p style={{ margin: 0 }}>Scottsdale Golf and American Golf links now use direct product URLs. Add Awin IDs when those retailer accounts are registered.</p>
+        <p style={{ margin: 0 }}>John Lewis and Dunelm links are temporary search URLs. Add Awin IDs when those retailer accounts are registered.</p>
       </div>
     </div>
   );
@@ -884,7 +884,7 @@ function ThemeTab() {
       });
       if (!res.ok) throw new Error("Failed to save theme");
       setLiveTheme(newTheme);
-      setSaveSuccess(`${themeInfo[newTheme]?.label ?? newTheme} is now live for golf-ball.`);
+      setSaveSuccess(`${themeInfo[newTheme]?.label ?? newTheme} is now live for pillow.`);
       router.refresh();
     } catch {
       setSaveError("Failed to save theme. Check the server logs.");
@@ -895,7 +895,7 @@ function ThemeTab() {
 
   return (
     <div style={{ maxWidth: 560 }}>
-      <SectionHeading>Active Theme — Golf Ball</SectionHeading>
+      <SectionHeading>Active Theme — Pillow</SectionHeading>
       <p style={{ fontSize: 13, color: "#6b7280", marginBottom: 14 }}>
         Make a theme live for this environment.
       </p>

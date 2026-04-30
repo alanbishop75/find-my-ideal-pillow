@@ -8,6 +8,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function GolfBallResultsLayout({ children }: { children: React.ReactNode }) {
+export default function PillowResultsLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
