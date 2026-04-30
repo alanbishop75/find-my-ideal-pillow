@@ -69,8 +69,8 @@ export default async function Page({ params }: Props) {
     description: page.metaDescription,
     inLanguage: "en-GB",
     mainEntityOfPage: pageUrl,
-    dateModified: page.lastReviewed,
-    datePublished: page.lastReviewed,
+    dateModified: `${page.lastReviewed}T00:00:00Z`,
+    datePublished: `${page.lastReviewed}T00:00:00Z`,
     image: [
       {
         "@type": "ImageObject",
