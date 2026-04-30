@@ -1,9 +1,84 @@
 "use client";
 import { useTheme } from "../../../core/theme";
 import type { PillowSeoPage } from "../../../config/pillow/seo-pages";
+import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
 
+/**
+ * Renders an SEO landing page for a pillow keyword.
+ *
+ * Structure (locked — every page follows this layout for scalability):
+ *   1. Breadcrumb (visual)
+ *   2. <article>
+ *        H1 + intro + primary CTA + reassurance row
+ *        "Who this is for"
+ *        How the quiz works (3 steps)
+ *        Long-form sections (H2, optional H3)
+ *        Mid-page repeat CTA
+ *        "What our quiz looks for"
+ *        FAQ
+ *        Last reviewed line
+ *   3. Related guides (internal links)
+ */
 export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) {
   const { tokens } = useTheme();
+  const quizHref = `/pillow/questionnaire?ref=${page.slug}`;
+  const related = page.relatedSlugs
+    .map((s) => pillowSeoPageMap[s])
+    .filter((p): p is PillowSeoPage => Boolean(p));
+
+  const cardStyle: React.CSSProperties = {
+    background: tokens.surface,
+    border: `1px solid ${tokens.border}`,
+    borderRadius: 16,
+    padding: "24px 28px",
+    marginTop: 20,
+  };
+
+  const h2Style: React.CSSProperties = {
+    fontSize: 20,
+    fontWeight: 700,
+    color: tokens.textPrimary,
+    margin: "0 0 12px 0",
+    lineHeight: 1.3,
+  };
+
+  const h3Style: React.CSSProperties = {
+    fontSize: 16,
+    fontWeight: 700,
+    color: tokens.textPrimary,
+    margin: "16px 0 6px 0",
+    lineHeight: 1.35,
+  };
+
+  const bodyStyle: React.CSSProperties = {
+    fontSize: 15,
+    color: tokens.textSecondary,
+    lineHeight: 1.7,
+    margin: 0,
+  };
+
+  const ctaButton = (label: string) => (
+    <a
+      href={quizHref}
+      style={{
+        marginTop: 8,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        background: tokens.accent,
+        color: "#fff",
+        borderRadius: 10,
+        height: 52,
+        fontWeight: 700,
+        fontSize: 18,
+        textDecoration: "none",
+        letterSpacing: 0.2,
+      }}
+    >
+      {label}
+    </a>
+  );
 
   return (
     <div
@@ -14,252 +89,309 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        paddingTop: 48,
+        paddingTop: 32,
         paddingBottom: 48,
         paddingLeft: 16,
         paddingRight: 16,
       }}
     >
-      <main style={{ width: "100%", maxWidth: 560 }}>
-        {/* Hero card */}
-        <div
-          style={{
-            background: tokens.surface,
-            border: `1px solid ${tokens.border}`,
-            borderRadius: 16,
-            padding: "32px 28px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 16,
-            boxShadow: "0 4px 24px rgba(0,0,0,0.05)",
-          }}
+      <main style={{ width: "100%", maxWidth: 640 }}>
+        {/* Breadcrumb */}
+        <nav
+          aria-label="Breadcrumb"
+          style={{ fontSize: 13, color: tokens.textSecondary, marginBottom: 16 }}
         >
-          <h1
-            style={{
-              fontSize: 28,
-              fontWeight: 700,
-              color: tokens.textPrimary,
-              textAlign: "center",
-              margin: 0,
-              lineHeight: 1.25,
-            }}
-          >
-            {page.h1}
-          </h1>
-
-          <p
-            style={{
-              fontSize: 15,
-              color: tokens.textSecondary,
-              textAlign: "center",
-              margin: 0,
-              lineHeight: 1.65,
-            }}
-          >
-            {page.intro}
-          </p>
-
-          <a
-            href={`/pillow/questionnaire?ref=${page.slug}`}
-            style={{
-              marginTop: 8,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              background: tokens.accent,
-              color: "#fff",
-              borderRadius: 10,
-              height: 52,
-              fontWeight: 700,
-              fontSize: 18,
-              textDecoration: "none",
-              letterSpacing: 0.2,
-            }}
-          >
-            Find My Perfect Pillow
+          <a href="/" style={{ color: tokens.textSecondary, textDecoration: "none" }}>
+            Home
           </a>
-
-          <p
-            style={{
-              fontSize: 13,
-              color: tokens.textSecondary,
-              textAlign: "center",
-              margin: 0,
-            }}
+          <span style={{ margin: "0 6px" }}>›</span>
+          <a
+            href="/pillow/questionnaire"
+            style={{ color: tokens.textSecondary, textDecoration: "none" }}
           >
-            Takes under 2 minutes · No sign-up required
-          </p>
-        </div>
+            Pillow finder
+          </a>
+          <span style={{ margin: "0 6px" }}>›</span>
+          <span style={{ color: tokens.textPrimary }}>{page.breadcrumbLabel}</span>
+        </nav>
 
-        {/* Trust / context strip */}
-        <div
-          style={{
-            marginTop: 28,
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 12,
-            textAlign: "center",
-          }}
-        >
-          {[
-            { icon: "🎯", label: "Personalised", sub: "to how you sleep" },
-            { icon: "⚡", label: "2 minutes", sub: "start to finish" },
-            { icon: "🆓", label: "Free", sub: "no sign-up needed" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              style={{
-                background: tokens.surface,
-                border: `1px solid ${tokens.border}`,
-                borderRadius: 12,
-                padding: "14px 8px",
-              }}
-            >
-              <div style={{ fontSize: 22, marginBottom: 4 }}>{item.icon}</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: tokens.textPrimary }}>
-                {item.label}
-              </div>
-              <div style={{ fontSize: 12, color: tokens.textSecondary }}>{item.sub}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* How it works */}
-        <div
-          style={{
-            marginTop: 28,
-            background: tokens.surface,
-            border: `1px solid ${tokens.border}`,
-            borderRadius: 16,
-            padding: "24px 28px",
-          }}
-        >
-          <h2
+        <article>
+          {/* Hero */}
+          <header
             style={{
-              fontSize: 18,
-              fontWeight: 700,
-              color: tokens.textPrimary,
-              margin: "0 0 16px 0",
-            }}
-          >
-            How the fitting quiz works
-          </h2>
-          <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10 }}>
-            {[
-              "Answer a few quick questions about how you sleep",
-              "We analyse your sleep position, body heat, and priorities",
-              "Get your personalised pillow recommendations",
-            ].map((step, i) => (
-              <li
-                key={i}
-                style={{ fontSize: 14, color: tokens.textSecondary, lineHeight: 1.5 }}
-              >
-                {step}
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        {/* Why it matters */}
-        {page.whyItMatters && (
-          <div
-            style={{
-              marginTop: 28,
               background: tokens.surface,
               border: `1px solid ${tokens.border}`,
               borderRadius: 16,
-              padding: "24px 28px",
+              padding: "32px 28px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+              boxShadow: "0 4px 24px rgba(0,0,0,0.05)",
             }}
           >
-            <h2
+            <h1
               style={{
-                fontSize: 18,
+                fontSize: 28,
                 fontWeight: 700,
                 color: tokens.textPrimary,
-                margin: "0 0 12px 0",
+                textAlign: "center",
+                margin: 0,
+                lineHeight: 1.25,
               }}
             >
-              Why pillow choice matters for {page.h1}
-            </h2>
-            <p style={{ fontSize: 14, color: tokens.textSecondary, lineHeight: 1.7, margin: 0 }}>
-              {page.whyItMatters}
-            </p>
-          </div>
-        )}
+              {page.h1}
+            </h1>
 
-        {/* Key factors */}
-        {page.keyFactors && page.keyFactors.length > 0 && (
+            <p
+              style={{
+                fontSize: 15,
+                color: tokens.textSecondary,
+                textAlign: "center",
+                margin: 0,
+                lineHeight: 1.65,
+              }}
+            >
+              {page.intro}
+            </p>
+
+            {ctaButton("Find My Perfect Pillow")}
+
+            <p
+              style={{
+                fontSize: 13,
+                color: tokens.textSecondary,
+                textAlign: "center",
+                margin: 0,
+              }}
+            >
+              Takes under 2 minutes · No sign-up · UK retailers
+            </p>
+          </header>
+
+          {/* Trust strip */}
           <div
             style={{
               marginTop: 20,
-              background: tokens.surface,
-              border: `1px solid ${tokens.border}`,
-              borderRadius: 16,
-              padding: "24px 28px",
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 12,
+              textAlign: "center",
             }}
           >
-            <h2
+            {[
+              { label: "Personalised", sub: "to how you sleep" },
+              { label: "2 minutes", sub: "start to finish" },
+              { label: "Independent", sub: "no brand bias" },
+            ].map((item) => (
+              <div
+                key={item.label}
+                style={{
+                  background: tokens.surface,
+                  border: `1px solid ${tokens.border}`,
+                  borderRadius: 12,
+                  padding: "14px 8px",
+                }}
+              >
+                <div style={{ fontSize: 14, fontWeight: 700, color: tokens.textPrimary }}>
+                  {item.label}
+                </div>
+                <div style={{ fontSize: 12, color: tokens.textSecondary }}>{item.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Who this is for */}
+          {page.whoItsFor.length > 0 && (
+            <section style={cardStyle}>
+              <h2 style={h2Style}>Is this guide for you?</h2>
+              <ul
+                style={{
+                  margin: 0,
+                  paddingLeft: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                }}
+              >
+                {page.whoItsFor.map((line, i) => (
+                  <li key={i} style={bodyStyle}>
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* How the quiz works */}
+          <section style={cardStyle}>
+            <h2 style={h2Style}>How the matching quiz works</h2>
+            <ol
               style={{
-                fontSize: 18,
-                fontWeight: 700,
-                color: tokens.textPrimary,
-                margin: "0 0 14px 0",
+                margin: 0,
+                paddingLeft: 20,
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
               }}
             >
-              What to look for
-            </h2>
-            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10 }}>
-              {page.keyFactors.map((factor, i) => (
-                <li key={i} style={{ fontSize: 14, color: tokens.textSecondary, lineHeight: 1.6 }}>
-                  {factor}
+              {[
+                "Answer a few quick questions about how you sleep",
+                "We match against pillows verified on UK Amazon, scoring on fit, temperature and budget",
+                "Get a shortlist with reasons — not a single pushed product",
+              ].map((step, i) => (
+                <li key={i} style={bodyStyle}>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* Educational sections */}
+          {page.sections.map((section, idx) => (
+            <section key={idx} style={cardStyle}>
+              <h2 style={h2Style}>{section.h2}</h2>
+              {section.body && <p style={bodyStyle}>{section.body}</p>}
+              {section.subsections?.map((sub, j) => (
+                <div key={j}>
+                  <h3 style={h3Style}>{sub.h3}</h3>
+                  <p style={bodyStyle}>{sub.body}</p>
+                </div>
+              ))}
+            </section>
+          ))}
+
+          {/* Mid-page CTA */}
+          <div
+            style={{
+              ...cardStyle,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 12,
+            }}
+          >
+            <p
+              style={{
+                ...bodyStyle,
+                textAlign: "center",
+                fontWeight: 600,
+                color: tokens.textPrimary,
+                fontSize: 16,
+              }}
+            >
+              Ready to skip the research?
+            </p>
+            <p style={{ ...bodyStyle, textAlign: "center" }}>
+              Answer a few quick questions and we&apos;ll match you to pillows that fit
+              your build, position and budget.
+            </p>
+            {ctaButton("Start the 2-minute quiz")}
+          </div>
+
+          {/* Key factors */}
+          {page.keyFactors.length > 0 && (
+            <section style={cardStyle}>
+              <h2 style={h2Style}>What our quiz looks at</h2>
+              <ul
+                style={{
+                  margin: 0,
+                  paddingLeft: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 10,
+                }}
+              >
+                {page.keyFactors.map((factor, i) => (
+                  <li key={i} style={bodyStyle}>
+                    {factor}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* FAQ */}
+          {page.faq.length > 0 && (
+            <section style={cardStyle}>
+              <h2 style={h2Style}>Frequently asked questions</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {page.faq.map((item, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      borderTop: i > 0 ? `1px solid ${tokens.border}` : "none",
+                      paddingTop: i > 0 ? 16 : 0,
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 600,
+                        color: tokens.textPrimary,
+                        margin: "0 0 6px 0",
+                      }}
+                    >
+                      {item.q}
+                    </p>
+                    <p style={bodyStyle}>{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Last reviewed (E-E-A-T signal) */}
+          <p
+            style={{
+              fontSize: 12,
+              color: tokens.textSecondary,
+              textAlign: "center",
+              marginTop: 20,
+              marginBottom: 0,
+            }}
+          >
+            Last reviewed:{" "}
+            {new Date(page.lastReviewed).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+            . We update this guide whenever our verified UK product list changes.
+          </p>
+        </article>
+
+        {/* Related guides */}
+        {related.length > 0 && (
+          <aside style={cardStyle} aria-label="Related guides">
+            <h2 style={h2Style}>Related guides</h2>
+            <ul
+              style={{
+                margin: 0,
+                paddingLeft: 0,
+                listStyle: "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+              }}
+            >
+              {related.map((p) => (
+                <li key={p.slug}>
+                  <a
+                    href={`/pillow/${p.slug}`}
+                    style={{
+                      color: tokens.accent,
+                      textDecoration: "none",
+                      fontSize: 15,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {p.h1} →
+                  </a>
                 </li>
               ))}
             </ul>
-          </div>
-        )}
-
-        {/* FAQ */}
-        {page.faq && page.faq.length > 0 && (
-          <div
-            style={{
-              marginTop: 20,
-              background: tokens.surface,
-              border: `1px solid ${tokens.border}`,
-              borderRadius: 16,
-              padding: "24px 28px",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: 18,
-                fontWeight: 700,
-                color: tokens.textPrimary,
-                margin: "0 0 18px 0",
-              }}
-            >
-              Frequently asked questions
-            </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {page.faq.map((item, i) => (
-                <div
-                  key={i}
-                  style={{
-                    borderTop: i > 0 ? `1px solid ${tokens.border}` : "none",
-                    paddingTop: i > 0 ? 16 : 0,
-                  }}
-                >
-                  <p style={{ fontSize: 14, fontWeight: 600, color: tokens.textPrimary, margin: "0 0 6px 0" }}>
-                    {item.q}
-                  </p>
-                  <p style={{ fontSize: 14, color: tokens.textSecondary, lineHeight: 1.7, margin: 0 }}>
-                    {item.a}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          </aside>
         )}
       </main>
     </div>

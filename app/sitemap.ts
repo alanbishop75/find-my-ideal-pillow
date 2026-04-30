@@ -51,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const seoLandingPages: MetadataRoute.Sitemap = pillowSeoPages.map((page) => ({
     url: `${SITE_URL}/pillow/${page.slug}`,
-    lastModified: new Date('2026-04-26'),
+    lastModified: new Date(page.lastReviewed),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));
