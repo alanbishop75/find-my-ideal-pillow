@@ -19,7 +19,7 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ password }),
       });
       if (res.ok) {
-        router.replace("/admin/golf-ball");
+        router.replace("/admin/pillow");
       } else {
         const data = await res.json();
         setError(data.error ?? "Incorrect password.");

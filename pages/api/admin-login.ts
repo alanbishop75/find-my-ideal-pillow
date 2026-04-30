@@ -31,7 +31,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   res.setHeader(
     'Set-Cookie',
-    `fmi_admin=${token}; Path=/admin; HttpOnly; SameSite=Strict${secure ? '; Secure' : ''}; Max-Age=43200`
+    `fmi_admin=${token}; Path=/; HttpOnly; SameSite=Strict${secure ? '; Secure' : ''}; Max-Age=43200`
   );
   res.status(200).json({ ok: true });
 }

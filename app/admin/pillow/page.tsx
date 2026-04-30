@@ -163,6 +163,57 @@ function Td({ children, mono }: { children: React.ReactNode; mono?: boolean }) {
   );
 }
 
+function CopyIdCell({ value }: { value: string }) {
+  const [copied, setCopied] = React.useState(false);
+
+  async function copyValue() {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1200);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+      <code style={{ fontSize: 12 }}>{value}</code>
+      <button
+        type="button"
+        onClick={copyValue}
+        style={{
+          fontSize: 11,
+          fontWeight: 600,
+          border: "1px solid #d1d5db",
+          borderRadius: 6,
+          background: copied ? "#dcfce7" : "#f9fafb",
+          color: copied ? "#166534" : "#374151",
+          padding: "2px 8px",
+          cursor: "pointer",
+          lineHeight: 1.4,
+          whiteSpace: "nowrap",
+        }}
+        aria-label={`Copy ${value}`}
+      >
+        {copied ? "Copied" : "Copy"}
+      </button>
+    </span>
+  );
+}
+
 // ── Tabs ───────────────────────────────────────────────────────────────────────
 
 function OverviewTab() {
@@ -434,7 +485,7 @@ function MITab() {
               return (
                 <tr key={q.id}>
                   <Td>{i + 1}</Td>
-                  <Td mono>{q.id}</Td>
+                  <Td mono><CopyIdCell value={q.id} /></Td>
                   <Td>{q.text}</Td>
                   <Td>{totalAnswered > 0 ? totalAnswered : <span style={{ color: "#9ca3af" }}>—</span>}</Td>
                   <Td>
@@ -582,7 +633,7 @@ function ProductsTab() {
             const hasImage = p.imageUrl !== "/placeholder.png";
             return (
               <tr key={p.id}>
-                <Td mono>{p.id}</Td>
+                <Td mono><CopyIdCell value={p.id} /></Td>
                 <Td>{p.brand}</Td>
                 <Td><strong>{p.name}</strong></Td>
                 <Td>
@@ -814,7 +865,7 @@ function AffiliateTab() {
                     <strong>{row.productName}</strong>
                   )}
                 </Td>
-                <Td mono>{row.productId}</Td>
+                <Td mono><CopyIdCell value={row.productId} /></Td>
                 <Td>
                   <Pill color={row.region === "UK" ? "#3b82f6" : row.region === "US" ? "#8b5cf6" : "#9ca3af"}>
                     {row.region}
