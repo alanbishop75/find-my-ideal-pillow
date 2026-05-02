@@ -356,7 +356,114 @@ Select-String -Path "app\**\*.tsx","config\**\*.ts","lib\**\*.ts" -Pattern "<old
 
 ---
 
-## Phase 5 — SEO Content (2–4 hours, copywriting)
+## Phase 5 — Direct Links & Product Images (MANDATORY — do before anything else goes live)
+
+> **This phase is non-negotiable.** Every product launch requires verified direct Amazon links and
+> real product images before any traffic is sent to the site. Search URLs and placeholder images
+> are only acceptable during local development. They must be replaced before the site is deployed
+> to a staging or production URL.
+
+---
+
+### 5.1 Verify and replace Amazon UK buy-links
+
+Each product starts with a generated search URL (`isTemporary: true`). You must replace every one
+with a direct ASIN deep link before launch.
+
+**Step-by-step process:**
+
+1. **Open Amazon UK** and search for each product manually.
+2. **Find the correct listing** — check brand, name, and product type match exactly.
+3. **Copy the ASIN** from the URL (`/dp/XXXXXXXXXX`) or product details panel.
+4. **Build the direct link:**
+   ```
+   https://www.amazon.co.uk/dp/<ASIN>?tag=<uk-associate-tag>
+   ```
+5. **Update `config/<product>/buy-links.ts`** — replace the `searchLink(...)` call with a direct
+   entry and set `isTemporary: false`, `source: 'manual'`, and today's date in `lastCheckedAt`.
+
+**Template for a verified direct entry:**
+```ts
+'<product-id>': {
+  UK: [
+    {
+      retailerKey: 'amazon-uk',
+      retailerName: 'Amazon UK',
+      region: 'UK',
+      url: 'https://www.amazon.co.uk/dp/<ASIN>?tag=<uk-associate-tag>',
+      expectedDomain: 'amazon.co.uk',
+      isTemporary: false,
+      source: 'manual',
+      lastCheckedAt: 'YYYY-MM-DD',
+    },
+  ],
+  US: [],
+},
+```
+
+6. **Record evidence** — add `ukAmazonVerification` to the product entry in `products.ts`:
+```ts
+ukAmazonVerification: {
+  status: 'AMAZON_UK_VERIFIED_EXACT',
+  evidence: 'Exact listing confirmed — correct brand, model, UK seller',
+  lastReviewed: 'YYYY-MM-DD',
+},
+```
+
+7. Repeat for all products. Run `scripts/validate-affiliate-links.mjs` when done to confirm all
+   links resolve correctly.
+
+> **Note on affiliate tag:** The tag (e.g. `findmyidealmattress-21`) must be registered and
+> approved at https://affiliate-program.amazon.co.uk before buy buttons are shown to users.
+> The `isTemporary: false` flag alone does not show the button — the tag must also be active.
+
+---
+
+### 5.2 Fetch and apply real product images
+
+Every product starts with `imageUrl: '/placeholder.png'`. You must replace every one with a
+real product image before launch.
+
+**Step-by-step process:**
+
+1. **Use `scripts/fetch-product-images.mjs`** — this script fetches the main product image from
+   each Amazon UK listing using the ASIN from `ukAmazonVerification`.
+   ```powershell
+   # Run AFTER Step 5.1 (links must be verified first so ASINs exist in products.ts)
+   cmd /c "node scripts/fetch-product-images.mjs > image-fetch.log 2>&1 && echo DONE"
+   ```
+   Images are saved to `public/images/<product-id>.jpg`.
+
+2. **Update `config/<product>/products.ts`** — replace `imageUrl: '/placeholder.png'` with
+   `imageUrl: '/images/<product-id>.jpg'` for each product.
+   ```powershell
+   # apply-product-images.mjs does this automatically after fetch
+   cmd /c "node scripts/apply-product-images.mjs > apply-images.log 2>&1 && echo DONE"
+   ```
+
+3. **Verify images visually** — run `npm run dev` and check the results page. Every product
+   card must show a real image, not a broken image or placeholder.
+
+4. **Optimise if needed** — images should be WebP, max 800×800px. The fetch scripts resize
+   automatically, but verify file sizes are reasonable (< 150KB each).
+
+---
+
+### 5.3 Gate check before proceeding
+
+```powershell
+# Should return 0 results — no placeholders remaining
+Select-String -Path "config\<product>\products.ts" -Pattern "placeholder"
+
+# Should return 0 results — no temporary links remaining
+Select-String -Path "config\<product>\buy-links.ts" -Pattern "isTemporary: true"
+```
+
+Both must return **zero matches** before the site is deployed to a public URL.
+
+---
+
+## Phase 6 — SEO Content (2–4 hours, copywriting)
 
 Edit `config/<product>/seo-pages.ts`. Target **4–6 landing pages**.
 
@@ -380,16 +487,13 @@ Minimum word count per page: **500 words** (for Amazon Associates review).
 
 ## Phase 6 — Launch Checklist
 
-### 6.1 Replace temporary buy-links
-- [ ] Replace all `isTemporary: true` search URLs with direct product page ASINs
-- [ ] Verify each URL resolves correctly
-- [ ] Update `source` from `'generated'` to `'manual'`
-- [ ] Add `lastCheckedAt: 'YYYY-MM-DD'`
+### 6.1 Direct links and images — must be complete
+- [ ] **Phase 5 fully completed** — zero `isTemporary: true` links remaining
+- [ ] **Phase 5 fully completed** — zero `/placeholder.png` images remaining
+- [ ] Gate checks in Phase 5.3 both return zero results
 
-### 6.2 Product images
-- [ ] Replace all `/placeholder.png` with real product images
-- [ ] Use brand press-pack images or properly licensed product photos
-- [ ] Optimise: WebP, max 800×800px
+> ⚠️ Do not skip to 6.2 until this is done. Buy buttons are hidden from users while
+> `isTemporary: true`, but placeholder images are visible and will look broken in production.
 
 ### 6.3 Vercel environment variables
 ```
@@ -447,18 +551,19 @@ _Created <date>. All items grounded in code review._
 
 | # | What | Where |
 |---|---|---|
-| 1 | Replace all `/placeholder.png` with real product images | `config/<product>/products.ts` |
-| 2 | Add affiliate disclosure to results page (UK ASA + Amazon Associates requirement) | `app/results/page.tsx` |
-| 3 | Review result card explanations — make them conversion-worthy sentences | `app/results/page.tsx` |
+| 1 | **Replace all search URLs with direct Amazon ASIN links** (see Playbook Phase 5.1) | `config/<product>/buy-links.ts` |
+| 2 | **Fetch and apply real product images** (see Playbook Phase 5.2) | `scripts/fetch-product-images.mjs` → `config/<product>/products.ts` |
+| 3 | Run Phase 5.3 gate checks — zero placeholders, zero temporary links | grep check |
+| 4 | Add affiliate disclosure to results page (UK ASA + Amazon Associates requirement) | `app/results/page.tsx` |
+| 5 | Review result card explanations — make them conversion-worthy sentences | `app/results/page.tsx` |
 
 ## 🟡 Fix Before Promotion / SEO Launch
 
 | # | What | Notes |
 |---|---|---|
-| 4 | Replace all temporary search buy-links with direct product page ASINs | `config/<product>/buy-links.ts` |
-| 5 | Build SEO landing pages (4–6 pages, 500+ words each) | `config/<product>/seo-pages.ts` |
-| 6 | Add GA4 analytics events from day one | `lib/analytics.ts` |
-| 7 | Add About page content describing the algorithm | `app/about/AboutPageClient.tsx` |
+| 6 | Build SEO landing pages (4–6 pages, 500+ words each) | `config/<product>/seo-pages.ts` |
+| 7 | Add GA4 analytics events from day one | `lib/analytics.ts` |
+| 8 | Add About page content describing the algorithm | `app/about/AboutPageClient.tsx` |
 
 ## 🟢 Post-Launch
 
