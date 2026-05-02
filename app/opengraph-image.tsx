@@ -16,45 +16,111 @@ export default function OgImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#f5f0eb",
-          fontFamily: "sans-serif",
+          background: "linear-gradient(135deg, #f4ede3 0%, #dbe7f6 100%)",
+          fontFamily: "Georgia, serif",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
         <div
           style={{
-            fontSize: 56,
+            position: "absolute",
+            inset: "48px auto auto 48px",
+            width: 220,
+            height: 220,
+            borderRadius: 999,
+            background: "rgba(193, 123, 58, 0.12)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            right: 64,
+            bottom: 56,
+            width: 260,
+            height: 260,
+            borderRadius: 32,
+            background: "rgba(89, 115, 161, 0.14)",
+            transform: "rotate(18deg)",
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "0 96px",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 18,
+              fontWeight: 700,
+              letterSpacing: 3,
+              textTransform: "uppercase",
+              color: "#6f5633",
+              marginBottom: 18,
+            }}
+          >
+            FindMyIdealPillow
+          </div>
+        <div
+          style={{
+            fontSize: 62,
             fontWeight: 700,
             color: "#1a1a1a",
             textAlign: "center",
             maxWidth: 900,
-            lineHeight: 1.2,
+            lineHeight: 1.12,
           }}
         >
-          Find My Ideal Pillow
+          Find the right pillow for how you actually sleep
         </div>
         <div
           style={{
             marginTop: 24,
             fontSize: 28,
-            color: "#555",
+            color: "#4b5876",
             textAlign: "center",
-            maxWidth: 800,
+            maxWidth: 860,
           }}
         >
-          Personalised pillow recommendations · 2-minute quiz · UK retailers
+          Personalised recommendations, a fast quiz, and region-aware UK and US retailer links
         </div>
         <div
           style={{
             marginTop: 40,
-            background: "#c17b3a",
-            color: "#fff",
-            borderRadius: 12,
-            padding: "16px 40px",
-            fontSize: 24,
-            fontWeight: 700,
+            display: "flex",
+            gap: 16,
           }}
         >
-          findmyidealpillow.com
+          <div
+            style={{
+              background: "#c17b3a",
+              color: "#fff",
+              borderRadius: 999,
+              padding: "14px 28px",
+              fontSize: 22,
+              fontWeight: 700,
+            }}
+          >
+            2-minute quiz
+          </div>
+          <div
+            style={{
+              background: "rgba(255,255,255,0.78)",
+              color: "#23314d",
+              borderRadius: 999,
+              padding: "14px 28px",
+              fontSize: 22,
+              fontWeight: 700,
+              border: "1px solid rgba(35,49,77,0.12)",
+            }}
+          >
+            findmyidealpillow.com
+          </div>
+        </div>
         </div>
       </div>
     ),

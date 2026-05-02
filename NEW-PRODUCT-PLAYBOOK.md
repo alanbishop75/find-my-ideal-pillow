@@ -260,7 +260,7 @@ export const <product>BuyLinks: Record<string, BuyLinks> = {
         retailerKey: 'amazon',
         retailerName: 'Amazon UK',
         region: 'UK',
-        url: 'https://www.amazon.co.uk/s?k=<search+terms>&tag=findmyideal-21',
+        url: 'https://www.amazon.co.uk/s?k=<search+terms>&tag=<uk-associate-tag>',
         expectedDomain: 'amazon.co.uk',
         isTemporary: true,
         source: 'generated',

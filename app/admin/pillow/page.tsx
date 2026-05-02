@@ -897,7 +897,7 @@ function AffiliateTab() {
       </TableWrap>
 
       <div style={{ fontSize: 12, color: "#9ca3af", display: "flex", flexDirection: "column", gap: 4 }}>
-        <p style={{ margin: 0 }}>UK Amazon links use tag <code>findmyideal-21</code> and <code>rel=&quot;sponsored&quot;</code> on rendered CTAs.</p>
+        <p style={{ margin: 0 }}>UK Amazon links use tag <code>findmyidealpillow-21</code> and <code>rel=&quot;sponsored&quot;</code> on rendered CTAs.</p>
         <p style={{ margin: 0 }}>US Amazon links are direct product URLs. Add the US Associates tag once the Amazon.com account is approved.</p>
         <p style={{ margin: 0 }}>John Lewis and Dunelm links are temporary search URLs. Add Awin IDs when those retailer accounts are registered.</p>
       </div>

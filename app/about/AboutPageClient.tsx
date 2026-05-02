@@ -52,6 +52,10 @@ export default function AboutPageClient() {
       </p>
       {amazonDisclosure ? <p>{amazonDisclosure}</p> : null}
       <p>Our recommendations are driven by the scoring algorithm - not by commission rates or sponsorship.</p>
+      <p>
+        Prices and availability are set by retailers, not by us, and may change at any time. Always confirm the latest
+        product details, delivery terms, and return policy on the retailer&apos;s site before purchasing.
+      </p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>Who&rsquo;s behind this</h2>
       <p>

@@ -3,7 +3,7 @@
  *
  * Validates every SiteStripe affiliate link in config/pillow/buy-links.ts
  * by following the amzn.to redirect and confirming the final URL contains
- * the expected ASIN.
+ * both the expected ASIN and the expected UK Associates tag.
  *
  * Usage:
  *   node scripts/validate-affiliate-links.mjs
@@ -17,6 +17,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const UK_ASSOCIATE_TAG = "findmyidealpillow-21";
 const CONCURRENCY = (() => {
   const idx = process.argv.indexOf("--concurrency");
   return idx !== -1 ? parseInt(process.argv[idx + 1], 10) || 3 : 3;
@@ -44,6 +45,7 @@ console.log(
   "Product ID".padEnd(42),
   "Short URL".padEnd(28),
   "Expected ASIN".padEnd(14),
+  "Tag".padEnd(8),
   "Result"
 );
 console.log("─".repeat(110));
@@ -63,10 +65,21 @@ async function checkLink({ productId, url, asin }) {
       signal: AbortSignal.timeout(10_000),
     });
     const finalUrl = res.url;
-    const pass = finalUrl.includes(asin);
-    return { productId, url, asin, finalUrl, pass, error: null };
+    const asinPass = finalUrl.includes(asin);
+    const tagPass = finalUrl.includes(`tag=${UK_ASSOCIATE_TAG}`);
+    const pass = asinPass && tagPass;
+    return { productId, url, asin, finalUrl, asinPass, tagPass, pass, error: null };
   } catch (err) {
-    return { productId, url, asin, finalUrl: null, pass: false, error: err.message };
+    return {
+      productId,
+      url,
+      asin,
+      finalUrl: null,
+      asinPass: false,
+      tagPass: false,
+      pass: false,
+      error: err.message,
+    };
   }
 }
 
@@ -92,11 +105,16 @@ let passed = 0;
 let failed = 0;
 
 for (const r of results) {
-  const status = r.pass ? "✓ PASS" : r.error ? `✗ ERROR: ${r.error}` : `✗ FAIL — resolved to: ${r.finalUrl ?? "(no URL)"}`;
+  const status = r.pass
+    ? "✓ PASS"
+    : r.error
+      ? `✗ ERROR: ${r.error}`
+      : `✗ FAIL — resolved to: ${r.finalUrl ?? "(no URL)"}`;
   console.log(
     r.productId.padEnd(42),
     r.url.padEnd(28),
     r.asin.padEnd(14),
+    String(r.tagPass ? "yes" : "no").padEnd(8),
     status
   );
   if (r.pass) passed++;

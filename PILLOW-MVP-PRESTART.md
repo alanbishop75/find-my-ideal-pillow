@@ -25,7 +25,7 @@
 
 ## Phase 3 — Establish Conventions Before Writing Code
 
-- [ ] 5. Decide affiliate strategy — use the same Amazon UK tag (`findmyideal-21`) or create a separate pillow-specific tag for attribution. Establish this convention before any `products.ts` file is created.
+- [ ] 5. Decide affiliate strategy — use the same Amazon UK tag (`findmyidealpillow-21`) or create a separate pillow-specific tag for attribution. Establish this convention before any `products.ts` file is created.
 
 - [ ] 6. Decide SEO page routing — will pillow SEO landing pages use `app/pillow/[slug]/` (new, category-specific) or a generic `app/[category]/[slug]/` route? This decision affects how much structural work is needed.
 

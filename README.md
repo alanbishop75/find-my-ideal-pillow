@@ -110,7 +110,7 @@ Before going live, verify:
 - [ ] Canonical tag correct on homepage
 - [ ] Admin login works at `/admin/login`
 - [ ] Questionnaire → results flow works end to end
-- [ ] Amazon UK affiliate tag (`findmyideal-21`) is live
+- [x] Amazon UK affiliate tag (`findmyidealpillow-21`) is live (spot-checked May 2 2026)
 - [ ] Amazon US affiliate tag set once Associates approved
 
 ---
@@ -227,7 +227,7 @@ Before going live, verify:
 - [ ] Canonical tag correct on homepage (`<link rel="canonical" href="https://www.findmyidealgolfball.com/">`)
 - [ ] Admin login works at `/admin/login`
 - [ ] Questionnaire → results flow works end to end
-- [ ] Amazon affiliate tag (`findmyideal-21`) is your live Associates tag
+- [ ] Amazon affiliate tag (`findmyidealpillow-21`) is your live Associates tag
 
 ---
 
