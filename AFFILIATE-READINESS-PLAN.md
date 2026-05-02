@@ -40,7 +40,7 @@ Affiliate disclosure note:
 
 ### A3. Results page default behaviour
 - [x] Add `noindex` metadata to the results route — created `app/pillow/results/layout.tsx` and `app/results/layout.tsx`
-- [ ] Optionally: add a redirect/gate so `/pillow/results` without quiz answers redirects to the questionnaire _(nice-to-have)_
+- [x] Add a redirect/gate so `/pillow/results` without quiz answers redirects to the questionnaire with a visible fallback state
 
 ### A4. Legal pages — missing pages
 - [x] Create `/terms` page — created [app/terms/page.tsx](app/terms/page.tsx)
@@ -147,5 +147,6 @@ _Update this section as items are completed._
 | May 2 2026 | B1/B2/B3/B4/B5/C2/C4 | Marked completed pillow-specific SEO depth, metadata, direct Amazon link, test, About-page explainer, FAQ, and US `.com` link items that were already true in code/live site |
 | May 2 2026 | Checklist | Spot-checked 5 UK `amzn.to` links; final Amazon UK redirects include `tag=findmyidealpillow-21` and the expected ASIN |
 | May 2 2026 | B2/B5 | Wired root metadata to the `/opengraph-image` route and added a permanent price/availability caveat to `/about` |
+| May 2 2026 | A3/SEO | Added an explicit empty-results gate and switched sitemap static pages to dynamic `lastModified` timestamps |
 |------|---------|-------|
 | Apr 26 2026 | — | Audit completed. Plan created. No items checked yet. |

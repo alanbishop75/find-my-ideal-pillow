@@ -23,6 +23,7 @@ function CategoryResultsInner() {
       scoringEngine={config.scoringEngine}
       resultsHeading={config.meta.resultsHeading}
       homeHref="/"
+      questionnaireHref={`/${categoryId}/questionnaire`}
     />
   );
 }

@@ -10,6 +10,7 @@ export default function PillowResultsPage() {
       scoringEngine={config.scoringEngine}
       resultsHeading={config.meta.resultsHeading}
       homeHref="/"
+      questionnaireHref="/pillow/questionnaire"
     />
   );
 }

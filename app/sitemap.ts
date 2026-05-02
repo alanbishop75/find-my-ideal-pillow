@@ -4,46 +4,47 @@ import { pillowSeoPages } from '../config/pillow/seo-pages';
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findmyidealpillow.com').replace(/\/$/, '');
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/`,
-      lastModified: new Date('2026-04-26'),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
       url: `${SITE_URL}/pillow/questionnaire`,
-      lastModified: new Date('2026-04-26'),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/about`,
-      lastModified: new Date('2026-04-26'),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
       url: `${SITE_URL}/privacy-policy`,
-      lastModified: new Date('2026-04-26'),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/terms`,
-      lastModified: new Date('2026-04-26'),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/contact`,
-      lastModified: new Date('2026-04-26'),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.4,
     },
     {
       url: `${SITE_URL}/faq`,
-      lastModified: new Date('2026-04-28'),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.5,
     },

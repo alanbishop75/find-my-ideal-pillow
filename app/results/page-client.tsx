@@ -73,9 +73,16 @@ interface ResultsPageProps {
   scoringEngine?: ScoringEngine;
   resultsHeading?: string;
   homeHref?: string;
+  questionnaireHref?: string;
 }
 
-function ResultsPageInner({ products, scoringEngine, resultsHeading, homeHref = '/' }: ResultsPageProps) {
+function ResultsPageInner({
+  products,
+  scoringEngine,
+  resultsHeading,
+  homeHref = '/',
+  questionnaireHref = '/pillow/questionnaire',
+}: ResultsPageProps) {
   const { answers, reset } = useAppState();
   const { tokens } = useTheme();
   const { region } = useRegion();
@@ -109,9 +116,9 @@ function ResultsPageInner({ products, scoringEngine, resultsHeading, homeHref = 
   // Redirect to questionnaire if there are no answers (direct URL access)
   useEffect(() => {
     if (!hasAnswers) {
-      router.replace('/pillow/questionnaire');
+      router.replace(questionnaireHref);
     }
-  }, [hasAnswers, router]);
+  }, [hasAnswers, questionnaireHref, router]);
 
   const scored = resolvedProducts.map((p) => {
     const { score, reasons } = hasAnswers ? resolvedEngine(p, answers) : { score: 0, reasons: [] };
@@ -235,7 +242,25 @@ function ResultsPageInner({ products, scoringEngine, resultsHeading, homeHref = 
     trackEvent('results_viewed', { best_match: best.id });
   }, [hasAnswers, best.id]);
 
-  if (!hasAnswers) return null;
+  if (!hasAnswers) {
+    return (
+      <div style={{ minHeight: "100vh", background: tokens.background, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px" }}>
+        <main style={{ width: "100%", maxWidth: 440, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center" }}>
+          <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: tokens.textPrimary }}>Let&apos;s start with the quiz</h2>
+          <p style={{ margin: 0, color: tokens.textSecondary, lineHeight: 1.6 }}>
+            We need your answers before we can build personalised pillow matches. Redirecting you now.
+          </p>
+          <Button
+            onClick={() => router.replace(questionnaireHref)}
+            variant="primary"
+            style={{ width: "100%", fontWeight: 700, fontSize: 16 }}
+          >
+            Go to questionnaire
+          </Button>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div style={{ minHeight: "100vh", background: tokens.background, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
