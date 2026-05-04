@@ -154,35 +154,9 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 			}}>
 				{isHydrated && <span data-testid="questionnaire-ready" style={{ display: "none" }}>ready</span>}
 
-				{current > 0 && (
-					<button
-						type="button"
-						data-testid="question-back"
-						disabled={!isHydrated}
-						onClick={handleBack}
-						style={{
-							alignSelf: "flex-start",
-							background: "rgba(255,255,255,0.1)",
-							border: "1px solid rgba(255,255,255,0.3)",
-							borderRadius: 8,
-							padding: "10px 18px",
-							color: "rgba(255,255,255,0.85)",
-							fontSize: 15,
-							fontWeight: 500,
-							cursor: "pointer",
-							display: "flex",
-							alignItems: "center",
-							gap: 6,
-							minHeight: 44,
-						}}
-					>
-						← Back
-					</button>
-				)}
-
 				<div>
 					<div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 6 }}>
-						<span style={{ fontSize: 13, color: "#9b87bc", fontWeight: 600 }}>{progress}% complete</span>
+						<span style={{ fontSize: 13, color: "#ffffff", fontWeight: 700 }}>{progress}% complete</span>
 					</div>
 					<div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 8, height: 6, width: "100%" }}>
 						<div style={{ background: "#9b87bc", height: 6, borderRadius: 8, width: `${progress}%`, transition: "width 0.3s", boxShadow: "0 0 8px rgba(155,135,188,0.6)" }} />
@@ -225,6 +199,32 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 						);
 					})}
 				</div>
+
+				{current > 0 && (
+					<button
+						type="button"
+						data-testid="question-back"
+						disabled={!isHydrated}
+						onClick={handleBack}
+						style={{
+							alignSelf: "flex-start",
+							background: "rgba(255,255,255,0.1)",
+							border: "1px solid rgba(255,255,255,0.3)",
+							borderRadius: 8,
+							padding: "10px 18px",
+							color: "rgba(255,255,255,0.85)",
+							fontSize: 15,
+							fontWeight: 500,
+							cursor: "pointer",
+							display: "flex",
+							alignItems: "center",
+							gap: 6,
+							minHeight: 44,
+						}}
+					>
+						← Back
+					</button>
+				)}
 			</main>
 		</div>
 	);
