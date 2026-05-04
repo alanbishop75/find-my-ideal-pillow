@@ -1,7 +1,7 @@
 /**
  * config/pillow/seo-pages.ts
  *
- * SEO landing page definitions for FindMyIdealPillow (UK market).
+ * SEO landing page definitions for FindYourIdealPillow (UK market).
  *
  * Goal: rank for buyer-intent long-tail queries, build trust, route users
  * into the quiz, and stay safely on the right side of Amazon Associates
