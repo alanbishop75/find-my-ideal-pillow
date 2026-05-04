@@ -30,7 +30,7 @@ export default function HomePageClient() {
       {/* HERO — centred stack: logo, headline, supporting text, CTA */}
       <section
         style={{
-          background: "linear-gradient(135deg, #1a1a3e 0%, #221f4a 55%, #2c2855 100%)",
+          background: "linear-gradient(135deg, #2e2b5e 0%, #3d3875 55%, #4a4490 100%)",
           color: "#ffffff",
           padding: "48px 20px 48px",
           position: "relative",
