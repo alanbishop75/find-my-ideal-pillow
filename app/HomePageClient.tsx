@@ -16,7 +16,13 @@ const TEXT_SECONDARY = "#5a5478";
 export default function HomePageClient() {
   const { region, isLoading } = useRegion();
   const intro = getHomepageIntro(isLoading ? "UK" : region);
-  const popularGuides: { href: string; label: string }[] = [];
+  const popularGuides = [
+    { href: "/pillow/best-pillow-for-side-sleepers-uk", label: "Side sleepers" },
+    { href: "/pillow/best-pillow-for-neck-pain-uk", label: "Neck pain" },
+    { href: "/pillow/best-pillow-for-back-sleepers-uk", label: "Back sleepers" },
+    { href: "/pillow/best-cooling-pillow-uk", label: "Hot sleepers" },
+    { href: "/pillow/best-memory-foam-pillow-uk", label: "Memory foam" },
+  ];
 
   const features = [
     { icon: "📋", title: "Quick & easy", text: "A few quick questions, under 2 minutes" },
