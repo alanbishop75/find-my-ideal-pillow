@@ -1,5 +1,5 @@
 # Amazon UK Affiliate Readiness Plan
-> FindMyIdealPillow — May 2026
+> FindYourIdealPillow — May 2026
 >
 > Work through this file top to bottom. Check each item off as it is completed.
 > **Do not apply for Amazon UK Associates until all Must Fix items are checked.**
@@ -51,8 +51,8 @@ Affiliate disclosure note:
 - [x] Add Footer links to Terms and Contact pages
 
 ### A5. Brand/domain consistency on live trust pages
-- [x] `/about` source code references `hello@findmyidealpillow.com`
-- [x] `/privacy-policy` source code references `findmyidealpillow.com` and `hello@findmyidealpillow.com`
+- [x] `/about` source code references `hello@findyouridealpillow.com`
+- [x] `/privacy-policy` source code references `findyouridealpillow.com` and `hello@findyouridealpillow.com`
 - [x] Verify all trust pages reference the correct domain on the live site
 
 ---
@@ -90,7 +90,7 @@ Affiliate disclosure note:
 ## C — Nice to Have (post-launch improvements)
 
 ### C1. Social media minimum viable presence
-- [ ] Create Instagram profile with bio linking to `findmyidealpillow.com`
+- [ ] Create Instagram profile with bio linking to `findyouridealpillow.com`
 - [ ] Create Facebook Page
 - [ ] Create YouTube Shorts channel
 - [ ] Post 1 pinned launch post on each active profile
@@ -126,7 +126,7 @@ Only tick these once the above sections are done:
 - [x] `/terms` exists
 - [x] `/contact` exists or contact is prominently visible
 - [x] Affiliate disclosure is visible on results page and in footer
-- [x] All UK Amazon affiliate links use `?tag=findmyidealpillow-21` (spot-checked May 2 2026)
+- [x] All UK Amazon affiliate links use `?tag=findyouridealpillow-21` (spot-checked May 2 2026)
 - [x] Admin routes are not publicly indexable
 - [x] Build passes cleanly with no errors
 - [ ] Social profile(s) exist and link back to site
@@ -145,7 +145,7 @@ _Update this section as items are completed._
 | Apr 2026 | A5 | Source code already correct; live trust pages now show the correct pillow domain and email |
 | May 2 2026 | A1/A2/A5 | Verified live `/robots.txt` and `/sitemap.xml`; confirmed live `/about` and `/privacy-policy`; confirmed the app is serving from a successful production build |
 | May 2 2026 | B1/B2/B3/B4/B5/C2/C4 | Marked completed pillow-specific SEO depth, metadata, direct Amazon link, test, About-page explainer, FAQ, and US `.com` link items that were already true in code/live site |
-| May 2 2026 | Checklist | Spot-checked 5 UK `amzn.to` links; final Amazon UK redirects include `tag=findmyidealpillow-21` and the expected ASIN |
+| May 2 2026 | Checklist | Spot-checked 5 UK `amzn.to` links; final Amazon UK redirects include `tag=findyouridealpillow-21` and the expected ASIN |
 | May 2 2026 | B2/B5 | Wired root metadata to the `/opengraph-image` route and added a permanent price/availability caveat to `/about` |
 | May 2 2026 | A3/SEO | Added an explicit empty-results gate and switched sitemap static pages to dynamic `lastModified` timestamps |
 |------|---------|-------|
