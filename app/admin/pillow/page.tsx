@@ -339,7 +339,7 @@ function SEOTab() {
       <div>
         <SectionHeading>SEO Landing Pages ({seoLandingPages.length})</SectionHeading>
         <p style={{ fontSize: 13, color: "#6b7280", margin: "0 0 12px 0" }}>
-          Statically pre-rendered keyword landing pages. Each links to the fitting quiz via &quot;Find My Perfect Pillow&quot;.
+          Statically pre-rendered keyword landing pages. Each links to the fitting quiz via &quot;Find Your Ideal Pillow&quot;.
         </p>
         <PageTable pages={seoLandingPages} />
       </div>

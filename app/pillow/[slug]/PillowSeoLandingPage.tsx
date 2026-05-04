@@ -128,7 +128,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
           <div style={{ flexShrink: 0 }} className="seo-hero-logo">
             <Image
               src="/images/pillowLogo.PNG"
-              alt="Find My Ideal Pillow"
+              alt="Find Your Ideal Pillow"
               width={120}
               height={120}
               style={{ borderRadius: "50%", display: "block", boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5)" }}
@@ -152,7 +152,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
               {page.intro}
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }} className="seo-hero-cta">
-              {ctaButton("Find My Perfect Pillow")}
+              {ctaButton("Find Your Ideal Pillow")}
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Under 2 minutes · No sign-up</span>
             </div>
           </div>
