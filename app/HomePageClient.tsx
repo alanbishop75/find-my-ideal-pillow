@@ -56,7 +56,7 @@ export default function HomePageClient() {
           {/* Logo — visual anchor at top */}
           <Image
             src="/images/pillowLogo.PNG"
-            alt="Find My Ideal Pillow"
+            alt="Find Your Ideal Pillow"
             width={120}
             height={120}
             priority
@@ -77,7 +77,7 @@ export default function HomePageClient() {
               lineHeight: 1.1,
             }}
           >
-            Find My <span style={{ color: LAVENDER }}>Ideal Pillow</span>
+            Find Your <span style={{ color: LAVENDER }}>Ideal Pillow</span>
           </h1>
 
           {/* Intro paragraph — capped for readable line length */}
