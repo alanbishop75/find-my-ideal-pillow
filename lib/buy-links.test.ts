@@ -76,7 +76,7 @@ describe('pillow buy-links — UK Amazon only phase', () => {
       for (const link of links.US ?? []) {
         expect(link.expectedDomain).toBe('amazon.com');
         expect(link.url).toMatch(/^https:\/\/www\.amazon\.com\/dp\//);
-        expect(link.url).toContain('tag=findmyidealpillow-20');
+        expect(link.url).toContain('tag=findyouridealpillow-20');
       }
     }
   });
