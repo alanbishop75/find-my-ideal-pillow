@@ -125,8 +125,8 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 			display: "flex",
 			flexDirection: "column",
 			alignItems: "center",
-			justifyContent: "center",
-			padding: "40px 16px",
+			justifyContent: "flex-start",
+			padding: "16px 16px 40px",
 			position: "relative",
 		}}>
 			{/* Navy overlay for readability */}
