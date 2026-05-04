@@ -63,7 +63,7 @@ export function affiliateLink(url: string, asin: string): BuyLinks {
 // Tag is embedded directly into the /dp/ URL. This is fully Associates-compliant
 // (the standard `tag=` query parameter is the canonical attribution mechanism).
 // No SiteStripe step required.
-const US_ASSOCIATE_TAG = "findmyidealpillow-20";
+const US_ASSOCIATE_TAG = "findyouridealpillow-20";
 
 /** US Amazon link with tag embedded directly into /dp/ URL. */
 export function usLink(asin: string): BuyLinks {

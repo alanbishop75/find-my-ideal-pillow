@@ -17,7 +17,7 @@ export function Header() {
     >
       <Link
         href="/"
-        aria-label="Find My Ideal Pillow — home"
+        aria-label="Find Your Ideal Pillow — home"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -29,14 +29,14 @@ export function Header() {
       >
         <Image
           src="/images/pillowLogo.PNG"
-          alt="Find My Ideal Pillow"
+          alt="Find Your Ideal Pillow"
           width={80}
           height={80}
           priority
           style={{ borderRadius: "50%", display: "block" }}
         />
         <span style={{ color: "#ffffff", fontWeight: 700, fontSize: 18, letterSpacing: -0.2 }}>
-          FindMyIdealPillow
+          FindYourIdealPillow
         </span>
       </Link>
     </header>

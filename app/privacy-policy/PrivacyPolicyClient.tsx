@@ -14,13 +14,13 @@ export default function PrivacyPolicyClient() {
       <p style={{ color: "#666", marginBottom: 24, fontSize: 14 }}>Last updated: April 2026</p>
 
       <p>
-        This policy explains what data FindMyIdealPillow collects, how it is used, and the privacy rights that may apply to you.
+        This policy explains what data FindYourIdealPillow collects, how it is used, and the privacy rights that may apply to you.
       </p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>1. Who we are</h2>
       <p>
-        FindMyIdealPillow is a free online pillow recommendation tool available at <strong>findmyidealpillow.com</strong>.
-        Contact: <a href="mailto:hello@findmyidealpillow.com">hello@findmyidealpillow.com</a>.
+        FindYourIdealPillow is a free online pillow recommendation tool available at <strong>findyouridealpillow.com</strong>.
+        Contact: <a href="mailto:hello@findyouridealpillow.com">hello@findyouridealpillow.com</a>.
       </p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>2. Data we collect</h2>

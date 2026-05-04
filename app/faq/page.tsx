@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'FAQ — FindMyIdealPillow',
-  description: 'Frequently asked questions about quiz logic, recommendations, affiliate links, and pricing caveats on FindMyIdealPillow.',
+  title: 'FAQ — FindYourIdealPillow',
+  description: 'Frequently asked questions about quiz logic, recommendations, affiliate links, and pricing caveats on FindYourIdealPillow.',
   robots: { index: true, follow: true },
   alternates: {
     canonical: '/faq',
@@ -103,7 +103,7 @@ export default function FAQPage() {
         <p style={{ color: '#666', marginBottom: 28, fontSize: 14 }}>Last updated: April 2026</p>
 
         <p>
-          This page answers common questions about how FindMyIdealPillow works, how recommendations are generated,
+          This page answers common questions about how FindYourIdealPillow works, how recommendations are generated,
           and what to expect when visiting retailer links.
         </p>
 

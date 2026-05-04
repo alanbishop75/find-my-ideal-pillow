@@ -3,8 +3,10 @@
  * This is a single-product site — only pillow domains are mapped here.
  */
 export const domainCategoryMap: Record<string, string> = {
-  'findmyidealpillow.com':     'pillow',
-  'www.findmyidealpillow.com': 'pillow',
+  'findyouridealpillow.com':     'pillow',
+  'www.findyouridealpillow.com': 'pillow',
+  'findmyidealpillow.com':       'pillow',
+  'www.findmyidealpillow.com':   'pillow',
 };
 
 export const defaultCategoryId = 'pillow';

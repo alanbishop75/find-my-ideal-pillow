@@ -47,8 +47,8 @@ function resolveActiveTheme(categoryId: string): ThemeName {
 export async function generateMetadata(): Promise<Metadata> {
   const categoryId = await resolveCategoryIdForRequest();
   const config = categoryRegistry[categoryId];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://www.findmyideal${categoryId}.com`;
-  const title = config?.meta.title ?? "FindMyIdealPillow — Find Your Perfect Pillow";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://www.findyourideal${categoryId}.com`;
+  const title = config?.meta.title ?? "FindYourIdealPillow — Find Your Perfect Pillow";
   const description = config?.meta.description ?? "Answer a few quick questions and get your personalised pillow recommendations. Free, no sign-up required.";
   const ogImage = "/opengraph-image";
   return {
@@ -62,14 +62,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url: siteUrl,
-      siteName: 'FindMyIdealPillow',
+      siteName: 'FindYourIdealPillow',
       type: 'website',
       images: [
         {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: 'FindMyIdealPillow share image',
+          alt: 'FindYourIdealPillow share image',
         },
       ],
     },
@@ -77,7 +77,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      site: '@FMIdealPillow',
+      site: '@FYIdealPillow',
       images: [ogImage],
     },
   };

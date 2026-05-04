@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { pillowSeoPages } from '../config/pillow/seo-pages';
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findmyidealpillow.com').replace(/\/$/, '');
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findyouridealpillow.com').replace(/\/$/, '');
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
