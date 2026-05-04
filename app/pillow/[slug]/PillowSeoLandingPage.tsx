@@ -127,7 +127,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
           {/* Logo */}
           <div style={{ flexShrink: 0 }} className="seo-hero-logo">
             <Image
-              src="/images/pillowLogo.PNG"
+              src="/images/logo.PNG"
               alt="Find Your Ideal Pillow"
               width={120}
               height={120}

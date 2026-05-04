@@ -28,7 +28,7 @@ export function Header() {
         }}
       >
         <Image
-          src="/images/pillowLogo.PNG"
+          src="/images/logo.PNG"
           alt="Find Your Ideal Pillow"
           width={80}
           height={80}

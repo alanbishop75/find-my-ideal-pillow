@@ -61,7 +61,7 @@ export default function HomePageClient() {
         >
           {/* Logo — visual anchor at top */}
           <Image
-            src="/images/pillowLogo.PNG"
+            src="/images/logo.PNG"
             alt="Find Your Ideal Pillow"
             width={120}
             height={120}
