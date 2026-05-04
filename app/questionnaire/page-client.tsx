@@ -222,7 +222,7 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 							minHeight: 44,
 						}}
 					>
-						← Back
+						Back
 					</button>
 				)}
 			</main>
