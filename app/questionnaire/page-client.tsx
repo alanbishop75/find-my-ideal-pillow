@@ -2,7 +2,6 @@
 import React, { Suspense } from 'react';
 import { pillowQuestionnaire } from '../../config/pillow/questionnaire';
 import { useAppState } from '../client-providers';
-import { useTheme } from '../../core/theme';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Questionnaire } from '../../core/types';
@@ -33,7 +32,6 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const resolvedQuestionnaire = questionnaireProp ?? pillowQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
 	const { answers, setAnswer } = useAppState();
-	const { tokens } = useTheme();
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
@@ -119,8 +117,41 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const progress = Math.round(((current + 1) / stepCount) * 100);
 
 	return (
-		<div style={{ background: tokens.background, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
-			<main style={{ width: "100%", maxWidth: 440, display: "flex", flexDirection: "column", gap: 20 }}>
+		<div style={{
+			minHeight: "100vh",
+			backgroundImage: "url('/images/pillow.jpeg')",
+			backgroundSize: "cover",
+			backgroundPosition: "center 40%",
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			justifyContent: "center",
+			padding: "40px 16px",
+			position: "relative",
+		}}>
+			{/* Navy overlay for readability */}
+			<div style={{
+				position: "absolute",
+				inset: 0,
+				background: "rgba(26, 26, 62, 0.50)",
+				zIndex: 0,
+			}} />
+
+			<main style={{
+				width: "100%",
+				maxWidth: 440,
+				display: "flex",
+				flexDirection: "column",
+				gap: 20,
+				position: "relative",
+				zIndex: 1,
+				background: "rgba(255,255,255,0.08)",
+				border: "1px solid rgba(255,255,255,0.15)",
+				borderRadius: 20,
+				padding: 28,
+				backdropFilter: "blur(12px)",
+				WebkitBackdropFilter: "blur(12px)",
+			}}>
 				{isHydrated && <span data-testid="questionnaire-ready" style={{ display: "none" }}>ready</span>}
 
 				{current > 0 && (
@@ -131,11 +162,11 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 						onClick={handleBack}
 						style={{
 							alignSelf: "flex-start",
-							background: "none",
-							border: `1px solid ${tokens.border}`,
+							background: "rgba(255,255,255,0.1)",
+							border: "1px solid rgba(255,255,255,0.3)",
 							borderRadius: 8,
 							padding: "10px 18px",
-							color: tokens.textSecondary,
+							color: "rgba(255,255,255,0.85)",
 							fontSize: 15,
 							fontWeight: 500,
 							cursor: "pointer",
@@ -151,14 +182,14 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 
 				<div>
 					<div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 6 }}>
-						<span style={{ fontSize: 13, color: tokens.accent, fontWeight: 600 }}>{progress}% complete</span>
+						<span style={{ fontSize: 13, color: "#9b87bc", fontWeight: 600 }}>{progress}% complete</span>
 					</div>
-					<div style={{ background: tokens.surfaceAlt, borderRadius: 8, height: 6, width: "100%" }}>
-						<div style={{ background: tokens.accent, height: 6, borderRadius: 8, width: `${progress}%`, transition: "width 0.3s" }} />
+					<div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 8, height: 6, width: "100%" }}>
+						<div style={{ background: "#9b87bc", height: 6, borderRadius: 8, width: `${progress}%`, transition: "width 0.3s", boxShadow: "0 0 8px rgba(155,135,188,0.6)" }} />
 					</div>
 				</div>
 
-				<h2 style={{ fontSize: 21, fontWeight: 700, color: tokens.textPrimary, textAlign: "left", margin: 0 }}>{questionText}</h2>
+				<h2 style={{ fontSize: 22, fontWeight: 700, color: "#ffffff", textAlign: "left", margin: 0, textShadow: "0 1px 4px rgba(0,0,0,0.4)", lineHeight: 1.35 }}>{questionText}</h2>
 
 				<div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
 					{q.options.map((option: { id: string; label: string }) => {
@@ -174,17 +205,19 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 								style={{
 									width: "100%",
 									padding: "14px 20px",
-									border: `2px solid ${selected ? tokens.accent : tokens.border}`,
-									background: selected ? tokens.accentSoft : tokens.surface,
-									color: selected ? tokens.accent : tokens.textPrimary,
-									borderRadius: 10,
+									border: selected ? "2px solid #9b87bc" : "1px solid rgba(255,255,255,0.28)",
+									background: selected ? "rgba(155,135,188,0.22)" : "rgba(255,255,255,0.1)",
+									backdropFilter: "blur(10px)",
+									WebkitBackdropFilter: "blur(10px)",
+									color: selected ? "#ffffff" : "#ffffff",
+									borderRadius: 12,
 									fontSize: 16,
 									fontWeight: selected ? 600 : 400,
 									textAlign: "center",
 									cursor: "pointer",
 									outline: "none",
 									transition: "all 0.15s",
-									boxShadow: selected ? `0 2px 8px ${tokens.accentSoft}` : "none",
+									boxShadow: selected ? "0 2px 12px rgba(155,135,188,0.4)" : "0 1px 4px rgba(0,0,0,0.2)",
 								}}
 							>
 								{label}

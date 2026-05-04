@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { ResultsCard } from '../../components/ResultsCard';
 import { Button } from '../../components/Button';
-import { useTheme } from '../../core/theme';
 import { Product } from '../../core/types';
 import { ScoringEngine } from '../../lib/scoring';
 import { categoryRegistry } from '../../config/registry';
@@ -25,7 +24,6 @@ function trackEvent(name: string, params?: Record<string, string | number>) {
 
 function RegionSelector() {
   const { region, setRegion, isLoading } = useRegion();
-  const { tokens } = useTheme();
 
   // Suppress until region is resolved to avoid a flash of wrong state.
   if (isLoading) return null;
@@ -41,22 +39,24 @@ function RegionSelector() {
       justifyContent: 'space-between',
       width: '100%',
       padding: '8px 12px',
-      background: tokens.surfaceAlt,
+      background: 'rgba(255,255,255,0.1)',
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
       borderRadius: 8,
-      border: `1px solid ${tokens.border}`,
+      border: '1px solid rgba(255,255,255,0.2)',
       fontSize: 12,
     }}>
-      <span style={{ color: tokens.textSecondary, fontWeight: 500 }}>{label}</span>
+      <span style={{ color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>{label}</span>
       <button
         onClick={() => setRegion(other)}
         style={{
           background: 'none',
-          border: `1px solid ${tokens.border}`,
+          border: '1px solid rgba(155,135,188,0.6)',
           borderRadius: 6,
           padding: '4px 10px',
           fontSize: 12,
           fontWeight: 600,
-          color: tokens.accent,
+          color: '#9b87bc',
           cursor: 'pointer',
         }}
       >
@@ -84,7 +84,6 @@ function ResultsPageInner({
   questionnaireHref = '/pillow/questionnaire',
 }: ResultsPageProps) {
   const { answers, reset } = useAppState();
-  const { tokens } = useTheme();
   const { region } = useRegion();
   const router = useRouter();
   const [legacyV2Mode] = useState(() => {
@@ -244,10 +243,10 @@ function ResultsPageInner({
 
   if (!hasAnswers) {
     return (
-      <div style={{ minHeight: "100vh", background: tokens.background, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px" }}>
+      <div style={{ minHeight: "100vh", background: "#f5f3f8", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px" }}>
         <main style={{ width: "100%", maxWidth: 440, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center" }}>
-          <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: tokens.textPrimary }}>Let&apos;s start with the quiz</h2>
-          <p style={{ margin: 0, color: tokens.textSecondary, lineHeight: 1.6 }}>
+          <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: "#1a1a3e" }}>Let&apos;s start with the quiz</h2>
+          <p style={{ margin: 0, color: "#5a5478", lineHeight: 1.6 }}>
             We need your answers before we can build personalised pillow matches. Redirecting you now.
           </p>
           <Button
@@ -263,20 +262,49 @@ function ResultsPageInner({
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: tokens.background, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
-      <main style={{ width: "100%", maxWidth: 440, display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
+    <div style={{
+      minHeight: "100vh",
+      backgroundImage: "url('/images/pillow.jpeg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center 40%",
+      backgroundAttachment: "fixed",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: "32px 16px",
+      position: "relative",
+    }}>
+      {/* Navy overlay */}
+      <div style={{ position: "absolute", inset: 0, background: "rgba(26, 26, 62, 0.50)", zIndex: 0 }} />
+
+      <main style={{
+        width: "100%",
+        maxWidth: 440,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 24,
+        position: "relative",
+        zIndex: 1,
+        background: "rgba(255,255,255,0.08)",
+        border: "1px solid rgba(255,255,255,0.15)",
+        borderRadius: 20,
+        padding: 28,
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+      }}>
         <div style={{ width: "100%" }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, textAlign: "left", margin: "0 0 4px 0", color: tokens.textPrimary }}>{resolvedHeading}</h2>
-          <p style={{ textAlign: "left", margin: 0, color: tokens.textSecondary, fontSize: 15 }}>Based on your answers — here are your top picks.</p>
+          <h2 style={{ fontSize: 22, fontWeight: 700, textAlign: "left", margin: "0 0 4px 0", color: "#ffffff", textShadow: "0 1px 4px rgba(0,0,0,0.3)" }}>{resolvedHeading}</h2>
+          <p style={{ textAlign: "left", margin: 0, color: "rgba(255,255,255,0.8)", fontSize: 15 }}>Based on your answers — here are your top picks.</p>
         </div>
 
         {/* Region selector — subtle, above the cards */}
         <RegionSelector />
 
-        <p style={{ width: "100%", margin: 0, fontSize: 12, color: tokens.textSecondary, lineHeight: 1.5 }}>
+        <p style={{ width: "100%", margin: 0, fontSize: 12, color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>
           <em>{affiliateDisclosure}</em>
         </p>
-        <p style={{ width: "100%", margin: 0, fontSize: 12, color: tokens.textSecondary, lineHeight: 1.5 }}>
+        <p style={{ width: "100%", margin: 0, fontSize: 12, color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>
           Prices and availability are set by retailers and may change at any time. Always confirm the current price before purchasing.
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
