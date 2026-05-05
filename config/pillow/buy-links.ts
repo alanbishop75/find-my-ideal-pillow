@@ -15,10 +15,12 @@
  */
 import type { BuyLinks, Region } from "../../core/geo/types";
 
+
 // All 30 entries below were verified live on amazon.co.uk on 2026-04-30:
 // direct /dp/<ASIN> URL, In Stock, brand+spec confirmed on listing.
 // `isTemporary: true` until SiteStripe-tagged URLs replace these.
 const REVIEW_DATE = "2026-04-30";
+const UK_ASSOCIATE_TAG = "findyouridealpillow-21";
 
 function ukLink(asin: string): BuyLinks {
   return {
@@ -27,11 +29,11 @@ function ukLink(asin: string): BuyLinks {
         retailerKey: "amazon-uk",
         retailerName: "Amazon UK",
         region: "UK",
-        url: `https://www.amazon.co.uk/dp/${asin}`,
+        url: `https://www.amazon.co.uk/dp/${asin}?tag=${UK_ASSOCIATE_TAG}`,
         expectedDomain: "amazon.co.uk",
         isTemporary: false,
         source: "manual",
-        notes: `Verified ASIN ${asin} on Amazon UK ${REVIEW_DATE}; awaiting SiteStripe affiliate tag.`,
+        notes: `Verified ASIN ${asin} on Amazon UK ${REVIEW_DATE}; tag=${UK_ASSOCIATE_TAG} embedded.`,
         isPrimary: true,
       },
     ],
