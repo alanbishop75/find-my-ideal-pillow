@@ -474,13 +474,13 @@ const combinationSleepersUk: PillowSeoPage = {
 const neckPainUk: PillowSeoPage = {
   slug: "best-pillow-for-neck-pain-uk",
   keyword: "best pillow for neck pain uk",
-  metaTitle: "Best Pillow for Neck Pain UK — Find the Right Match in 2 Minutes",
+  metaTitle: "Best Pillows for Neck Pain UK — Neck Ache & Shoulder Support",
   metaDescription:
-    "The wrong pillow height is one of the most common causes of morning neck pain. Take the quiz to find a pillow matched to your sleep position, build and budget.",
+    "Looking for the best pillow for neck pain? Compare pillows for neck pain, neck ache and shoulder support, then find a UK-matched option in 2 minutes.",
   h1: "Best Pillow for Neck Pain (UK Guide)",
   breadcrumbLabel: "Neck pain",
   intro:
-    "If you regularly wake with a stiff neck or tension across the upper shoulders, your pillow is one of the first things worth looking at — not because pillows cause all neck pain, but because an incorrect pillow height sustains it all night, every night. The right fix isn't always the most expensive pillow on the market. It's usually the pillow with the correct loft for your sleep position and shoulder width. This guide explains what to look for, and our quiz narrows it down to verified UK options matched to how you sleep.",
+    "If you are searching for the best pillow for neck pain, start with loft and sleep position before brand or material. A pillow that is too high, too low or too soft can keep the neck under strain for hours, which is why many people wake with neck ache, upper-shoulder tension or one-sided stiffness. The right fix is usually not the most expensive pillow on the market. It is the pillow that matches your sleep position, shoulder width and support needs. This guide explains how to choose the right pillow for neck pain in the UK, and our quiz narrows it down to verified options matched to how you sleep.",
   whoItsFor: [
     "You regularly wake with a stiff or aching neck",
     "The discomfort is mostly on one side (the side you sleep on)",
@@ -515,6 +515,10 @@ const neckPainUk: PillowSeoPage = {
       body: "Memory foam contour pillows are the most widely recommended for neck pain because they hold a fixed, cervical-curve-friendly shape all night. Solid memory foam is most consistent; shredded foam is more adjustable but may shift position during sleep. Latex contour pillows offer similar benefits with better breathability and a longer lifespan, though at a higher price point. High fill-power down and hollow fibre can work well for back sleepers but are less reliable for side sleepers with active neck issues, because fill redistributes under sustained pressure.",
     },
     {
+      h2: "What to prioritise if you have neck and shoulder pain",
+      body: "Pillow for neck and shoulder pain queries usually point to the same root issue: the head is not being held at the correct height relative to the shoulders. For side sleepers, this usually means the pillow is too low once compressed, so the shoulder takes extra pressure and the neck bends downward. For back sleepers, the pillow is often too high, pushing the chin forward and tightening the upper traps. If both the neck and shoulder hurt in the morning, prioritise correct loft first, then firmness second. For many adults that means a firmer high-loft pillow for side sleeping or a medium contour pillow for back sleeping.",
+    },
+    {
       h2: "When a pillow won't fix it",
       body: "A correctly-matched pillow stops a pillow from being the cause of neck pain. If your pain has a different root cause — previous injury, disc issues, posture during the day — a new pillow will help but may not eliminate the pain entirely. If you've switched to a correctly-lofted pillow and neck pain persists beyond two to three weeks, a physiotherapist can assess whether the cause is positional or structural.",
     },
@@ -536,6 +540,10 @@ const neckPainUk: PillowSeoPage = {
       a: "Contour memory foam pillows are widely used for neck pain in back sleepers because they hold a cervical-curve-friendly shape. For side sleepers, a high-loft firm pillow (not necessarily memory foam) is often more important than the fill type.",
     },
     {
+      q: "What type of pillow helps neck and shoulder pain?",
+      a: "Usually one with the correct loft for your sleep position. Side sleepers often need a firmer, higher-loft pillow to stop the shoulder and neck collapsing downward. Back sleepers usually need a medium-loft pillow or contour shape that supports the neck without pushing the head too far forward.",
+    },
+    {
       q: "Should I see a doctor before buying a pillow for neck pain?",
       a: "If neck pain is severe, accompanied by radiating arm pain or numbness, or has lasted more than a few weeks without a clear cause, see a GP before purchasing anything. For typical morning stiffness that eases during the day, a pillow change is a reasonable first step.",
     },
@@ -549,7 +557,7 @@ const neckPainUk: PillowSeoPage = {
     "best-pillow-for-back-sleepers-uk",
     "best-memory-foam-pillow-uk",
   ],
-  lastReviewed: "2026-04-30",
+  lastReviewed: "2026-06-02",
 };
 
 // ──────────────────────────────────────────────────────────────────────────
