@@ -5,7 +5,7 @@ import PillowSeoLandingPage from "./PillowSeoLandingPage";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.findmyidealpillow.com").replace(/\/$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.findyouridealpillow.com").replace(/\/$/, "");
 
 export function generateStaticParams() {
   return pillowSeoPages.map((p) => ({ slug: p.slug }));

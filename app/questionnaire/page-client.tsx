@@ -31,7 +31,7 @@ function trackEvent(name: string, params?: Record<string, string | number>) {
 function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath = '/pillow/results' }: Props) {
 	const resolvedQuestionnaire = questionnaireProp ?? pillowQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
-	const { answers, setAnswer } = useAppState();
+	const { answers, setAnswer, reset } = useAppState();
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
@@ -42,14 +42,18 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const questionText = getQuestionTextForRegion(q.id, q.text, region);
 
 	const startedRef = useRef(false);
+	const abandonedRef = useRef(false);
 	useEffect(() => {
+		// Always reset answers when the questionnaire mounts.
+		reset();
 		if (!startedRef.current) {
 			startedRef.current = true;
 			trackEvent('quiz_start', { quiz_id: resolvedQuestionnaire.id, seo_source: seoSource });
 			trackQuizStart(seoSource);
 		}
 		return () => {
-			if (!completedRef.current) {
+			if (!completedRef.current && !abandonedRef.current) {
+				abandonedRef.current = true;
 				trackEvent('quiz_abandoned', { quiz_id: resolvedQuestionnaire.id, question_index: current, seo_source: seoSource });
 				trackQuizAbandoned(seoSource, questions[current]?.id ?? 'unknown');
 			}
@@ -91,6 +95,7 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 		} else {
 			// eslint-disable-next-line react-hooks/immutability
 			completedRef.current = true;
+			abandonedRef.current = true;
 			trackEvent('quiz_complete', { quiz_id: resolvedQuestionnaire.id, seo_source: seoSource });
 			trackQuizComplete(seoSource);
 			router.push(resultsPath);
