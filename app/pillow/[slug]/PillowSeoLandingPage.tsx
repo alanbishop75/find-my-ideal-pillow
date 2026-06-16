@@ -59,7 +59,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
   };
 
   const ctaButton = (label: string) => (
-    <a
+    <Link
       href={quizHref}
       style={{
         marginTop: 8,
@@ -78,7 +78,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
       }}
     >
       {label}
-    </a>
+    </Link>
   );
 
   return (
@@ -107,9 +107,9 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
 
         {/* Breadcrumb */}
         <div style={{ maxWidth: 900, margin: "0 auto 24px", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>
-          <a href="/" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Home</a>
+          <Link href="/" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 6px" }}>›</span>
-          <a href="/pillow/questionnaire" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Pillow finder</a>
+          <Link href="/pillow/questionnaire" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Pillow finder</Link>
           <span style={{ margin: "0 6px" }}>›</span>
           <span style={{ color: "rgba(255,255,255,0.85)" }}>{page.breadcrumbLabel}</span>
         </div>
@@ -340,12 +340,12 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
               {related.map((relatedPage) => (
                 <li key={relatedPage.slug}>
-                  <a
+                  <Link
                     href={`/pillow/${relatedPage.slug}`}
                     style={{ color: LAVENDER, textDecoration: "none", fontSize: 15, fontWeight: 600 }}
                   >
                     {relatedPage.h1} →
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
