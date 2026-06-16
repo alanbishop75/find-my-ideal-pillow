@@ -7,11 +7,18 @@ const guideLinks = [
   { href: "/pillow/best-pillow", label: "Best Pillow (Overview)" },
   { href: "/pillow/best-pillow-for-side-sleepers", label: "Side sleepers" },
   { href: "/pillow/best-pillow-for-back-sleepers", label: "Back sleepers" },
+  { href: "/pillow/best-pillow-for-stomach-sleepers", label: "Stomach sleepers" },
+  { href: "/pillow/best-pillow-for-combination-sleepers", label: "Combination sleepers" },
   { href: "/pillow/best-pillow-for-neck-pain", label: "Neck pain" },
+  { href: "/pillow/best-pillow-for-snoring", label: "Snoring" },
+  { href: "/pillow/best-pillow-for-allergies", label: "Allergies" },
+  { href: "/pillow/best-cooling-pillow", label: "Cooling" },
   { href: "/pillow/best-pillow-for-shoulder-pain", label: "Shoulder pain" },
   { href: "/pillow/best-pillow-for-hot-sleepers", label: "Hot sleepers" },
   { href: "/pillow/best-memory-foam-pillow", label: "Memory foam" },
+  { href: "/pillow/best-down-pillow", label: "Down" },
   { href: "/pillow/best-latex-pillow", label: "Latex" },
+  { href: "/pillow/firm-vs-soft-pillow-which-is-right-for-you", label: "Firm vs soft" },
   { href: "/pillow/best-budget-pillow-under-30", label: "Budget under £30" },
 ];
 
