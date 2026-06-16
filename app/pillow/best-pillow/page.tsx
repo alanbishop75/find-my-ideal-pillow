@@ -120,6 +120,7 @@ const quickBuyGuides = [
 function HubQuickBuySection() {
   return (
     <section
+      id="quick-buy-starting-points"
       style={{
         marginTop: 24,
         background: "#ffffff",
@@ -364,6 +365,60 @@ export default function BestPillowHubPage() {
               }}
             >
               Start fitting now
+            </Link>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 12,
+              margin: "16px 0",
+              opacity: 0.6,
+            }}
+          >
+            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.2)" }} />
+            <span style={{ fontSize: 14, fontWeight: 500 }}>OR</span>
+            <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.2)" }} />
+          </div>
+
+          <div
+            style={{
+              background: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.2)",
+              borderRadius: 14,
+              padding: "18px 18px 20px",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <p style={{ margin: "0 0 4px", fontWeight: 700 }}>Quick Buy Guide</p>
+              <p style={{ margin: 0, color: "rgba(255,255,255,0.75)", fontSize: 14 }}>
+                Preset recommendations. Start exploring by sleep type or need.
+              </p>
+            </div>
+            <Link
+              href="#quick-buy-starting-points"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: LAVENDER,
+                color: NAVY,
+                borderRadius: 999,
+                padding: "12px 24px",
+                fontWeight: 800,
+                fontSize: 15,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              See options
             </Link>
           </div>
         </div>
