@@ -411,6 +411,8 @@ export default function BestPillowHubPage() {
           </ul>
         </section>
 
+        <HubQuickBuySection />
+
         <section style={{ marginTop: 24 }}>
           <h2 style={{ margin: "0 0 14px 0", fontSize: 24, color: NAVY }}>Browse by sleep need and pillow type</h2>
           <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
@@ -442,8 +444,6 @@ export default function BestPillowHubPage() {
             ))}
           </div>
         </section>
-
-        <HubQuickBuySection />
 
         <section
           style={{
