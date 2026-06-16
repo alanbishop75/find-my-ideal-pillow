@@ -316,8 +316,16 @@ export default function BestPillowHubPage() {
             Best Pillow: Find the Right Pillow for How You Sleep
           </h1>
           <p style={{ margin: "0 0 24px", maxWidth: 700, color: "rgba(255,255,255,0.82)", fontSize: 17, lineHeight: 1.6 }}>
-            There is no universally best pillow. The right choice depends on your sleep position,
-            support needs, temperature preference, materials and budget.
+            There is no universally best pillow, because the right pillow depends on how you sleep,
+            what support your neck and shoulders need, your temperature preference, and whether you prefer
+            natural or synthetic materials.
+          </p>
+          <p style={{ margin: "0 0 24px", maxWidth: 760, color: "rgba(255,255,255,0.82)", fontSize: 17, lineHeight: 1.6 }}>
+            A side sleeper fighting neck pain usually needs a very different pillow from a back sleeper looking for
+            softness, and someone who runs hot at night often benefits from a cooler gel or latex option than
+            a sleeper who values deep contouring. This guide helps you narrow down the best pillow
+            for your sleep needs, then points you to the most relevant topic pages and the fitting quiz if you want a more
+            precise match.
           </p>
 
           <div
@@ -364,6 +372,26 @@ export default function BestPillowHubPage() {
       <main style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
         <section
           style={{
+            background: "#ffffff",
+            border: `1px solid ${BORDER}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <p style={{ margin: "16px 0 8px", color: TEXT2, lineHeight: 1.7 }}>
+            This guide is designed to help you compare the best pillows for different sleep types,
+            then decide whether you want a quick preset recommendation or a more tailored fitting result.
+          </p>
+          <p style={{ margin: 0, color: TEXT2, lineHeight: 1.7 }}>
+            Factors such as sleep position, body frame, firmness preference, support needs, and temperature
+            can all influence which pillow performs best for you. Start with the overview below, then use Quick Buy or the
+            fitting quiz depending on how much guidance you want.
+          </p>
+        </section>
+
+        <section
+          style={{
+            marginTop: 24,
             background: "#ffffff",
             border: `1px solid ${BORDER}`,
             borderRadius: 14,
