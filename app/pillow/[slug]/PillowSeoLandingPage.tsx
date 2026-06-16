@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import type { PillowSeoPage } from "../../../config/pillow/seo-pages";
 import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
 
@@ -209,6 +210,33 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
               </ul>
             </section>
           )}
+
+          <section style={cardStyle}>
+            <h2 style={h2Style}>Want the full pillow overview first?</h2>
+            <p style={bodyStyle}>
+              If you want to compare the whole landscape before reading a specific guide,
+              start with our central best pillow page.
+            </p>
+            <Link
+              href="/pillow/best-pillow"
+              style={{
+                marginTop: 12,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: WHITE,
+                color: NAVY,
+                border: `1px solid ${BORDER}`,
+                borderRadius: 999,
+                padding: "10px 18px",
+                fontWeight: 700,
+                fontSize: 14,
+                textDecoration: "none",
+              }}
+            >
+              Read: Best Pillow guide →
+            </Link>
+          </section>
 
           <section style={cardStyle}>
             <h2 style={h2Style}>How the matching quiz works</h2>

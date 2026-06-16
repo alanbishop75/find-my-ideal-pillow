@@ -19,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
+      url: `${SITE_URL}/pillow/best-pillow`,
+      lastModified: new Date('2026-06-16'),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/about`,
       lastModified,
       changeFrequency: 'monthly',

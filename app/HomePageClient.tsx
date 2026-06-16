@@ -17,11 +17,11 @@ export default function HomePageClient() {
   const { region, isLoading } = useRegion();
   const intro = getHomepageIntro(isLoading ? "UK" : region);
   const popularGuides = [
-    { href: "/pillow/best-pillow-for-side-sleepers-uk", label: "Side sleepers" },
-    { href: "/pillow/best-pillow-for-neck-pain-uk", label: "Neck pain" },
-    { href: "/pillow/best-pillow-for-back-sleepers-uk", label: "Back sleepers" },
-    { href: "/pillow/best-cooling-pillow-uk", label: "Hot sleepers" },
-    { href: "/pillow/best-memory-foam-pillow-uk", label: "Memory foam" },
+    { href: "/pillow/best-pillow-for-side-sleepers", label: "Side sleepers" },
+    { href: "/pillow/best-pillow-for-neck-pain", label: "Neck pain" },
+    { href: "/pillow/best-pillow-for-back-sleepers", label: "Back sleepers" },
+    { href: "/pillow/best-cooling-pillow", label: "Hot sleepers" },
+    { href: "/pillow/best-memory-foam-pillow", label: "Memory foam" },
   ];
 
   const features = [

@@ -12,24 +12,24 @@
  * ──────────────────────────────────────────────────────────────────────────
  *
  *   Sleep position cluster
- *     1. best-pillow-for-side-sleepers-uk          ← BUILT (example page)
- *     2. best-pillow-for-back-sleepers-uk
- *     3. best-pillow-for-stomach-sleepers-uk
- *     4. best-pillow-for-combination-sleepers-uk
+ *     1. best-pillow-for-side-sleepers          ← BUILT (example page)
+ *     2. best-pillow-for-back-sleepers
+ *     3. best-pillow-for-stomach-sleepers
+ *     4. best-pillow-for-combination-sleepers
  *
  *   Health / problem cluster
- *     5. best-pillow-for-neck-pain-uk
- *     6. best-pillow-for-snoring-uk
- *     7. best-pillow-for-allergies-uk
+ *     5. best-pillow-for-neck-pain
+ *     6. best-pillow-for-snoring
+ *     7. best-pillow-for-allergies
  *
  *   Material / temperature cluster
- *     8. best-cooling-pillow-uk
- *     9. best-memory-foam-pillow-uk
- *    10. best-down-pillow-uk
+ *     8. best-cooling-pillow
+ *     9. best-memory-foam-pillow
+ *    10. best-down-pillow
  *
  *   Firmness / budget cluster
  *    11. firm-vs-soft-pillow-which-is-right-for-you
- *    12. best-budget-pillow-uk-under-30
+ *    12. best-budget-pillow-under-30
  *
  * Each page MUST follow the structure enforced by the renderer:
  *   H1 → intro → "How the quiz works" → educational sections (H2/H3)
@@ -86,7 +86,7 @@ export interface PillowSeoPage {
 // ──────────────────────────────────────────────────────────────────────────
 
 const sideSleepersUk: PillowSeoPage = {
-  slug: "best-pillow-for-side-sleepers-uk",
+  slug: "best-pillow-for-side-sleepers",
   keyword: "best pillow for side sleepers uk",
   metaTitle: "Best Pillow for Side Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
@@ -188,9 +188,9 @@ const sideSleepersUk: PillowSeoPage = {
   relatedSlugs: [
     // These will be valid once the pages are added; the renderer filters
     // out any slug that does not yet exist, so it's safe to list ahead.
-    "best-pillow-for-neck-pain-uk",
-    "best-cooling-pillow-uk",
-    "best-memory-foam-pillow-uk",
+    "best-pillow-for-neck-pain",
+    "best-cooling-pillow",
+    "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -200,7 +200,7 @@ const sideSleepersUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const backSleepersUk: PillowSeoPage = {
-  slug: "best-pillow-for-back-sleepers-uk",
+  slug: "best-pillow-for-back-sleepers",
   keyword: "best pillow for back sleepers uk",
   metaTitle: "Best Pillow for Back Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
@@ -284,9 +284,9 @@ const backSleepersUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-side-sleepers-uk",
-    "best-pillow-for-neck-pain-uk",
-    "best-memory-foam-pillow-uk",
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-neck-pain",
+    "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -296,7 +296,7 @@ const backSleepersUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const stomachSleepersUk: PillowSeoPage = {
-  slug: "best-pillow-for-stomach-sleepers-uk",
+  slug: "best-pillow-for-stomach-sleepers",
   keyword: "best pillow for stomach sleepers uk",
   metaTitle: "Best Pillow for Stomach Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
@@ -369,9 +369,9 @@ const stomachSleepersUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-side-sleepers-uk",
-    "best-pillow-for-neck-pain-uk",
-    "best-budget-pillow-uk-under-30",
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-neck-pain",
+    "best-budget-pillow-under-30",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -381,7 +381,7 @@ const stomachSleepersUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const combinationSleepersUk: PillowSeoPage = {
-  slug: "best-pillow-for-combination-sleepers-uk",
+  slug: "best-pillow-for-combination-sleepers",
   keyword: "best pillow for combination sleepers uk",
   metaTitle: "Best Pillow for Combination Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
@@ -460,9 +460,9 @@ const combinationSleepersUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-side-sleepers-uk",
-    "best-pillow-for-back-sleepers-uk",
-    "best-memory-foam-pillow-uk",
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-back-sleepers",
+    "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -472,7 +472,7 @@ const combinationSleepersUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const neckPainUk: PillowSeoPage = {
-  slug: "best-pillow-for-neck-pain-uk",
+  slug: "best-pillow-for-neck-pain",
   keyword: "best pillow for neck pain uk",
   metaTitle: "Best Pillows for Neck Pain UK — Neck Ache & Shoulder Support",
   metaDescription:
@@ -553,9 +553,9 @@ const neckPainUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-side-sleepers-uk",
-    "best-pillow-for-back-sleepers-uk",
-    "best-memory-foam-pillow-uk",
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-back-sleepers",
+    "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-06-02",
 };
@@ -565,7 +565,7 @@ const neckPainUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const snoringUk: PillowSeoPage = {
-  slug: "best-pillow-for-snoring-uk",
+  slug: "best-pillow-for-snoring",
   keyword: "best pillow for snoring uk",
   metaTitle: "Best Pillow for Snoring UK — Find Your Match in 2 Minutes",
   metaDescription:
@@ -634,9 +634,9 @@ const snoringUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-back-sleepers-uk",
-    "best-pillow-for-side-sleepers-uk",
-    "best-pillow-for-neck-pain-uk",
+    "best-pillow-for-back-sleepers",
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-neck-pain",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -646,7 +646,7 @@ const snoringUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const allergiesUk: PillowSeoPage = {
-  slug: "best-pillow-for-allergies-uk",
+  slug: "best-pillow-for-allergies",
   keyword: "best pillow for allergies uk",
   metaTitle: "Best Hypoallergenic Pillow UK — Find Yours in 2 Minutes",
   metaDescription:
@@ -719,9 +719,9 @@ const allergiesUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-cooling-pillow-uk",
-    "best-memory-foam-pillow-uk",
-    "best-budget-pillow-uk-under-30",
+    "best-cooling-pillow",
+    "best-memory-foam-pillow",
+    "best-budget-pillow-under-30",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -731,7 +731,7 @@ const allergiesUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const coolingUk: PillowSeoPage = {
-  slug: "best-cooling-pillow-uk",
+  slug: "best-cooling-pillow",
   keyword: "best cooling pillow uk",
   metaTitle: "Best Cooling Pillow UK — Find Yours in 2 Minutes",
   metaDescription:
@@ -804,9 +804,9 @@ const coolingUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-memory-foam-pillow-uk",
-    "best-pillow-for-side-sleepers-uk",
-    "best-pillow-for-allergies-uk",
+    "best-memory-foam-pillow",
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-allergies",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -816,7 +816,7 @@ const coolingUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const memoryFoamUk: PillowSeoPage = {
-  slug: "best-memory-foam-pillow-uk",
+  slug: "best-memory-foam-pillow",
   keyword: "best memory foam pillow uk",
   metaTitle: "Best Memory Foam Pillow UK — Find the Right Type in 2 Minutes",
   metaDescription:
@@ -889,9 +889,9 @@ const memoryFoamUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-cooling-pillow-uk",
-    "best-pillow-for-neck-pain-uk",
-    "best-pillow-for-back-sleepers-uk",
+    "best-cooling-pillow",
+    "best-pillow-for-neck-pain",
+    "best-pillow-for-back-sleepers",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -901,7 +901,7 @@ const memoryFoamUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const downUk: PillowSeoPage = {
-  slug: "best-down-pillow-uk",
+  slug: "best-down-pillow",
   keyword: "best down pillow uk",
   metaTitle: "Best Down Pillow UK — Find the Right Fill Power in 2 Minutes",
   metaDescription:
@@ -975,8 +975,8 @@ const downUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-allergies-uk",
-    "best-pillow-for-back-sleepers-uk",
+    "best-pillow-for-allergies",
+    "best-pillow-for-back-sleepers",
     "firm-vs-soft-pillow-which-is-right-for-you",
   ],
   lastReviewed: "2026-04-30",
@@ -1064,9 +1064,9 @@ const firmVsSoftUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-side-sleepers-uk",
-    "best-pillow-for-back-sleepers-uk",
-    "best-pillow-for-neck-pain-uk",
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-back-sleepers",
+    "best-pillow-for-neck-pain",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -1076,7 +1076,7 @@ const firmVsSoftUk: PillowSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const budgetUk: PillowSeoPage = {
-  slug: "best-budget-pillow-uk-under-30",
+  slug: "best-budget-pillow-under-30",
   keyword: "best budget pillow uk",
   metaTitle: "Best Budget Pillow UK Under £30 — Find Yours in 2 Minutes",
   metaDescription:
@@ -1149,9 +1149,9 @@ const budgetUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-allergies-uk",
+    "best-pillow-for-allergies",
     "firm-vs-soft-pillow-which-is-right-for-you",
-    "best-pillow-for-stomach-sleepers-uk",
+    "best-pillow-for-stomach-sleepers",
   ],
   lastReviewed: "2026-04-30",
 };
