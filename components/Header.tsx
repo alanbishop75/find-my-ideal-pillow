@@ -3,6 +3,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+const guideLinks = [
+  { href: "/pillow/best-pillow", label: "Best Pillow (Overview)" },
+  { href: "/pillow/best-pillow-for-side-sleepers", label: "Side sleepers" },
+  { href: "/pillow/best-pillow-for-back-sleepers", label: "Back sleepers" },
+  { href: "/pillow/best-pillow-for-neck-pain", label: "Neck pain" },
+  { href: "/pillow/best-pillow-for-shoulder-pain", label: "Shoulder pain" },
+  { href: "/pillow/best-pillow-for-hot-sleepers", label: "Hot sleepers" },
+  { href: "/pillow/best-memory-foam-pillow", label: "Memory foam" },
+  { href: "/pillow/best-latex-pillow", label: "Latex" },
+  { href: "/pillow/best-budget-pillow-under-30", label: "Budget under £30" },
+];
+
 export function Header() {
   const pathname = usePathname();
   const isQuizPage = Boolean(pathname && pathname.split("/").filter(Boolean).includes("questionnaire"));
@@ -36,24 +48,61 @@ export function Header() {
             zIndex: 2,
           }}
         >
-          <Link
-            href="/pillow/best-pillow"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "#9b87bc",
-              color: "#1a1a3e",
-              borderRadius: 999,
-              padding: "8px 14px",
-              fontWeight: 700,
-              fontSize: 14,
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Pillow Guides
-          </Link>
+          <details style={{ position: "relative" }}>
+            <summary
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                listStyle: "none",
+                background: "#9b87bc",
+                color: "#1a1a3e",
+                borderRadius: 999,
+                padding: "8px 14px",
+                fontWeight: 700,
+                fontSize: 14,
+                whiteSpace: "nowrap",
+                cursor: "pointer",
+                userSelect: "none",
+              }}
+            >
+              Pillow Guides
+            </summary>
+            <div
+              style={{
+                position: "absolute",
+                top: "110%",
+                right: 0,
+                minWidth: 240,
+                background: "#ffffff",
+                borderRadius: 12,
+                boxShadow: "0 10px 24px -8px rgba(26,26,62,0.25)",
+                border: "1px solid #e6e1ec",
+                padding: "8px 0",
+              }}
+            >
+              {guideLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    display: "block",
+                    padding: "10px 14px",
+                    color: "#1a1a3e",
+                    fontWeight: 600,
+                    fontSize: 14,
+                    textDecoration: "none",
+                  }}
+                  onClick={(event) => {
+                    const details = event.currentTarget.closest("details");
+                    if (details) details.removeAttribute("open");
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </details>
         </nav>
       )}
       <Link
