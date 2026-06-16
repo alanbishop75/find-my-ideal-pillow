@@ -186,11 +186,10 @@ const sideSleepersUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    // These will be valid once the pages are added; the renderer filters
-    // out any slug that does not yet exist, so it's safe to list ahead.
     "best-pillow-for-neck-pain",
-    "best-cooling-pillow",
-    "best-memory-foam-pillow",
+    "best-pillow-for-shoulder-pain",
+    "best-pillow-for-combination-sleepers",
+    "best-pillow-for-hot-sleepers",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -284,8 +283,9 @@ const backSleepersUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-side-sleepers",
     "best-pillow-for-neck-pain",
+    "best-pillow-for-snoring",
+    "best-pillow-for-combination-sleepers",
     "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-04-30",
@@ -369,8 +369,9 @@ const stomachSleepersUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-pillow-for-side-sleepers",
-    "best-pillow-for-neck-pain",
+    "best-pillow-for-back-sleepers",
+    "best-pillow-for-snoring",
+    "best-pillow-for-combination-sleepers",
     "best-budget-pillow-under-30",
   ],
   lastReviewed: "2026-04-30",
@@ -463,6 +464,7 @@ const combinationSleepersUk: PillowSeoPage = {
     "best-pillow-for-side-sleepers",
     "best-pillow-for-back-sleepers",
     "best-memory-foam-pillow",
+    "firm-vs-soft-pillow-which-is-right-for-you",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -555,6 +557,7 @@ const neckPainUk: PillowSeoPage = {
   relatedSlugs: [
     "best-pillow-for-side-sleepers",
     "best-pillow-for-back-sleepers",
+    "best-pillow-for-shoulder-pain",
     "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-06-02",
@@ -636,6 +639,7 @@ const snoringUk: PillowSeoPage = {
   relatedSlugs: [
     "best-pillow-for-back-sleepers",
     "best-pillow-for-side-sleepers",
+    "best-pillow-for-stomach-sleepers",
     "best-pillow-for-neck-pain",
   ],
   lastReviewed: "2026-04-30",
@@ -719,8 +723,9 @@ const allergiesUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
+    "best-latex-pillow",
+    "best-down-pillow",
     "best-cooling-pillow",
-    "best-memory-foam-pillow",
     "best-budget-pillow-under-30",
   ],
   lastReviewed: "2026-04-30",
@@ -804,8 +809,9 @@ const coolingUk: PillowSeoPage = {
     },
   ],
   relatedSlugs: [
+    "best-pillow-for-hot-sleepers",
+    "best-latex-pillow",
     "best-memory-foam-pillow",
-    "best-pillow-for-side-sleepers",
     "best-pillow-for-allergies",
   ],
   lastReviewed: "2026-04-30",
@@ -891,7 +897,8 @@ const memoryFoamUk: PillowSeoPage = {
   relatedSlugs: [
     "best-cooling-pillow",
     "best-pillow-for-neck-pain",
-    "best-pillow-for-back-sleepers",
+    "best-pillow-for-shoulder-pain",
+    "firm-vs-soft-pillow-which-is-right-for-you",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -978,6 +985,7 @@ const downUk: PillowSeoPage = {
     "best-pillow-for-allergies",
     "best-pillow-for-back-sleepers",
     "firm-vs-soft-pillow-which-is-right-for-you",
+    "best-budget-pillow-under-30",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -1066,7 +1074,8 @@ const firmVsSoftUk: PillowSeoPage = {
   relatedSlugs: [
     "best-pillow-for-side-sleepers",
     "best-pillow-for-back-sleepers",
-    "best-pillow-for-neck-pain",
+    "best-pillow-for-stomach-sleepers",
+    "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-04-30",
 };
@@ -1150,7 +1159,8 @@ const budgetUk: PillowSeoPage = {
   ],
   relatedSlugs: [
     "best-pillow-for-allergies",
-    "firm-vs-soft-pillow-which-is-right-for-you",
+    "best-down-pillow",
+    "best-memory-foam-pillow",
     "best-pillow-for-stomach-sleepers",
   ],
   lastReviewed: "2026-04-30",
@@ -1235,8 +1245,9 @@ const hotSleepersUk: PillowSeoPage = {
   ],
   relatedSlugs: [
     "best-cooling-pillow",
-    "best-memory-foam-pillow",
+    "best-latex-pillow",
     "best-pillow-for-side-sleepers",
+    "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-06-16",
 };
@@ -1322,6 +1333,7 @@ const shoulderPainUk: PillowSeoPage = {
     "best-pillow-for-side-sleepers",
     "best-pillow-for-neck-pain",
     "best-memory-foam-pillow",
+    "firm-vs-soft-pillow-which-is-right-for-you",
   ],
   lastReviewed: "2026-06-16",
 };
@@ -1424,7 +1436,8 @@ const latexPillowUk: PillowSeoPage = {
   ],
   relatedSlugs: [
     "best-cooling-pillow",
-    "best-pillow-for-neck-pain",
+    "best-pillow-for-hot-sleepers",
+    "best-pillow-for-allergies",
     "best-memory-foam-pillow",
   ],
   lastReviewed: "2026-06-16",
