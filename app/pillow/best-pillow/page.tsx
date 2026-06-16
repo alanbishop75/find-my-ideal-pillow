@@ -424,7 +424,7 @@ export default function BestPillowHubPage() {
         </div>
       </section>
 
-      <main style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
+      <div style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
         <section
           style={{
             background: "#ffffff",
@@ -531,6 +531,8 @@ export default function BestPillowHubPage() {
             }}
           >
             Get my pillow recommendation
+          </Link>
+        </section>
 
         <section
           style={{
@@ -570,9 +572,7 @@ export default function BestPillowHubPage() {
             ))}
           </div>
         </section>
-          </Link>
-        </section>
-      </main>
+      </div>
     </div>
   );
 }
