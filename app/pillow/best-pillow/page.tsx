@@ -30,6 +30,8 @@ const coreGuides = [
   "best-memory-foam-pillow",
   "best-pillow-for-allergies",
   "best-budget-pillow-under-30",
+  "best-pillow-for-hot-sleepers",
+  "best-pillow-for-shoulder-pain",
 ];
 
 const guideCards = coreGuides

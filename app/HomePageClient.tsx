@@ -20,7 +20,8 @@ export default function HomePageClient() {
     { href: "/pillow/best-pillow-for-side-sleepers", label: "Side sleepers" },
     { href: "/pillow/best-pillow-for-neck-pain", label: "Neck pain" },
     { href: "/pillow/best-pillow-for-back-sleepers", label: "Back sleepers" },
-    { href: "/pillow/best-cooling-pillow", label: "Hot sleepers" },
+    { href: "/pillow/best-pillow-for-hot-sleepers", label: "Hot sleepers" },
+    { href: "/pillow/best-pillow-for-shoulder-pain", label: "Shoulder pain" },
     { href: "/pillow/best-memory-foam-pillow", label: "Memory foam" },
   ];
 
