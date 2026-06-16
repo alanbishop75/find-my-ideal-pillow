@@ -124,16 +124,44 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
   const { tokens } = useTheme();
 
   const hasBuyLinks = buyLinks && buyLinks.length > 0;
+  const medalBorder =
+    label === "Best Match"
+      ? "3px solid #FFD700"
+      : label === "Strong Alternative"
+      ? "3px solid #C0C0C0"
+      : label === "Best Value"
+      ? "3px solid #cd7f32"
+      : null;
+  const baseBoxShadow =
+    label === "Best Match"
+      ? "0 6px 20px 0 rgba(255, 215, 0, 0.22)"
+      : label === "Strong Alternative"
+      ? "0 5px 16px 0 rgba(192, 192, 192, 0.22)"
+      : label === "Best Value"
+      ? "0 5px 16px 0 rgba(205, 127, 50, 0.2)"
+      : isBest
+      ? `0 4px 16px 0 ${tokens.accentSoft}`
+      : "0 2px 8px 0 rgba(0,0,0,0.04)";
 
   return (
     <div
       style={{
         background: tokens.surface,
-        border: `${isBest ? "2px" : "1px"} solid ${isBest ? tokens.accent : tokens.border}`,
+        border: medalBorder ?? `${isBest ? "2px" : "1px"} solid ${isBest ? tokens.accent : tokens.border}`,
         borderRadius: 14,
-        boxShadow: isBest ? `0 4px 16px 0 ${tokens.accentSoft}` : "0 2px 8px 0 rgba(0,0,0,0.04)",
+        boxShadow: baseBoxShadow,
         padding: "16px",
         width: "100%",
+        transition: "box-shadow 0.2s, transform 0.2s",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.16)";
+        (e.currentTarget as HTMLDivElement).style.transform = "scale(1.02)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = baseBoxShadow;
+        (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
       }}
     >
       {/* Label row */}

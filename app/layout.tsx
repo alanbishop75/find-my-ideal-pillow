@@ -2,6 +2,7 @@
 import { headers } from "next/headers";
 import ClientRoot from "./client-root";
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "../core/theme";
 import { Header } from "../components/Header";
@@ -90,6 +91,7 @@ export default async function RootLayout({
 }>) {
   const categoryId = await resolveCategoryIdForRequest();
   const activeTheme = resolveActiveTheme(categoryId);
+  const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
 
   return (
     <html
@@ -97,27 +99,39 @@ export default async function RootLayout({
       className="min-h-screen flex flex-col antialiased"
     >
       <head>
-        {/* Google Consent Mode v2 — must run before gtag.js loads */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('consent', 'default', {
-            analytics_storage: 'denied',
-            ad_storage: 'denied',
-            wait_for_update: 500
-          });
-          try {
-            if (localStorage.getItem('cookie_consent') === 'granted') {
-              gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
-            }
-          } catch(e) {}
-        ` }} />
-        {/* Google tag (gtag.js) */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID ?? ''}`}></script>
-        <script dangerouslySetInnerHTML={{ __html: `
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID ?? ''}');
-        ` }} />
+        {ga4Id ? (
+          <>
+            {/* Google Consent Mode v2 — must run before gtag.js loads */}
+            <Script id="ga-consent-default" strategy="beforeInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('consent', 'default', {
+                  analytics_storage: 'denied',
+                  ad_storage: 'denied',
+                  wait_for_update: 500
+                });
+                try {
+                  if (localStorage.getItem('cookie_consent') === 'granted') {
+                    gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+                  }
+                } catch(e) {}
+              `}
+            </Script>
+            {/* Google tag (gtag.js) */}
+            <Script
+              id="ga-lib"
+              src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                gtag('js', new Date());
+                gtag('config', '${ga4Id}');
+              `}
+            </Script>
+          </>
+        ) : null}
       </head>
       <body className="flex flex-col min-h-screen">
         <ThemeProvider themeName={activeTheme}>
