@@ -25,13 +25,19 @@ export const metadata: Metadata = {
 const coreGuides = [
   "best-pillow-for-side-sleepers",
   "best-pillow-for-back-sleepers",
+  "best-pillow-for-stomach-sleepers",
+  "best-pillow-for-combination-sleepers",
   "best-pillow-for-neck-pain",
+  "best-pillow-for-snoring",
   "best-cooling-pillow",
   "best-memory-foam-pillow",
   "best-pillow-for-allergies",
+  "best-down-pillow",
+  "firm-vs-soft-pillow-which-is-right-for-you",
   "best-budget-pillow-under-30",
   "best-pillow-for-hot-sleepers",
   "best-pillow-for-shoulder-pain",
+  "best-latex-pillow",
 ];
 
 const guideCards = coreGuides
