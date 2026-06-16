@@ -1156,6 +1156,280 @@ const budgetUk: PillowSeoPage = {
   lastReviewed: "2026-04-30",
 };
 
+// ──────────────────────────────────────────────────────────────────────────
+// PAGE 13 — Best Pillow for Hot Sleepers UK
+// ──────────────────────────────────────────────────────────────────────────
+
+const hotSleepersUk: PillowSeoPage = {
+  slug: "best-pillow-for-hot-sleepers",
+  keyword: "best pillow for hot sleepers uk",
+  metaTitle: "Best Pillow for Hot Sleepers UK — Find Yours in 2 Minutes",
+  metaDescription:
+    "Hot sleepers need breathable, cool-touch materials and the right loft for their position. Take the quiz to find a UK pillow that keeps you cool through the night.",
+  h1: "Best Pillow for Hot Sleepers (UK Guide)",
+  breadcrumbLabel: "Hot sleepers",
+  intro:
+    "Sleeping hot is about more than just comfort — it disrupts deep sleep and reduces sleep continuity. The right pillow can make a measurable difference in how your body regulates temperature at night. Hot sleepers need a pillow that combines three things: a breathable fill that allows airflow, a cover that doesn't trap heat, and if possible, a loft that suits their sleep position. This guide explains what to look for and helps you choose.",
+  whoItsFor: [
+    "You wake up drenched in sweat even in a cool room",
+    "You frequently flip to the cool side of the pillow or flip your pillow",
+    "You find memory foam feels hot and uncomfortable",
+    "You sleep hot regardless of ambient temperature",
+  ],
+  sections: [
+    {
+      h2: "Why pillow temperature matters",
+      body: "Your head generates significant body heat during sleep. A pillow that traps this heat prevents your core body temperature from dropping, which is essential for deep sleep entry and REM continuity. Hot sleepers often don't realise that a cool pillow isn't a luxury — it's a functional requirement for quality sleep. The right pillow can shift you from sleeping hot and shallow to sleeping cool and deep.",
+    },
+    {
+      h2: "The three factors that control pillow temperature",
+      body: "",
+      subsections: [
+        {
+          h3: "1. Fill breathability",
+          body: "Latex and open-cell foam are the most breathable options. Shredded foam allows airflow better than solid foam. Hollow fibre is naturally breathable. Solid standard memory foam is the worst option for hot sleepers. The fill matters more than any other factor.",
+        },
+        {
+          h3: "2. Cover material",
+          body: "Percale cotton (200–400 thread count), bamboo-derived fabric, or Tencel actively wick moisture away from skin. High-thread-count cotton and polyester trap heat. The right cover under the wrong fill still sleeps warm, but the right fill under the wrong cover is suboptimal.",
+        },
+        {
+          h3: "3. Loft and position",
+          body: "The correct loft for your sleep position ensures the pillow doesn't compress into a dense, heat-trapping form. A side sleeper using a too-low loft pillow will compress it flat against their head, creating a warm microenvironment. Correct loft maintains air gaps even when compressed.",
+        },
+      ],
+    },
+    {
+      h2: "Fills ranked for sleeping cool",
+      body: "Pinhole latex is the coolest option — natural latex doesn't retain heat and the pinhole structure maintains airflow. Open-cell memory foam is the next best for synthetic options. Shredded foam or latex is cooler than solid blocks. Hollow fibre is naturally cool and a budget-friendly option. Standard solid memory foam is the warmest and should be avoided if sleep temperature is a concern.",
+    },
+    {
+      h2: "Temperature and position interaction",
+      body: "Back and stomach sleepers have less face-to-pillow contact than side sleepers, so they tend to sleep cooler on any given fill. Side sleepers, who have more of their face pressed into the pillow, need more emphasis on breathability. If you're a hot-sleeping side sleeper, prioritise latex or open-cell foam over standard memory foam.",
+    },
+  ],
+  keyFactors: [
+    "Fill breathability — latex or open-cell foam > shredded foam > standard memory foam",
+    "Cover material — percale cotton or bamboo > high-thread-count cotton or polyester",
+    "Your sleep position — side sleepers need more breathability than back sleepers",
+    "Budget — cool options available from £25 (hollow fibre) to £100+ (latex)",
+    "Whether hypoallergenic also matters (most breathable fills are naturally resistant to dust mites)",
+  ],
+  faq: [
+    {
+      q: "What pillow fill is coolest for sleeping?",
+      a: "Natural latex (especially pinhole latex) is the coolest. Open-cell memory foam and shredded foam are the next best options. Standard solid memory foam is the warmest and should be avoided by hot sleepers.",
+    },
+    {
+      q: "Do cooling gel pillows actually work?",
+      a: "Gel infusions provide temporary cooling (2–3 hours) as the gel absorbs heat. They're most effective combined with a breathable fill. They alone are not sufficient for sustained cool sleeping.",
+    },
+    {
+      q: "Can bamboo pillowcases help with hot sleeping?",
+      a: "Bamboo-derived fabric is more breathable than standard cotton and does help, but the fill is still more important. A breathable fill with a standard cotton cover will sleep cooler than a synthetic fill with a bamboo cover.",
+    },
+    {
+      q: "Are pillow pads a good solution for hot sleepers?",
+      a: "Cooling gel pads provide temporary relief (similar to gel infusions), but address only the cover layer. If you sleep hot on any pillow regardless of cover, the fill itself is the issue and needs to change.",
+    },
+  ],
+  relatedSlugs: [
+    "best-cooling-pillow",
+    "best-memory-foam-pillow",
+    "best-pillow-for-side-sleepers",
+  ],
+  lastReviewed: "2026-06-16",
+};
+
+// ──────────────────────────────────────────────────────────────────────────
+// PAGE 14 — Best Pillow for Shoulder Pain UK
+// ──────────────────────────────────────────────────────────────────────────
+
+const shoulderPainUk: PillowSeoPage = {
+  slug: "best-pillow-for-shoulder-pain",
+  keyword: "best pillow for shoulder pain uk",
+  metaTitle: "Best Pillow for Shoulder Pain UK — Neck & Shoulder Support",
+  metaDescription:
+    "Shoulder pain on your sleeping side often signals pillow height is wrong. Find a pillow with the right loft for your position, then take the quiz to match one in the UK.",
+  h1: "Best Pillow for Shoulder Pain (UK Guide)",
+  breadcrumbLabel: "Shoulder pain",
+  intro:
+    "Waking with shoulder pain on the side you slept on is often mistakenly blamed on the mattress — but it's usually the pillow. When the pillow is too low, the shoulder collapses into the bed and the upper arm is compressed. When it's too high, the shoulder is shrugged upward for hours and the muscles exhaust. The right pillow fills the shoulder-to-head gap perfectly, keeps the shoulder relaxed, and prevents both compression and elevation. This guide explains how to find it.",
+  whoItsFor: [
+    "You wake with pain or stiffness on one shoulder (the side you sleep on)",
+    "The pain is particularly bad when you're a side sleeper",
+    "Your current pillow feels like it's pushing your shoulder up or letting it drop",
+    "The pain eases within an hour of getting out of bed",
+  ],
+  sections: [
+    {
+      h2: "Why pillows cause shoulder pain",
+      body: "The shoulder joint is supported by a network of muscles and tendons that work all day — sleep is when they rest. A poorly-matched pillow puts sustained tension on these structures for 6–8 hours. A too-low pillow lets the shoulder drop into the mattress, causing the upper arm to compress under head weight. A too-high pillow elevates the shoulder, keeping the supporting muscles in a shortened, tense state. The right loft keeps the shoulder neutral and the muscles relaxed.",
+    },
+    {
+      h2: "Position-specific solutions",
+      body: "",
+      subsections: [
+        {
+          h3: "Side sleepers",
+          body: "Side sleepers are most vulnerable to shoulder pain from pillow height. The gap between the ear and the mattress must be filled precisely — usually 10–14 cm compressed loft depending on shoulder width. A pillow that's too soft or too low is the most common cause of side-sleeping shoulder pain. Firmness is as important as height; the pillow must resist compression under head weight.",
+        },
+        {
+          h3: "Back sleepers",
+          body: "Back sleepers rarely experience shoulder pain from the pillow itself — their shoulders rest on the mattress and the pillow only supports the head. If a back sleeper has shoulder pain, it's more likely from mattress firmness or daytime posture than the pillow.",
+        },
+        {
+          h3: "Combination sleepers",
+          body: "Combination sleepers who spend part of the night on their side are vulnerable when they roll onto that side. A medium-loft adjustable-fill pillow that adapts as they move is often the best solution.",
+        },
+      ],
+    },
+    {
+      h2: "Key factors for shoulder comfort",
+      body: "Loft is the primary factor — it must match your shoulder width and firmness of the mattress. Firmness is secondary — a soft pillow at the right height still won't provide shoulder support. Material is tertiary — almost any material works if the loft and firmness are correct. Many people waste money on speciality shoulder pillows when they simply need the right standard pillow for their build.",
+    },
+    {
+      h2: "When a pillow won't fix it",
+      body: "If shoulder pain persists after switching to a correctly-lofted, firm side-sleeping pillow, or if pain is in the shoulder joint itself rather than the upper back and neck, see a GP or physiotherapist. The cause may be rotator cuff tension, bursitis, or another condition requiring assessment beyond pillow adjustment.",
+    },
+  ],
+  keyFactors: [
+    "Your sleep position — side sleepers have the highest pillow-related shoulder pain risk",
+    "Shoulder width and frame size — drives ideal loft",
+    "Firmness — the pillow must resist compression",
+    "Mattress firmness — affects how much loft is needed",
+    "Budget — effective shoulder-support pillows from £25 to £100 in the UK",
+  ],
+  faq: [
+    {
+      q: "Can a pillow cause shoulder pain?",
+      a: "Yes — specifically a pillow that doesn't match your shoulder width and position. For side sleepers, a too-low or too-soft pillow lets the shoulder collapse, causing pain. A too-high pillow elevates and tenses the shoulder.",
+    },
+    {
+      q: "What pillow height is right for shoulder comfort?",
+      a: "For side sleepers, the pillow should fill the gap between ear and mattress such that your cervical spine stays in a neutral line from skull to mid-back. This is usually 10–14 cm compressed loft, but depends on shoulder width. A correctly-matched pillow is often immediately more comfortable.",
+    },
+    {
+      q: "Should a shoulder-pain pillow be firm or soft?",
+      a: "Firm. A soft pillow that feels comfortable for the first few minutes will compress flat under head weight, causing the shoulder to collapse into the mattress. Medium-firm to firm is necessary for sustained support.",
+    },
+    {
+      q: "Do speciality shoulder pillows work better than standard pillows?",
+      a: "Some speciality shoulder pillows are simply standard pillows with better loft and firmness for side sleepers. If a good-quality high-loft firm standard pillow resolves your shoulder pain, a speciality pillow may not add value. Try a correctly-matched standard pillow first.",
+    },
+  ],
+  relatedSlugs: [
+    "best-pillow-for-side-sleepers",
+    "best-pillow-for-neck-pain",
+    "best-memory-foam-pillow",
+  ],
+  lastReviewed: "2026-06-16",
+};
+
+// ──────────────────────────────────────────────────────────────────────────
+// PAGE 15 — Best Latex Pillow UK
+// ──────────────────────────────────────────────────────────────────────────
+
+const latexPillowUk: PillowSeoPage = {
+  slug: "best-latex-pillow",
+  keyword: "best latex pillow uk",
+  metaTitle: "Best Latex Pillow UK — Natural, Responsive Pillow Options",
+  metaDescription:
+    "Latex pillows are naturally cool, hypoallergenic, and long-lasting — but come in different types. Take the quiz to find a UK latex pillow matched to your position and budget.",
+  h1: "Best Latex Pillow (UK Guide)",
+  breadcrumbLabel: "Latex pillows",
+  intro:
+    "Latex pillows occupy a middle ground between memory foam and down — they're more durable and consistent than foam, cooler and more responsive than down, and naturally resistant to dust mites. Natural latex is sourced from rubber tree sap; synthetic latex is petroleum-derived. Both perform similarly in a pillow, though natural latex is slightly more breathable. This guide explains what to expect from latex, what the different types are, and who latex pillows suit best.",
+  whoItsFor: [
+    "You've tried memory foam and find it either too hot or too rigid",
+    "You want a pillow that's naturally cool and hypoallergenic",
+    "You're prepared to invest in a longer-lasting pillow (5+ years)",
+    "You prefer a responsive, bouncy feel to memory foam contouring",
+  ],
+  sections: [
+    {
+      h2: "What latex is and why it matters",
+      body: "Latex is a natural or synthetic rubber material that's been processed into foam. It's inherently hypoallergenic — dust mites cannot colonise latex the way they do natural fills. It's naturally breathable and doesn't retain body heat the way memory foam does. It's responsive — it compresses under pressure and immediately springs back rather than slowly reshaping. This responsiveness means it adapts quickly as you change position through the night.",
+    },
+    {
+      h2: "Natural vs synthetic latex",
+      body: "",
+      subsections: [
+        {
+          h3: "Natural latex",
+          body: "Sourced from rubber tree sap, processed and whipped into foam. Slightly more breathable and eco-conscious than synthetic latex. It can have a faint natural rubber odour (which typically dissipates within a week). It's certified in some products (GOLS — Global Organic Latex Standard). More expensive than synthetic latex but lasts longer — typically 5–7 years.",
+        },
+        {
+          h3: "Synthetic latex",
+          body: "Petroleum-derived latex created in a laboratory. Chemically indistinguishable in performance from natural latex — both are hypoallergenic and breathable. Synthetic latex is cheaper and odourless. Lifespan is typically 4–6 years. The choice between natural and synthetic is often philosophical (eco-impact) rather than performance-based.",
+        },
+      ],
+    },
+    {
+      h2: "Types of latex pillow",
+      body: "",
+      subsections: [
+        {
+          h3: "Solid latex block",
+          body: "A single piece of latex foam, usually with a contour or traditional shape. Holds a fixed loft and responsiveness. Best for sleepers who stay in one position. Cannot be adjusted.",
+        },
+        {
+          h3: "Shredded latex",
+          body: "Loose pieces of latex in a fabric shell with a zip closure. More adjustable than solid; you can add or remove shreds to dial in loft. Better for combination sleepers. More breathable than solid latex because air gaps between shreds improve airflow.",
+        },
+        {
+          h3: "Pinhole latex",
+          body: "Latex foam that's been perforated with small holes to improve airflow. This is a special manufacturing process; most pinhole latex is in higher-end pillows. It's noticeably cooler than non-pinhole latex and is the ideal option for hot sleepers.",
+        },
+      ],
+    },
+    {
+      h2: "Who latex suits — and who it doesn't",
+      body: "Latex suits hot sleepers, people with dust mite allergy, and those who prefer a responsive rather than conforming feel. It's expensive, so it's usually chosen by people replacing cheaper pillows every 18 months with something that lasts 5+ years. Latex doesn't suit people with latex allergies (rare, but real), and it's overkill if a well-matched standard pillow does the job.",
+    },
+    {
+      h2: "Lifespan and value",
+      body: "A £80–120 natural latex pillow lasting 6 years costs approximately £13–20 per year — comparable to replacing a £25 hollow-fibre pillow annually. The per-year cost is similar, but you get superior comfort and consistency for five years rather than replacing and readjusting every 18 months.",
+    },
+  ],
+  keyFactors: [
+    "Sleep temperature — latex is one of the coolest pillow options",
+    "Solid vs shredded — shredded is more adjustable, better for combination sleepers",
+    "Natural vs synthetic — performance is similar; it's mainly an eco/cost choice",
+    "Your sleep position — latex works well for all positions",
+    "Budget — latex pillows start around £50 in the UK; premium options £100+",
+    "Whether you have latex allergy (rare, but essential to rule out)",
+  ],
+  faq: [
+    {
+      q: "How long do latex pillows last?",
+      a: "Properly cared for, natural latex lasts 5–7 years. Synthetic latex typically lasts 4–6 years. This is significantly longer than memory foam (3–5 years) or hollow fibre (18–24 months).",
+    },
+    {
+      q: "Is natural latex better than synthetic latex?",
+      a: "Performance-wise, they're nearly identical — both are hypoallergenic, cool, and responsive. Natural latex is slightly more breathable and eco-conscious; synthetic is cheaper and always odourless. The choice is mostly personal.",
+    },
+    {
+      q: "Do latex pillows smell?",
+      a: "Natural latex can have a faint rubber smell that typically dissipates within a week. Synthetic latex is odourless. Some people find the natural latex smell pleasant; others prefer to air it out thoroughly.",
+    },
+    {
+      q: "Is latex pillow better for neck pain?",
+      a: "Latex is excellent for neck pain when the loft is correct — its responsiveness means it maintains support throughout the night without the 'stuck' feeling some people get with solid memory foam. But the loft and firmness matter more than the material.",
+    },
+    {
+      q: "Can someone with a latex allergy use a latex pillow?",
+      a: "No. Latex allergy, while rare (typically <1% of the population), requires avoidance of latex products. Synthetic latex is not suitable either if the allergy is to the material itself (though some react only to natural latex). Always confirm you don't have a latex allergy before purchasing.",
+    },
+  ],
+  relatedSlugs: [
+    "best-cooling-pillow",
+    "best-pillow-for-neck-pain",
+    "best-memory-foam-pillow",
+  ],
+  lastReviewed: "2026-06-16",
+};
+
 export const pillowSeoPages: PillowSeoPage[] = [
   sideSleepersUk,
   backSleepersUk,
@@ -1169,6 +1443,9 @@ export const pillowSeoPages: PillowSeoPage[] = [
   downUk,
   firmVsSoftUk,
   budgetUk,
+  hotSleepersUk,
+  shoulderPainUk,
+  latexPillowUk,
 ];
 
 export const pillowSeoPageMap: Record<string, PillowSeoPage> = Object.fromEntries(
