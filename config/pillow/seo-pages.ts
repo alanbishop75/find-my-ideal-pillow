@@ -91,7 +91,7 @@ const sideSleepersUk: PillowSeoPage = {
   metaTitle: "Best Pillow for Side Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
     "Side sleepers need more loft and firmness than back or stomach sleepers. Take the 2-minute quiz to find a pillow matched to your build, shoulders and budget.",
-  h1: "Best Pillow for Side Sleepers (UK Guide)",
+  h1: "Best Pillow for Side Sleepers",
   breadcrumbLabel: "Side sleepers",
   intro:
     "Side sleeping is the most common sleep position in the UK, but most pillows on the high street are built for the average back sleeper. The result: a sagging pillow that lets your head drop, a strained neck, and a numb shoulder by morning. This guide explains exactly what side sleepers need from a pillow — and our 2-minute quiz turns that into a shortlist matched to your build, shoulder width and temperature preference.",
@@ -204,7 +204,7 @@ const backSleepersUk: PillowSeoPage = {
   metaTitle: "Best Pillow for Back Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
     "Back sleepers need medium loft and cervical support — not the thickest pillow on the shelf. Take the 2-minute quiz to find a match for your neck and budget.",
-  h1: "Best Pillow for Back Sleepers (UK Guide)",
+  h1: "Best Pillow for Back Sleepers",
   breadcrumbLabel: "Back sleepers",
   intro:
     "Sleeping on your back is often described as the ideal position for spinal alignment — but only if your pillow is the right height. Too thick and your chin tips towards your chest, straining the back of your neck. Too thin and your head drops back, compressing your cervical spine. Back sleepers need a medium-loft pillow that supports the natural curve of the neck without pushing it out of line. This guide explains exactly what to look for, and our 2-minute quiz matches you to verified UK options based on your build and preferences.",
@@ -301,7 +301,7 @@ const stomachSleepersUk: PillowSeoPage = {
   metaTitle: "Best Pillow for Stomach Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
     "Stomach sleepers need the lowest loft available. A standard pillow creates serious neck strain. Take the 2-minute quiz to find a flat, soft UK option that fits.",
-  h1: "Best Pillow for Stomach Sleepers (UK Guide)",
+  h1: "Best Pillow for Stomach Sleepers",
   breadcrumbLabel: "Stomach sleepers",
   intro:
     "Stomach sleeping is the most common cause of pillow-related neck strain. When you lie face down, your neck is already rotated to one side — adding a thick pillow under the head makes the rotation worse and keeps the neck in compression for hours. Stomach sleepers need the flattest, softest pillow possible, or in some cases no head pillow at all (with a thin pillow under the hips instead). This guide explains what actually helps, and our quiz can narrow down suitable UK options based on how you sleep.",
@@ -387,7 +387,7 @@ const combinationSleepersUk: PillowSeoPage = {
   metaTitle: "Best Pillow for Combination Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
     "Combination sleepers need a pillow that adapts as they move through the night. Take the 2-minute quiz to find an adjustable or versatile UK option that works for all your positions.",
-  h1: "Best Pillow for Combination Sleepers (UK Guide)",
+  h1: "Best Pillow for Combination Sleepers",
   breadcrumbLabel: "Combination sleepers",
   intro:
     "Most people move through two or three sleep positions every night without realising it. If you start on your side, roll to your back for a few hours, and finish on your side again, a pillow optimised for only one position will be wrong for part of the night. Combination sleepers need a pillow that adapts — either by being adjustable in fill, or by being the one loft that causes the least harm across positions. This guide explains how to find it.",
@@ -479,7 +479,7 @@ const neckPainUk: PillowSeoPage = {
   metaTitle: "Best Pillows for Neck Pain UK — Neck Ache & Shoulder Support",
   metaDescription:
     "Looking for the best pillow for neck pain? Compare pillows for neck pain, neck ache and shoulder support, then find a UK-matched option in 2 minutes.",
-  h1: "Best Pillow for Neck Pain (UK Guide)",
+  h1: "Best Pillow for Neck Pain",
   breadcrumbLabel: "Neck pain",
   intro:
     "If you are searching for the best pillow for neck pain, start with loft and sleep position before brand or material. A pillow that is too high, too low or too soft can keep the neck under strain for hours, which is why many people wake with neck ache, upper-shoulder tension or one-sided stiffness. The right fix is usually not the most expensive pillow on the market. It is the pillow that matches your sleep position, shoulder width and support needs. This guide explains how to choose the right pillow for neck pain in the UK, and our quiz narrows it down to verified options matched to how you sleep.",
@@ -573,7 +573,7 @@ const snoringUk: PillowSeoPage = {
   metaTitle: "Best Pillow for Snoring UK — Find Your Match in 2 Minutes",
   metaDescription:
     "Positional snoring can often be reduced by changing sleep position or pillow height. Take the quiz to find a UK pillow matched to your position and budget.",
-  h1: "Best Pillow for Snoring (UK Guide)",
+  h1: "Best Pillow for Snoring",
   breadcrumbLabel: "Snoring",
   intro:
     "Not all snoring is the same. Some snoring is positional — it's significantly worse on your back and better when you sleep on your side. For positional snorers, a pillow change can make a real difference. Other snoring is structural (anatomy of the airways, soft palate, or nasal passages) and isn't affected by pillow choice at all. This guide explains how to tell the difference, what pillow features help positional snorers, and what to try first before spending money on specialist products.",
@@ -655,7 +655,7 @@ const allergiesUk: PillowSeoPage = {
   metaTitle: "Best Hypoallergenic Pillow UK — Find Yours in 2 Minutes",
   metaDescription:
     "Dust mites thrive in natural-fill pillows. If you wake congested or sneezing, the right hypoallergenic pillow can make a significant difference. Take the quiz to find a UK option.",
-  h1: "Best Pillow for Allergies (UK Guide)",
+  h1: "Best Pillow for Allergies",
   breadcrumbLabel: "Allergies",
   intro:
     "Waking up congested, sneezing, or with itchy eyes can be a sign that your pillow is a significant source of allergen exposure. Dust mites are the most common culprit — they live in the warm, humid environment inside pillows and feed on dead skin cells. Natural fills (down and feathers) are particularly hospitable. Switching to a hypoallergenic synthetic fill, combined with a tightly-woven anti-allergy cover, can reduce morning symptoms significantly. This guide explains what actually helps and what to avoid.",
@@ -741,7 +741,7 @@ const coolingUk: PillowSeoPage = {
   metaTitle: "Best Cooling Pillow UK — Find Yours in 2 Minutes",
   metaDescription:
     "If you wake up flipping to the cool side of the pillow, you need a breathable fill and a cover that moves heat away. Take the quiz to find a cooling UK pillow matched to your position.",
-  h1: "Best Cooling Pillow (UK Guide)",
+  h1: "Best Cooling Pillow",
   breadcrumbLabel: "Cooling",
   intro:
     "Flipping to the cool side of the pillow is something almost everyone does — but if you're doing it several times a night, your pillow is trapping too much heat. The temperature of your pillow affects core body temperature, which directly affects sleep depth and continuity. A pillow that stays cool isn't just more comfortable; it helps you stay in deeper sleep phases for longer. This guide explains what actually keeps a pillow cool and which UK options are worth considering.",
@@ -827,7 +827,7 @@ const memoryFoamUk: PillowSeoPage = {
   metaTitle: "Best Memory Foam Pillow UK — Find the Right Type in 2 Minutes",
   metaDescription:
     "Solid, shredded, contour — memory foam pillows vary more than the name suggests. Take the quiz to find the right type for your sleep position, temperature and budget.",
-  h1: "Best Memory Foam Pillow (UK Guide)",
+  h1: "Best Memory Foam Pillow",
   breadcrumbLabel: "Memory foam",
   intro:
     "Memory foam is the most-searched pillow material in the UK, but it's not a single product. Solid block memory foam, shredded memory foam, and contour memory foam all behave differently and suit different sleepers. The wrong type is worse than no memory foam at all. This guide cuts through the marketing and explains which type of memory foam suits which sleeper — and what to watch out for.",
@@ -913,7 +913,7 @@ const downUk: PillowSeoPage = {
   metaTitle: "Best Down Pillow UK — Find the Right Fill Power in 2 Minutes",
   metaDescription:
     "Down pillow quality varies enormously. Fill power, goose vs duck, and cluster vs feather all affect how the pillow feels and lasts. Take the quiz to find a UK option matched to how you sleep.",
-  h1: "Best Down Pillow (UK Guide)",
+  h1: "Best Down Pillow",
   breadcrumbLabel: "Down pillows",
   intro:
     "A genuinely good down pillow is one of the most comfortable sleep surfaces available — but the phrase 'down pillow' covers everything from a £15 duck-feather mix to a £120 Hungarian goose-down product that lasts a decade. The difference in sleep quality between these extremes is significant. This guide explains what fill power means, why it matters, how to choose between goose and duck down, and who down pillows actually suit.",
@@ -997,7 +997,7 @@ const downUk: PillowSeoPage = {
 const firmVsSoftUk: PillowSeoPage = {
   slug: "firm-vs-soft-pillow-which-is-right-for-you",
   keyword: "firm vs soft pillow which is right",
-  metaTitle: "Firm vs Soft Pillow — Which Is Right for You? (UK Guide)",
+  metaTitle: "Firm vs Soft Pillow — Which Is Right for You?",
   metaDescription:
     "The right firmness depends almost entirely on your sleep position and build — not personal preference alone. This guide explains the logic and our quiz handles the matching.",
   h1: "Firm vs Soft Pillow: Which Is Right for You?",
@@ -1176,7 +1176,7 @@ const hotSleepersUk: PillowSeoPage = {
   metaTitle: "Best Pillow for Hot Sleepers UK — Find Yours in 2 Minutes",
   metaDescription:
     "Hot sleepers need breathable, cool-touch materials and the right loft for their position. Take the quiz to find a UK pillow that keeps you cool through the night.",
-  h1: "Best Pillow for Hot Sleepers (UK Guide)",
+  h1: "Best Pillow for Hot Sleepers",
   breadcrumbLabel: "Hot sleepers",
   intro:
     "Sleeping hot is about more than just comfort — it disrupts deep sleep and reduces sleep continuity. The right pillow can make a measurable difference in how your body regulates temperature at night. Hot sleepers need a pillow that combines three things: a breathable fill that allows airflow, a cover that doesn't trap heat, and if possible, a loft that suits their sleep position. This guide explains what to look for and helps you choose.",
@@ -1262,7 +1262,7 @@ const shoulderPainUk: PillowSeoPage = {
   metaTitle: "Best Pillow for Shoulder Pain UK — Neck & Shoulder Support",
   metaDescription:
     "Shoulder pain on your sleeping side often signals pillow height is wrong. Find a pillow with the right loft for your position, then take the quiz to match one in the UK.",
-  h1: "Best Pillow for Shoulder Pain (UK Guide)",
+  h1: "Best Pillow for Shoulder Pain",
   breadcrumbLabel: "Shoulder pain",
   intro:
     "Waking with shoulder pain on the side you slept on is often mistakenly blamed on the mattress — but it's usually the pillow. When the pillow is too low, the shoulder collapses into the bed and the upper arm is compressed. When it's too high, the shoulder is shrugged upward for hours and the muscles exhaust. The right pillow fills the shoulder-to-head gap perfectly, keeps the shoulder relaxed, and prevents both compression and elevation. This guide explains how to find it.",
@@ -1348,7 +1348,7 @@ const latexPillowUk: PillowSeoPage = {
   metaTitle: "Best Latex Pillow UK — Natural, Responsive Pillow Options",
   metaDescription:
     "Latex pillows are naturally cool, hypoallergenic, and long-lasting — but come in different types. Take the quiz to find a UK latex pillow matched to your position and budget.",
-  h1: "Best Latex Pillow (UK Guide)",
+  h1: "Best Latex Pillow",
   breadcrumbLabel: "Latex pillows",
   intro:
     "Latex pillows occupy a middle ground between memory foam and down — they're more durable and consistent than foam, cooler and more responsive than down, and naturally resistant to dust mites. Natural latex is sourced from rubber tree sap; synthetic latex is petroleum-derived. Both perform similarly in a pillow, though natural latex is slightly more breathable. This guide explains what to expect from latex, what the different types are, and who latex pillows suit best.",
