@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 export function Header() {
   const pathname = usePathname();
+  const isQuizPage = Boolean(pathname && pathname.split("/").filter(Boolean).includes("questionnaire"));
+
   if (pathname === "/") return null;
   // Hide on SEO landing pages: /pillow/<slug> where slug is not questionnaire/results.
   if (pathname) {
@@ -20,8 +22,40 @@ export function Header() {
         borderBottom: "1px solid rgba(255,255,255,0.08)",
         padding: "14px 0",
         boxShadow: "0 4px 16px -8px rgba(26,26,62,0.25)",
+        position: "relative",
       }}
     >
+      {isQuizPage && (
+        <nav
+          aria-label="Pillow guides"
+          style={{
+            position: "absolute",
+            right: 16,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 2,
+          }}
+        >
+          <Link
+            href="/pillow/best-pillow"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#9b87bc",
+              color: "#1a1a3e",
+              borderRadius: 999,
+              padding: "8px 14px",
+              fontWeight: 700,
+              fontSize: 14,
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Pillow Guides
+          </Link>
+        </nav>
+      )}
       <Link
         href="/"
         aria-label="Find Your Ideal Pillow — home"
