@@ -256,8 +256,11 @@ export const scorePillow: ScoringEngine = (product, answers) => {
   // Combination sleepers and indecisive buyers benefit from adjustable fill.
   //
   if (Boolean(attr.adjustable)) {
-    if (answers["sleep-position"] === "combination" || answers["fill"] === "no-preference") {
-      score += 4;
+    const wantsFlexibility = answers["sleep-position"] === "combination" || answers["fill"] === "no-preference";
+    const coreFitIsAlreadyStrong = posScore >= 10 && firmnessScore >= 6;
+    const adjustableBonus = wantsFlexibility ? (coreFitIsAlreadyStrong ? 2 : 4) : (coreFitIsAlreadyStrong ? 1 : 2);
+    if (adjustableBonus > 0) {
+      score += adjustableBonus;
       reasons.push("Adjustable fill lets you fine-tune the loft instead of being stuck with one shape");
     }
   }

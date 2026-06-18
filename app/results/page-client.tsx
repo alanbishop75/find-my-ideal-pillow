@@ -9,6 +9,12 @@ import { ScoringEngine } from '../../lib/scoring';
 import { categoryRegistry } from '../../config/registry';
 import { RegionProvider, useRegion } from '../../core/geo/RegionContext';
 import { getRegionLinks } from '../../config/pillow/buy-links';
+import {
+  buildPillowSummary,
+  getPillowBullets,
+  pickStrongAlternative,
+  type ScoredPillow,
+} from '../../lib/pillow-results';
 import type { Region } from '../../core/geo/types';
 
 type GtagFn = (command: string, event: string, params?: Record<string, string | number>) => void;
@@ -122,23 +128,12 @@ function ResultsPageInner({
   const scored = resolvedProducts.map((p) => {
     const { score, reasons } = hasAnswers ? resolvedEngine(p, answers) : { score: 0, reasons: [] };
     return { ...p, _score: score, _reasons: reasons };
-  }).sort((a, b) => b._score - a._score);
+  }).sort((a, b) => b._score - a._score) as ScoredPillow[];
 
   // Best Match: highest score
   const best = scored[0];
-  // Strong Alternative: maintain fit quality while preferring a different brand
-  // and fill profile from Best Match when scores are close.
-  const altCandidates = scored.filter((p) => p.id !== best.id);
-  const topAltScore = altCandidates[0]?._score ?? 0;
-  const altScoreTolerance = 3;
-  const viableAltCandidates = altCandidates.filter((p) => p._score >= topAltScore - altScoreTolerance);
-  const bestFill = String(best.attributes.fill ?? '');
-
-  const alt =
-    viableAltCandidates.find((p) => p.brand !== best.brand && String(p.attributes.fill ?? '') !== bestFill) ||
-    viableAltCandidates.find((p) => p.brand !== best.brand) ||
-    altCandidates[0] ||
-    best;
+  // Strong Alternative: choose a true adjacent-fit option rather than the next raw scorer.
+  const alt = pickStrongAlternative(scored, best);
   // Best Value: pick the lowest-cost unique option that still clears a fit threshold.
   // Uses product-level RRP if available; otherwise falls back to price tiers.
   const usedIds = new Set([best.id, alt.id]);
@@ -213,59 +208,23 @@ function ResultsPageInner({
     uniqueFallback;
 
   function getSummary(
-    product: typeof scored[0],
+    product: ScoredPillow,
     label: 'Best Match' | 'Strong Alternative' | 'Best Value',
     bestReasons?: string[]
   ) {
     const hasUserAnswers = Object.keys(answers).length > 0;
-    const reasons = (product._reasons ?? []) as string[];
-    const leadIn =
-      label === 'Best Match'
-        ? 'Closest overall fit'
-        : label === 'Strong Alternative'
-        ? 'Strong alternative profile'
-        : 'Best value option';
-    if (hasUserAnswers && reasons.length > 0) {
-      const unique = Array.from(new Set(reasons));
-      if (bestReasons && bestReasons.length > 0) {
-        const bestSet = new Set(bestReasons);
-        // Lead with reasons exclusive to this card so the explanation is
-        // visually distinct from the Best Match card.
-        const exclusive = unique.filter((r) => !bestSet.has(r));
-        const shared = unique.filter((r) => bestSet.has(r));
-        if (exclusive.length >= 2) {
-          const second = exclusive[1].charAt(0).toLowerCase() + exclusive[1].slice(1);
-          return `${leadIn}: ${exclusive[0]} — ${second}.`;
-        }
-        if (exclusive.length === 1) {
-          // Pair the exclusive reason with a shared one for a richer sentence.
-          if (shared.length > 0) {
-            const second = shared[0].charAt(0).toLowerCase() + shared[0].slice(1);
-            return `${leadIn}: ${exclusive[0]} — ${second}.`;
-          }
-          return `${leadIn}: ${exclusive[0]}.`;
-        }
-        // All reasons identical to Best Match — fall back to description.
-        return `${leadIn}: ${product.description ?? 'A strong match based on your answers.'}`;
-      }
-      if (unique.length >= 2) {
-        const second = unique[1].charAt(0).toLowerCase() + unique[1].slice(1);
-        return `${leadIn}: ${unique[0]} — ${second}.`;
-      }
-      return `${leadIn}: ${unique[0]}.`;
+    if (!hasUserAnswers) {
+      return product.description ?? 'A strong match based on your answers.';
     }
-    return `${leadIn}: ${product.description ?? 'A strong match based on your answers.'}`;
+    return buildPillowSummary(product, label, {
+      reasons: product._reasons ?? [],
+      bestReasons,
+      priorCopy: new Set<string>(),
+    });
   }
 
-  function getBullets(product: typeof scored[0], usedReasons?: string[]): string[] {
-    if (!product._reasons) return [];
-    const all = Array.from(new Set((product._reasons as string[]).map(String)));
-    if (!usedReasons || usedReasons.length === 0) return all.slice(0, 3);
-    const usedSet = new Set(usedReasons);
-    const exclusive = all.filter((r) => !usedSet.has(r));
-    const shared = all.filter((r) => usedSet.has(r));
-    // Lead with exclusive reasons, pad with shared if not enough
-    return [...exclusive, ...shared].slice(0, 3);
+  function getBullets(product: ScoredPillow, usedReasons?: string[]): string[] {
+    return getPillowBullets(product, usedReasons);
   }
 
   function getPriceHint(product: typeof scored[0]): string | undefined {
