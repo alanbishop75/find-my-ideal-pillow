@@ -50,13 +50,13 @@ function RegionSelector() {
       <button
         onClick={() => setRegion(other)}
         style={{
-          background: 'none',
-          border: '1px solid rgba(155,135,188,0.6)',
+          background: 'rgba(255,255,255,0.15)',
+          border: '1px solid rgba(255,255,255,0.4)',
           borderRadius: 6,
-          padding: '4px 10px',
+          padding: '4px 12px',
           fontSize: 12,
-          fontWeight: 600,
-          color: '#9b87bc',
+          fontWeight: 700,
+          color: '#ffffff',
           cursor: 'pointer',
         }}
       >
@@ -257,9 +257,15 @@ function ResultsPageInner({
     return `${leadIn}: ${product.description ?? 'A strong match based on your answers.'}`;
   }
 
-  function getBullets(product: typeof scored[0]): string[] {
+  function getBullets(product: typeof scored[0], usedReasons?: string[]): string[] {
     if (!product._reasons) return [];
-    return Array.from(new Set(product._reasons)).slice(0, 3).map(String);
+    const all = Array.from(new Set((product._reasons as string[]).map(String)));
+    if (!usedReasons || usedReasons.length === 0) return all.slice(0, 3);
+    const usedSet = new Set(usedReasons);
+    const exclusive = all.filter((r) => !usedSet.has(r));
+    const shared = all.filter((r) => usedSet.has(r));
+    // Lead with exclusive reasons, pad with shared if not enough
+    return [...exclusive, ...shared].slice(0, 3);
   }
 
   function getPriceHint(product: typeof scored[0]): string | undefined {
@@ -285,7 +291,7 @@ function ResultsPageInner({
   if (!hasAnswers) {
     return (
       <div style={{ minHeight: "100vh", background: "#f5f3f8", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px" }}>
-        <main style={{ width: "100%", maxWidth: 440, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center" }}>
+        <main style={{ width: "100%", maxWidth: 520, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center" }}>
           <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: "#1a1a3e" }}>Let&apos;s start with the quiz</h2>
           <p style={{ margin: 0, color: "#5a5478", lineHeight: 1.6 }}>
             We need your answers before we can build personalised pillow matches. Redirecting you now.
@@ -320,7 +326,7 @@ function ResultsPageInner({
 
       <main style={{
         width: "100%",
-        maxWidth: 440,
+        maxWidth: 520,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -357,7 +363,7 @@ function ResultsPageInner({
               image={product.imageUrl}
               title={`${product.brand} ${product.name}`}
               explanation={getSummary(product, label as 'Best Match' | 'Strong Alternative' | 'Best Value', i > 0 ? (best._reasons as string[]) : undefined)}
-              badges={getBullets(product)}
+              badges={getBullets(product, i > 0 ? (best._reasons as string[]) : undefined)}
               priceTier={String(product.attributes.priceTier ?? '')}
               priceHint={getPriceHint(product)}
               buyLinks={getRegionLinks(product.id, region)}

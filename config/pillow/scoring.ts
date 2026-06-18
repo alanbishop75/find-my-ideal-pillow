@@ -213,9 +213,23 @@ export const scorePillow: ScoringEngine = (product, answers) => {
   // Out-of-budget is a soft penalty, not a hard block — the best-value card
   // can still surface a mid-tier product to a budget user.
   //
+  // "any" budget = no limit — treat it as a quality preference: premium and
+  // mid products are rewarded so they can out-rank budget options on equal
+  // attribute fit. Budget products also receive a mild downward nudge.
+  //
   const userBudget = answers["budget"] ?? "mid";
 
-  if (userBudget !== "any") {
+  if (userBudget === "any") {
+    const prodTier = String(attr.priceTier ?? "mid");
+    if (prodTier === "premium") {
+      score += 5;
+      reasons.push("Premium build matches your open budget");
+    } else if (prodTier === "mid") {
+      score += 2;
+    } else if (prodTier === "budget") {
+      score -= 3;
+    }
+  } else {
     const budgetRank: Record<string, number> = { budget: 0, mid: 1, premium: 2 };
     const prodTier   = String(attr.priceTier ?? "mid");
     const userBudgetRank = budgetRank[userBudget] ?? 1;
@@ -227,6 +241,8 @@ export const scorePillow: ScoringEngine = (product, answers) => {
     } else if (budgetDelta === -1) {
       score += 2; // good value find — slightly under budget
       reasons.push("Priced below your budget without dropping into obvious compromise territory");
+    } else if (budgetDelta <= -2) {
+      score -= 3; // significantly under budget — likely a quality mismatch
     } else if (budgetDelta === 1) {
       score -= 5;
     } else if (budgetDelta >= 2) {

@@ -2,7 +2,6 @@
 import React from "react";
 import Image from "next/image";
 import { useTheme } from "../core/theme";
-import { Badge } from "./Badge";
 import type { BuyLink } from "../core/geo/types";
 
 const priceTierLabel: Record<string, string> = {
@@ -46,17 +45,6 @@ function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
 
   return (
     <div style={{ marginTop: 14 }}>
-      <p style={{
-        fontSize: 11,
-        fontWeight: 600,
-        color: tokens.textSecondary,
-        margin: "0 0 8px 0",
-        textTransform: "uppercase",
-        letterSpacing: 0.6,
-      }}>
-        Where to buy
-      </p>
-
       {/* Primary retailer — full-width accent button */}
       <a
         href={primary.url}
@@ -123,6 +111,7 @@ function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
 export function ResultsCard({ image, title, explanation, badges, buyLinks, label, isBest, priceTier, priceHint, onCtaClick }: ResultsCardProps) {
   const { tokens } = useTheme();
   const fallbackImage = "/images/pillow.jpeg";
+  const imageSize = 88;
   const [imageSrc, setImageSrc] = React.useState(image);
 
   React.useEffect(() => {
@@ -156,7 +145,7 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
         border: medalBorder ?? `${isBest ? "2px" : "1px"} solid ${isBest ? tokens.accent : tokens.border}`,
         borderRadius: 14,
         boxShadow: baseBoxShadow,
-        padding: "16px",
+        padding: "20px",
         width: "100%",
         transition: "box-shadow 0.2s, transform 0.2s",
         cursor: "pointer",
@@ -170,30 +159,13 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
         (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
       }}
     >
-      {/* Label row */}
-      {label && (
-        <div style={{ marginBottom: 12 }}>
-          <span style={{
-            display: "inline-block",
-            background: isBest ? tokens.accent : tokens.accentSoft,
-            color: isBest ? tokens.accentForeground : tokens.accent,
-            borderRadius: 6,
-            fontSize: 11,
-            fontWeight: 700,
-            padding: "3px 10px",
-            letterSpacing: 0.8,
-            textTransform: "uppercase",
-          }}>{label}</span>
-        </div>
-      )}
-
-      {/* Horizontal product row */}
-      <div style={{ display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 12 }}>
+      {/* Horizontal product row — label lives inside text column like golf ball */}
+      <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 12 }}>
         <Image
           src={imageSrc}
           alt={title}
-          width={72}
-          height={72}
+          width={imageSize}
+          height={imageSize}
           onError={() => {
             if (imageSrc !== fallbackImage) {
               setImageSrc(fallbackImage);
@@ -202,32 +174,59 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
           style={{ objectFit: "contain", borderRadius: 8, background: tokens.surfaceAlt, flexShrink: 0 }}
         />
         <div style={{ flex: 1, minWidth: 0 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700, color: tokens.textPrimary, margin: "0 0 3px 0", lineHeight: 1.25 }}>{title}</h3>
+          <h3 style={{ fontSize: 20, fontWeight: 800, color: tokens.textPrimary, margin: "0 0 2px 0", lineHeight: 1.13 }}>{title}</h3>
+          {label && (
+            <p style={{
+              margin: "0 0 2px 0",
+              fontSize: 15,
+              fontWeight: 700,
+              lineHeight: 1.2,
+              color: label === "Best Match" ? "#7dbe3a"
+                   : label === "Strong Alternative" ? "#888"
+                   : "#c97a2a",
+            }}>
+              {label === "Best Match" ? "Your Best Match"
+               : label === "Strong Alternative" ? "Strong Alternative"
+               : "Best Value"}
+            </p>
+          )}
+          {label && (
+            <p style={{ margin: "0 0 6px 0", fontSize: 13, color: tokens.textSecondary, lineHeight: 1.4 }}>
+              {label === "Best Match" ? "This is the best overall fit for your answers."
+               : label === "Strong Alternative" ? "A great alternative with a slightly different profile."
+               : "Best performance for the price."}
+            </p>
+          )}
           {priceTier && (
-            <p style={{ fontSize: 13, color: tokens.textSecondary, margin: "0 0 6px 0", fontWeight: 500 }}>
+            <p style={{ fontSize: 13, color: tokens.textSecondary, margin: "0 0 0 0", fontWeight: 500 }}>
               {priceTierLabel[priceTier] ?? priceTier}
               {priceHint && (
                 <span style={{ marginLeft: 6, fontWeight: 400, opacity: 0.75 }}>· {priceHint}</span>
               )}
             </p>
           )}
-          <p style={{ fontSize: 14, color: tokens.textSecondary, margin: 0, lineHeight: 1.5 }}>{explanation}</p>
         </div>
       </div>
 
-      {/* Badges */}
+      {/* Explanation paragraph */}
+      <p style={{ fontSize: 15, color: "#222", margin: "12px 0 8px 0", lineHeight: 1.5 }}>{explanation}</p>
+
+      {/* Reason bullets */}
       {badges.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 14 }}>
+        <ul style={{ margin: "0 0 14px 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
           {badges.slice(0, 3).map((b) => (
-            <Badge key={b}>{b}</Badge>
+            <li key={b} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 14, color: "#222", lineHeight: 1.5 }}>
+              <span style={{ color: "#9b87bc", fontWeight: 700, flexShrink: 0, marginTop: 2 }}>•</span>
+              <span>{b}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
-      {/* Buy links */}
+      {/* Buy button — no "Where to buy" header, matches golf ball */}
       {hasBuyLinks ? (
         <BuyLinksSection links={buyLinks} tokens={tokens} onCtaClick={onCtaClick} />
-      ) : null /* No links available for this product/region */}
+      ) : null}
     </div>
   );
 }
