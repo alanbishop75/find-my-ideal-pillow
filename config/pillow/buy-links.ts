@@ -118,6 +118,11 @@ export const pillowBuyLinks: Record<string, BuyLinks> = {
   "bedstory-shredded-cooling-2pack": affiliateLink("https://amzn.to/4ufaOf5", "B0BRSKN52L"),
   "rohi-hotel-quality-down-alt": affiliateLink("https://amzn.to/4n0oSa7", "B0GT58H2FC"),
   "talatex-natural-dunlop-latex": affiliateLink("https://amzn.to/4cTKXCu", "B0GJ54R9CT"),
+  "tempur-original-medium-uk": affiliateLink("https://www.amazon.co.uk/dp/B0BZW7L66T?tag=findyouridealpillow-21", "B0BZW7L66T"),
+  "tempur-comfort-original-uk": affiliateLink("https://www.amazon.co.uk/dp/B0CW3N4XVW?tag=findyouridealpillow-21", "B0CW3N4XVW"),
+  "tempur-original-large-uk": affiliateLink("https://www.amazon.co.uk/dp/B00VX8QRAA?tag=findyouridealpillow-21", "B00VX8QRAA"),
+  "tempur-original-xl-uk": affiliateLink("https://www.amazon.co.uk/dp/B00VX8UZZ8?tag=findyouridealpillow-21", "B00VX8UZZ8"),
+  "tempur-cloud-soft-uk": affiliateLink("https://www.amazon.co.uk/dp/B0CVQPYJRY?tag=findyouridealpillow-21", "B0CVQPYJRY"),
 
   // ── US Amazon entries ────────────────────────────────────────────────────
   // Tag findmyidealpillow-20 embedded directly in /dp/ URL via usLink().

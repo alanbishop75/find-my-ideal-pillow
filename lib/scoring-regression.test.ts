@@ -25,6 +25,21 @@ describe('scoring sanity', () => {
     expect(products.length).toBeGreaterThanOrEqual(25);
   });
 
+  it('natural-down products are not marked hypoallergenic', () => {
+    const naturalDown = products.filter((p) => p.attributes.fill === 'natural-down');
+    expect(naturalDown.length).toBeGreaterThan(0);
+    for (const p of naturalDown) {
+      expect(p.attributes.hypoallergenic).toBe(false);
+    }
+  });
+
+  it('UK catalogue has at least one stomach-sleeper option', () => {
+    const ukStomach = products.filter(
+      (p) => p.attributes.availability === 'uk' && p.attributes.sleepPosition === 'stomach'
+    );
+    expect(ukStomach.length).toBeGreaterThanOrEqual(1);
+  });
+
   it('all products score >= 0 for any input', () => {
     const answers: Answers = {
       'sleep-position': 'side',

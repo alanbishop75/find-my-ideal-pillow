@@ -126,8 +126,19 @@ function ResultsPageInner({
 
   // Best Match: highest score
   const best = scored[0];
-  // Strong Alternative: second-best unique fit (brand can match if score supports it).
-  const alt = scored.find((p) => p.id !== best.id) || best;
+  // Strong Alternative: maintain fit quality while preferring a different brand
+  // and fill profile from Best Match when scores are close.
+  const altCandidates = scored.filter((p) => p.id !== best.id);
+  const topAltScore = altCandidates[0]?._score ?? 0;
+  const altScoreTolerance = 3;
+  const viableAltCandidates = altCandidates.filter((p) => p._score >= topAltScore - altScoreTolerance);
+  const bestFill = String(best.attributes.fill ?? '');
+
+  const alt =
+    viableAltCandidates.find((p) => p.brand !== best.brand && String(p.attributes.fill ?? '') !== bestFill) ||
+    viableAltCandidates.find((p) => p.brand !== best.brand) ||
+    altCandidates[0] ||
+    best;
   // Best Value: pick the lowest-cost unique option that still clears a fit threshold.
   // Uses product-level RRP if available; otherwise falls back to price tiers.
   const usedIds = new Set([best.id, alt.id]);
@@ -150,6 +161,7 @@ function ResultsPageInner({
 
   const uniqueCandidates = scored.filter((p) => !usedIds.has(p.id));
   const uniqueFallback = uniqueCandidates[0] || scored[scored.length - 1];
+  const budgetAnswer = String(answers['budget'] ?? 'any');
 
   // Keep Best Value credible by requiring a minimum fit standard versus Best Match.
   const valueFitTolerance = 4;
@@ -168,9 +180,20 @@ function ResultsPageInner({
     valueEligibleAll.length > 0 ? valueEligibleAll :
     uniqueCandidates;
 
+  // If user explicitly asked for budget picks, keep Best Value inside budget
+  // tier whenever at least one budget candidate exists.
+  const budgetTierCandidates = uniqueCandidates.filter((p) => getTier(p) === 'budget');
+  const budgetTierEligible = budgetTierCandidates.filter((p) => p._score >= minValueFitScore);
+  const budgetConstrainedPool =
+    budgetTierEligible.length > 0 ? budgetTierEligible :
+    budgetTierCandidates.length > 0 ? budgetTierCandidates :
+    valuePool;
+
   const usedValueFitFallback = valueEligibleNonPremium.length === 0;
 
-  const budget = [...valuePool].sort((a, b) => {
+  const budgetPool = budgetAnswer === 'budget' ? budgetConstrainedPool : valuePool;
+
+  const budgetSorted = [...budgetPool].sort((a, b) => {
     const rrpA = getRrp(a);
     const rrpB = getRrp(b);
     if (rrpA !== null && rrpB !== null && rrpA !== rrpB) return rrpA - rrpB;
@@ -179,11 +202,29 @@ function ResultsPageInner({
     const tierDelta = getTierRank(a) - getTierRank(b);
     if (tierDelta !== 0) return tierDelta;
     return b._score - a._score;
-  })[0] || uniqueFallback;
+  });
 
-  function getSummary(product: typeof scored[0], bestReasons?: string[]) {
+  // Prefer a different brand for Best Value to avoid a same-brand stack
+  // when a similarly credible value option exists.
+  const budget =
+    budgetSorted.find((p) => p.brand !== best.brand && p.brand !== alt.brand) ||
+    budgetSorted.find((p) => p.brand !== best.brand) ||
+    budgetSorted[0] ||
+    uniqueFallback;
+
+  function getSummary(
+    product: typeof scored[0],
+    label: 'Best Match' | 'Strong Alternative' | 'Best Value',
+    bestReasons?: string[]
+  ) {
     const hasUserAnswers = Object.keys(answers).length > 0;
     const reasons = (product._reasons ?? []) as string[];
+    const leadIn =
+      label === 'Best Match'
+        ? 'Closest overall fit'
+        : label === 'Strong Alternative'
+        ? 'Strong alternative profile'
+        : 'Best value option';
     if (hasUserAnswers && reasons.length > 0) {
       const unique = Array.from(new Set(reasons));
       if (bestReasons && bestReasons.length > 0) {
@@ -194,26 +235,26 @@ function ResultsPageInner({
         const shared = unique.filter((r) => bestSet.has(r));
         if (exclusive.length >= 2) {
           const second = exclusive[1].charAt(0).toLowerCase() + exclusive[1].slice(1);
-          return `${exclusive[0]} — ${second}.`;
+          return `${leadIn}: ${exclusive[0]} — ${second}.`;
         }
         if (exclusive.length === 1) {
           // Pair the exclusive reason with a shared one for a richer sentence.
           if (shared.length > 0) {
             const second = shared[0].charAt(0).toLowerCase() + shared[0].slice(1);
-            return `${exclusive[0]} — ${second}.`;
+            return `${leadIn}: ${exclusive[0]} — ${second}.`;
           }
-          return `${exclusive[0]}.`;
+          return `${leadIn}: ${exclusive[0]}.`;
         }
         // All reasons identical to Best Match — fall back to description.
-        return product.description ?? 'A strong match based on your answers.';
+        return `${leadIn}: ${product.description ?? 'A strong match based on your answers.'}`;
       }
       if (unique.length >= 2) {
         const second = unique[1].charAt(0).toLowerCase() + unique[1].slice(1);
-        return `${unique[0]} — ${second}.`;
+        return `${leadIn}: ${unique[0]} — ${second}.`;
       }
-      return `${unique[0]}.`;
+      return `${leadIn}: ${unique[0]}.`;
     }
-    return product.description ?? 'A strong match based on your answers.';
+    return `${leadIn}: ${product.description ?? 'A strong match based on your answers.'}`;
   }
 
   function getBullets(product: typeof scored[0]): string[] {
@@ -315,7 +356,7 @@ function ResultsPageInner({
               isBest={i === 0}
               image={product.imageUrl}
               title={`${product.brand} ${product.name}`}
-              explanation={getSummary(product, i > 0 ? (best._reasons as string[]) : undefined)}
+              explanation={getSummary(product, label as 'Best Match' | 'Strong Alternative' | 'Best Value', i > 0 ? (best._reasons as string[]) : undefined)}
               badges={getBullets(product)}
               priceTier={String(product.attributes.priceTier ?? '')}
               priceHint={getPriceHint(product)}
