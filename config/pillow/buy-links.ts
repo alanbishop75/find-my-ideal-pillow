@@ -43,17 +43,20 @@ function ukLink(asin: string): BuyLinks {
 
 /** Used by the affiliate admin API once a SiteStripe-tagged URL has been applied. */
 export function affiliateLink(url: string, asin: string): BuyLinks {
+  const canonicalUrl = `https://www.amazon.co.uk/dp/${asin}?tag=${UK_ASSOCIATE_TAG}`;
+  const normalisedUrl = url.includes("amazon.co.uk/dp/") ? url : canonicalUrl;
+
   return {
     UK: [
       {
         retailerKey: "amazon-uk",
         retailerName: "Amazon UK",
         region: "UK",
-        url,
+        url: normalisedUrl,
         expectedDomain: "amazon.co.uk",
         isTemporary: false,
         source: "sitestripe",
-        notes: `SiteStripe-tagged URL for ASIN ${asin}. Applied via admin.`,
+        notes: `Canonical direct URL for ASIN ${asin}.`,
         isPrimary: true,
       },
     ],

@@ -332,6 +332,7 @@ function ResultsPageInner({
         </div>
         <Button
           onClick={() => {
+            trackEvent('start_again_clicked', { from: 'results' });
             reset();
             router.push(homeHref);
           }}

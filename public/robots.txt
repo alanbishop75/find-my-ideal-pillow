@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /pillow/questionnaire
+Disallow: /pillow/results
+Disallow: /questionnaire
+Disallow: /results
+
+Sitemap: https://www.findyouridealpillow.com/sitemap.xml

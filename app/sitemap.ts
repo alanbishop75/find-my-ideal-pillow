@@ -54,6 +54,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    {
+      url: `${SITE_URL}/affiliate-disclosure`,
+      lastModified: new Date('2026-06-18'),
+      changeFrequency: 'yearly',
+      priority: 0.4,
+    },
   ];
 
   const seoLandingPages: MetadataRoute.Sitemap = pillowSeoPages.map((page) => ({
