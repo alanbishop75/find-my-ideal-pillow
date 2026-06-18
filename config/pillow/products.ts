@@ -811,7 +811,7 @@ export const products: Product[] = [
     brand: "TEMPUR",
     description:
       "Ergonomic memory-foam pillow with medium firmness, built for side and back sleepers and cervical alignment support.",
-    imageUrl: "https://m.media-amazon.com/images/I/71fofSCwToL._AC_SL1500_.jpg",
+    imageUrl: "/images/products/pillow/tempur-original-medium-uk.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0BZW7L66T",
@@ -836,7 +836,7 @@ export const products: Product[] = [
     brand: "TEMPUR",
     description:
       "Traditional memory-foam pillow with soft-support profile, shaped to support head, neck, and shoulders.",
-    imageUrl: "https://m.media-amazon.com/images/I/71K2s6OD5gL._AC_SL1500_.jpg",
+    imageUrl: "/images/products/pillow/tempur-comfort-original-uk.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0CW3N4XVW",
@@ -861,7 +861,7 @@ export const products: Product[] = [
     brand: "TEMPUR",
     description:
       "Large ergonomic memory-foam pillow designed for medium/large frames, side and back sleepers, and neck support.",
-    imageUrl: "https://m.media-amazon.com/images/I/71fofSCwToL._AC_SL1500_.jpg",
+    imageUrl: "/images/products/pillow/tempur-original-large-uk.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B00VX8QRAA",
@@ -886,7 +886,7 @@ export const products: Product[] = [
     brand: "TEMPUR",
     description:
       "Extra-large ergonomic TEMPUR memory-foam pillow for larger frames and side/back sleeper alignment.",
-    imageUrl: "https://m.media-amazon.com/images/I/71fofSCwToL._AC_SL1500_.jpg",
+    imageUrl: "/images/products/pillow/tempur-original-xl-uk.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B00VX8UZZ8",
@@ -911,7 +911,7 @@ export const products: Product[] = [
     brand: "TEMPUR",
     description:
       "Soft TEMPUR micro-cushion pillow with traditional shape, aimed at plush comfort with adaptive head and neck support.",
-    imageUrl: "https://m.media-amazon.com/images/I/71yI9kwf8yL._AC_SL1500_.jpg",
+    imageUrl: "/images/products/pillow/tempur-cloud-soft-uk.jpg",
     affiliateLinks: [],
     ukAmazonVerification: ukVerified(
       "B0CVQPYJRY",
