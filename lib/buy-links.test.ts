@@ -61,14 +61,15 @@ describe('pillow buy-links — UK Amazon only phase', () => {
     }
   });
 
-  it('all 30 products have a SiteStripe URL applied', () => {
+  it('all UK products have a SiteStripe URL applied', () => {
     let sitestripedCount = 0;
     for (const [, links] of Object.entries(pillowBuyLinks)) {
       for (const link of links.UK ?? []) {
         if (link.source === 'sitestripe') sitestripedCount++;
       }
     }
-    expect(sitestripedCount).toBe(30);
+    const ukProductCount = products.filter((p) => p.attributes.availability === 'uk').length;
+    expect(sitestripedCount).toBe(ukProductCount);
   });
 
   it('US buy-links use amazon.com with embedded findmyidealpillow-20 tag', () => {
