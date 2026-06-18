@@ -101,28 +101,50 @@ export default function HomePageClient() {
           </p>
 
           {/* CTA */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginTop: 8 }}>
-            <Link
-              href="/pillow/questionnaire"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                background: LAVENDER,
-                color: NAVY,
-                borderRadius: 999,
-                padding: "16px 40px",
-                fontWeight: 800,
-                fontSize: 16,
-                textDecoration: "none",
-                letterSpacing: 0.2,
-                boxShadow: "0 8px 24px -8px rgba(155,135,188,0.6)",
-              }}
-            >
-              Start fitting
-            </Link>
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>
-              Under 2 minutes · No sign-up
-            </span>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <Link
+                href="/pillow/questionnaire"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  background: LAVENDER,
+                  color: NAVY,
+                  borderRadius: 999,
+                  padding: "16px 40px",
+                  fontWeight: 800,
+                  fontSize: 16,
+                  textDecoration: "none",
+                  letterSpacing: 0.2,
+                  boxShadow: "0 8px 24px -8px rgba(155,135,188,0.6)",
+                }}
+              >
+                Start fitting
+              </Link>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Fitting in less than a minute</span>
+            </div>
+            <span style={{ fontWeight: 700, color: "#ffffff", fontSize: 16, display: "flex", alignItems: "center", paddingTop: 14 }}>Or</span>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <Link
+                href="/pillow/best-pillow#quick-buy-starting-points"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  background: LAVENDER,
+                  color: NAVY,
+                  borderRadius: 999,
+                  padding: "16px 40px",
+                  fontWeight: 800,
+                  fontSize: 16,
+                  textDecoration: "none",
+                  letterSpacing: 0.2,
+                  boxShadow: "0 8px 24px -8px rgba(155,135,188,0.6)",
+                }}
+              >
+                Quick Buy
+              </Link>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Top-rated picks, ready to buy</span>
+            </div>
           </div>
         </div>
       </section>
