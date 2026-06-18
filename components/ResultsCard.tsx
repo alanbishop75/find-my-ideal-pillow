@@ -122,6 +122,12 @@ function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
 
 export function ResultsCard({ image, title, explanation, badges, buyLinks, label, isBest, priceTier, priceHint, onCtaClick }: ResultsCardProps) {
   const { tokens } = useTheme();
+  const fallbackImage = "/images/pillow.jpeg";
+  const [imageSrc, setImageSrc] = React.useState(image);
+
+  React.useEffect(() => {
+    setImageSrc(image);
+  }, [image]);
 
   const hasBuyLinks = buyLinks && buyLinks.length > 0;
   const medalBorder =
@@ -184,10 +190,15 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
       {/* Horizontal product row */}
       <div style={{ display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 12 }}>
         <Image
-          src={image}
+          src={imageSrc}
           alt={title}
           width={72}
           height={72}
+          onError={() => {
+            if (imageSrc !== fallbackImage) {
+              setImageSrc(fallbackImage);
+            }
+          }}
           style={{ objectFit: "contain", borderRadius: 8, background: tokens.surfaceAlt, flexShrink: 0 }}
         />
         <div style={{ flex: 1, minWidth: 0 }}>
