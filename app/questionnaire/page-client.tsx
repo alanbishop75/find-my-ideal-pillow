@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Questionnaire } from '../../core/types';
 import { useRegion } from '../../core/geo/RegionContext';
+import { defaultCategoryId } from '../../config/domain-map';
 import { getOptionLabelForRegion, getQuestionTextForRegion } from '../../core/geo/content';
 import {
 	trackQuizStart,
@@ -28,7 +29,7 @@ function trackEvent(name: string, params?: Record<string, string | number>) {
 	}
 }
 
-function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath = '/pillow/results' }: Props) {
+function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath = `/${defaultCategoryId}/results` }: Props) {
 	const resolvedQuestionnaire = questionnaireProp ?? pillowQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
 	const { answers, setAnswer, reset } = useAppState();
