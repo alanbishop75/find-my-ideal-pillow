@@ -134,6 +134,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
 
   return (
     <section
+      id="quick-buy-starting-point"
       style={{
         marginTop: 16,
         display: "grid",
@@ -414,8 +415,31 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             <p style={{ fontSize: 16, color: "rgba(255,255,255,0.78)", margin: "0 0 24px", lineHeight: 1.55, maxWidth: 520 }}>
               {page.intro}
             </p>
-            <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }} className="seo-hero-cta">
-              {ctaButton("Find Your Ideal Pillow")}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10 }} className="seo-hero-cta">
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                {ctaButton("Find Your Ideal Pillow")}
+                <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>OR</span>
+                <Link
+                  href="#quick-buy-starting-point"
+                  style={{
+                    marginTop: 8,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: LAVENDER,
+                    color: NAVY,
+                    borderRadius: 999,
+                    padding: "14px 30px",
+                    fontWeight: 800,
+                    fontSize: 16,
+                    textDecoration: "none",
+                    letterSpacing: 0.2,
+                    boxShadow: "0 8px 24px -8px rgba(155,135,188,0.5)",
+                  }}
+                >
+                  Quick Buy
+                </Link>
+              </div>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Under 2 minutes · No sign-up</span>
             </div>
           </div>
