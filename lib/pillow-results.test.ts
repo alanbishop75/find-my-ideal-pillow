@@ -1,4 +1,4 @@
-import { buildPillowSummary, isAdjacentFit, pickStrongAlternative, type ScoredPillow } from './pillow-results';
+import { buildPillowSummary, isAdjacentFit, pickBestValue, pickStrongAlternative, type ScoredPillow } from './pillow-results';
 
 function makeProduct(overrides: Partial<ScoredPillow> = {}): ScoredPillow {
   return {
@@ -99,5 +99,34 @@ describe('pillow results helpers', () => {
 
     expect(first).toMatch(/Closest overall fit|Top match for your answers|strongest all-round pick/i);
     expect(second).not.toEqual(first);
+  });
+});
+
+describe('pillow results value selection', () => {
+  it('keeps the cheapest credible option as Best Value even when a pricier different brand exists', () => {
+    const best = makeProduct({ id: 'best', brand: 'Brand A', _score: 40, attributes: { ...makeProduct().attributes, priceTier: 'mid' } });
+    const alt = makeProduct({ id: 'alt', brand: 'Brand B', _score: 38, attributes: { ...makeProduct().attributes, priceTier: 'mid' } });
+    const cheap = makeProduct({
+      id: 'cheap',
+      brand: 'Brand C',
+      _score: 34,
+      attributes: {
+        ...makeProduct().attributes,
+        priceTier: 'budget',
+        rrp: 18,
+      },
+    });
+    const expensiveDifferentBrand = makeProduct({
+      id: 'expensive',
+      brand: 'Brand D',
+      _score: 35,
+      attributes: {
+        ...makeProduct().attributes,
+        priceTier: 'premium',
+        rrp: 99,
+      },
+    });
+
+    expect(pickBestValue([best, alt, cheap, expensiveDifferentBrand], best, alt, 'any').id).toBe('cheap');
   });
 });

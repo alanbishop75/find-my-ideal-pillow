@@ -104,6 +104,86 @@ export function pickStrongAlternative(scored: ScoredPillow[], best: ScoredPillow
   })[0] ?? best;
 }
 
+function getTier(product: ScoredPillow): 'budget' | 'mid' | 'premium' | '' {
+  const tier = String(product.attributes.priceTier ?? '');
+  if (tier === 'budget' || tier === 'mid' || tier === 'premium') return tier;
+  return '';
+}
+
+function getTierRank(product: ScoredPillow): number {
+  const tier = getTier(product);
+  if (tier === 'budget') return 0;
+  if (tier === 'mid') return 1;
+  if (tier === 'premium') return 2;
+  return 3;
+}
+
+function getRrp(product: ScoredPillow): number | null {
+  const raw = Number(product.attributes.rrp);
+  return Number.isFinite(raw) && raw > 0 ? raw : null;
+}
+
+function sortByValueCredibility(candidates: ScoredPillow[]): ScoredPillow[] {
+  return [...candidates].sort((a, b) => {
+    const rrpA = getRrp(a);
+    const rrpB = getRrp(b);
+    if (rrpA !== null && rrpB !== null && rrpA !== rrpB) return rrpA - rrpB;
+    if (rrpA !== null && rrpB === null) return -1;
+    if (rrpA === null && rrpB !== null) return 1;
+    const tierDelta = getTierRank(a) - getTierRank(b);
+    if (tierDelta !== 0) return tierDelta;
+    return b._score - a._score;
+  });
+}
+
+export function pickBestValue(
+  scored: ScoredPillow[],
+  best: ScoredPillow,
+  alt: ScoredPillow,
+  budgetAnswer: string
+): ScoredPillow {
+  const usedIds = new Set([best.id, alt.id]);
+  const uniqueCandidates = scored.filter((product) => !usedIds.has(product.id));
+  const uniqueFallback = uniqueCandidates[0] || scored[scored.length - 1];
+
+  const valueFitTolerance = 4;
+  const minValueFitScore = Math.max(1, best._score - valueFitTolerance);
+
+  const nonPremiumCandidates = uniqueCandidates.filter((product) => getTier(product) !== 'premium');
+  const valueEligibleNonPremium = nonPremiumCandidates.filter((product) => product._score >= minValueFitScore);
+  const valueEligibleAll = uniqueCandidates.filter((product) => product._score >= minValueFitScore);
+
+  const valuePool =
+    valueEligibleNonPremium.length > 0 ? valueEligibleNonPremium :
+    nonPremiumCandidates.length > 0 ? nonPremiumCandidates :
+    valueEligibleAll.length > 0 ? valueEligibleAll :
+    uniqueCandidates;
+
+  const budgetTierCandidates = uniqueCandidates.filter((product) => getTier(product) === 'budget');
+  const budgetTierEligible = budgetTierCandidates.filter((product) => product._score >= minValueFitScore);
+  const budgetConstrainedPool =
+    budgetTierEligible.length > 0 ? budgetTierEligible :
+    budgetTierCandidates.length > 0 ? budgetTierCandidates :
+    valuePool;
+
+  const budgetPool = budgetAnswer === 'budget' ? budgetConstrainedPool : valuePool;
+  const budgetSorted = sortByValueCredibility(budgetPool);
+  const cheapestBudget = budgetSorted[0] || uniqueFallback;
+
+  const budgetTieCandidates = budgetSorted.filter((product) => {
+    const rrp = getRrp(product);
+    const cheapestRrp = getRrp(cheapestBudget);
+    if (rrp !== null && cheapestRrp !== null && rrp === cheapestRrp) return true;
+    return product._score === cheapestBudget._score;
+  });
+
+  return (
+    budgetTieCandidates.find((product) => product.brand !== best.brand && product.brand !== alt.brand) ||
+    budgetTieCandidates.find((product) => product.brand !== best.brand) ||
+    cheapestBudget
+  );
+}
+
 function hashString(value: string): number {
   let hash = 0;
   for (let index = 0; index < value.length; index += 1) {

@@ -12,6 +12,7 @@ import { getRegionLinks } from '../../config/pillow/buy-links';
 import {
   buildPillowSummary,
   getPillowBullets,
+  pickBestValue,
   pickStrongAlternative,
   type ScoredPillow,
 } from '../../lib/pillow-results';
@@ -134,78 +135,8 @@ function ResultsPageInner({
   const best = scored[0];
   // Strong Alternative: choose a true adjacent-fit option rather than the next raw scorer.
   const alt = pickStrongAlternative(scored, best);
-  // Best Value: pick the lowest-cost unique option that still clears a fit threshold.
-  // Uses product-level RRP if available; otherwise falls back to price tiers.
-  const usedIds = new Set([best.id, alt.id]);
-  function getTier(p: typeof scored[0]): 'budget' | 'mid' | 'premium' | '' {
-    const tier = String(p.attributes.priceTier ?? '');
-    if (tier === 'budget' || tier === 'mid' || tier === 'premium') return tier;
-    return '';
-  }
-  function getTierRank(p: typeof scored[0]): number {
-    const tier = getTier(p);
-    if (tier === 'budget') return 0;
-    if (tier === 'mid') return 1;
-    if (tier === 'premium') return 2;
-    return 3;
-  }
-  function getRrp(p: typeof scored[0]): number | null {
-    const raw = Number(p.attributes.rrp);
-    return Number.isFinite(raw) && raw > 0 ? raw : null;
-  }
-
-  const uniqueCandidates = scored.filter((p) => !usedIds.has(p.id));
-  const uniqueFallback = uniqueCandidates[0] || scored[scored.length - 1];
   const budgetAnswer = String(answers['budget'] ?? 'any');
-
-  // Keep Best Value credible by requiring a minimum fit standard versus Best Match.
-  const valueFitTolerance = 4;
-  const minValueFitScore = Math.max(1, best._score - valueFitTolerance);
-
-  // Best Value must never be a premium-priced product when non-premium options exist.
-  // Priority: (1) non-premium + fit threshold, (2) any non-premium, (3) fit threshold
-  // (including premium), (4) all unique candidates.
-  const nonPremiumCandidates = uniqueCandidates.filter((p) => getTier(p) !== 'premium');
-  const valueEligibleNonPremium = nonPremiumCandidates.filter((p) => p._score >= minValueFitScore);
-  const valueEligibleAll = uniqueCandidates.filter((p) => p._score >= minValueFitScore);
-
-  const valuePool =
-    valueEligibleNonPremium.length > 0 ? valueEligibleNonPremium :
-    nonPremiumCandidates.length > 0 ? nonPremiumCandidates :
-    valueEligibleAll.length > 0 ? valueEligibleAll :
-    uniqueCandidates;
-
-  // If user explicitly asked for budget picks, keep Best Value inside budget
-  // tier whenever at least one budget candidate exists.
-  const budgetTierCandidates = uniqueCandidates.filter((p) => getTier(p) === 'budget');
-  const budgetTierEligible = budgetTierCandidates.filter((p) => p._score >= minValueFitScore);
-  const budgetConstrainedPool =
-    budgetTierEligible.length > 0 ? budgetTierEligible :
-    budgetTierCandidates.length > 0 ? budgetTierCandidates :
-    valuePool;
-
-  const usedValueFitFallback = valueEligibleNonPremium.length === 0;
-
-  const budgetPool = budgetAnswer === 'budget' ? budgetConstrainedPool : valuePool;
-
-  const budgetSorted = [...budgetPool].sort((a, b) => {
-    const rrpA = getRrp(a);
-    const rrpB = getRrp(b);
-    if (rrpA !== null && rrpB !== null && rrpA !== rrpB) return rrpA - rrpB;
-    if (rrpA !== null && rrpB === null) return -1;
-    if (rrpA === null && rrpB !== null) return 1;
-    const tierDelta = getTierRank(a) - getTierRank(b);
-    if (tierDelta !== 0) return tierDelta;
-    return b._score - a._score;
-  });
-
-  // Prefer a different brand for Best Value to avoid a same-brand stack
-  // when a similarly credible value option exists.
-  const budget =
-    budgetSorted.find((p) => p.brand !== best.brand && p.brand !== alt.brand) ||
-    budgetSorted.find((p) => p.brand !== best.brand) ||
-    budgetSorted[0] ||
-    uniqueFallback;
+  const budget = pickBestValue(scored, best, alt, budgetAnswer);
 
   function getSummary(
     product: ScoredPillow,
