@@ -135,6 +135,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
   return (
     <section
       id="quick-buy-starting-point"
+      className="quick-buy-grid"
       style={{
         marginTop: 16,
         display: "grid",
@@ -353,6 +354,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
           .seo-hero-text { text-align: center !important; }
           .seo-hero-text p { margin-left: auto !important; margin-right: auto !important; }
           .seo-hero-cta { justify-content: center !important; }
+          .quick-buy-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
