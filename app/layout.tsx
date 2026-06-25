@@ -50,6 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const categoryId = await resolveCategoryIdForRequest();
   const config = categoryRegistry[categoryId];
   const siteUrl = getRequiredSiteUrl();
+  const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
   const title = config?.meta.title ?? "FindYourIdealPillow — Find Your Perfect Pillow";
   const description = config?.meta.description ?? "Answer a few quick questions and get your personalised pillow recommendations. Free, no sign-up required.";
   const ogImage = "/opengraph-image";
@@ -57,6 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(siteUrl),
     title,
     description,
+    verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
     icons: {
       icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
     },

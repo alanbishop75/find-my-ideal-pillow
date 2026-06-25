@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { pillowSeoPages, pillowSeoPageMap } from "../../../config/pillow/seo-pages";
+import { getRequiredSiteUrl } from "../../../lib/site-url";
 import PillowSeoLandingPage from "./PillowSeoLandingPage";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.findyouridealpillow.com").replace(/\/$/, "");
+const SITE_URL = getRequiredSiteUrl();
 
 export function generateStaticParams() {
   return pillowSeoPages.map((p) => ({ slug: p.slug }));
