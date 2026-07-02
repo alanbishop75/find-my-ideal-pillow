@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
+import { products } from "../../../config/pillow/products";
+import { pillowComparisonPages } from "../../../config/pillow/comparison-pages";
 import HubQuickBuySection from "./HubQuickBuySectionClient";
 
 const quickAnswerBullets = [
@@ -9,32 +12,15 @@ const quickAnswerBullets = [
   "If you wake with neck or shoulder pain, loft mismatch is usually the first thing to fix before buying.",
 ];
 
-const comparisonOptions = [
-  {
-    label: "Best baseline for most sleepers",
-    guideSlug: "best-pillow-for-side-sleepers",
-    guideTitle: "Best Pillow for Side Sleepers",
-    summary: "Highest-loft requirement and firmness need — the profile most standard pillows underserve.",
-  },
-  {
-    label: "Best for alignment issues",
-    guideSlug: "best-pillow-for-neck-pain",
-    guideTitle: "Best Pillow for Neck Pain",
-    summary: "Structured cervical support for sleepers waking with stiffness or recurring neck pain.",
-  },
-  {
-    label: "Best for temperature control",
-    guideSlug: "best-cooling-pillow",
-    guideTitle: "Best Cooling Pillow",
-    summary: "Breathable fills and cool-touch covers for sleepers who overheat through the night.",
-  },
-  {
-    label: "Best value-first route",
-    guideSlug: "best-budget-pillow-under-30",
-    guideTitle: "Best Budget Pillow Under £30",
-    summary: "Well-matched UK options under £30 for sleepers who want performance without overspending.",
-  },
-];
+const comparisonCards = pillowComparisonPages.map((page) => ({
+  label: page.searchIntent,
+  title: page.h1,
+  summary: page.metaDescription,
+  leftProductId: page.leftProductId,
+  rightProductId: page.rightProductId,
+  slug: page.slug,
+  cta: "Open comparison page",
+}));
 
 const decisionRows = [
   {
@@ -62,6 +48,7 @@ const decisionRows = [
 const NAVY = "#1a1a3e";
 const LAVENDER = "#9b87bc";
 const SURFACE = "#f5f3f8";
+const WHITE = "#ffffff";
 const BORDER = "#e6e1ec";
 const TEXT = "#1a1a3e";
 const TEXT2 = "#5a5478";
@@ -264,44 +251,32 @@ export default function BestPillowHubPage() {
 
       <main style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
         <section
-          id="quick-answer"
+          id="jump-links"
           style={{
+            marginTop: 0,
             background: "#ffffff",
             borderTop: `1px solid ${BORDER}`,
             borderRight: `1px solid ${BORDER}`,
             borderBottom: `1px solid ${BORDER}`,
             borderLeft: `4px solid ${LAVENDER}`,
             borderRadius: 14,
-            padding: "22px 24px",
-          }}
-        >
-          <h2 style={{ margin: "0 0 10px 0", fontSize: 24, color: NAVY }}>Quick answer</h2>
-          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
-            If you want a fast starting point before diving into all guides, use this 30-second summary.
-          </p>
-          <ul style={{ margin: 0, paddingLeft: 20, color: TEXT, lineHeight: 1.8 }}>
-            {quickAnswerBullets.map((line, index) => (
-              <li key={index}>{line}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section
-          id="jump-links"
-          style={{
-            marginTop: 16,
-            background: "#ffffff",
-            border: `1px solid ${BORDER}`,
-            borderRadius: 14,
-            padding: "16px 18px",
+            padding: "14px 16px 16px",
           }}
           aria-label="Jump links"
         >
-          <h2 style={{ margin: "0 0 10px", fontSize: 20, color: NAVY }}>Jump to a section</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          <div style={{ marginBottom: 10 }}>
+            <p style={{ margin: "0 0 3px", color: NAVY, fontSize: 13, fontWeight: 800, letterSpacing: 0.4, textTransform: "uppercase" }}>
+              On this page
+            </p>
+            <p style={{ margin: 0, color: TEXT2, fontSize: 13 }}>
+              Jump straight to the section you want.
+            </p>
+          </div>
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+            <div style={{ display: "flex", gap: 8, minWidth: "max-content" }}>
             {([
               ["Quick answer", "#quick-answer"],
-              ["Compare options", "#compare-options"],
+              ["Compare products", "#compare-options"],
               ["How we rank", "#how-we-rank"],
               ["Decision matrix", "#decision-matrix"],
               ["Quick Buy", "#quick-buy-starting-points"],
@@ -317,65 +292,47 @@ export default function BestPillowHubPage() {
                   justifyContent: "center",
                   border: `1px solid ${BORDER}`,
                   borderRadius: 999,
-                  padding: "8px 12px",
+                  padding: "7px 14px",
                   color: NAVY,
                   textDecoration: "none",
                   fontSize: 13,
                   fontWeight: 700,
                   background: "#ffffff",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {label}
               </Link>
             ))}
+            </div>
           </div>
         </section>
 
         <section
-          id="compare-options"
+          id="quick-answer"
           style={{
-            marginTop: 16,
+            marginTop: 14,
             background: "#ffffff",
-            border: `1px solid ${BORDER}`,
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${LAVENDER}`,
             borderRadius: 14,
             padding: "22px 24px",
           }}
         >
-          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>Best options at a glance</h2>
-          <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
-            These options represent the most common pillow decision paths: baseline support, alignment, temperature, and value.
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>Quick answer</h2>
+          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
+            If you want a fast starting point before diving into all guides, use this 30-second summary.
           </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: 12,
-            }}
-          >
-            {comparisonOptions.map((item, index) => (
-              <article
-                key={item.guideSlug}
-                style={{
-                  border: `1px solid ${BORDER}`,
-                  borderRadius: 12,
-                  padding: "14px 14px",
-                  background: "#ffffff",
-                }}
-              >
-                <p style={{ margin: "0 0 8px", color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
-                  #{index + 1} · {item.label}
-                </p>
-                <h3 style={{ margin: "0 0 8px", color: NAVY, fontSize: 17, lineHeight: 1.35 }}>{item.guideTitle}</h3>
-                <p style={{ margin: "0 0 10px", color: TEXT2, fontSize: 14, lineHeight: 1.6 }}>{item.summary}</p>
-                <Link
-                  href={`/pillow/${item.guideSlug}`}
-                  style={{ color: NAVY, textDecoration: "none", fontWeight: 700, fontSize: 14 }}
-                >
-                  Open guide →
-                </Link>
-              </article>
+          <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+            {quickAnswerBullets.map((line, index) => (
+              <li key={index} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 15, color: TEXT, lineHeight: 1.6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: LAVENDER, flexShrink: 0, marginTop: 6 }} />
+                <span>{line}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         <section
@@ -383,7 +340,10 @@ export default function BestPillowHubPage() {
           style={{
             marginTop: 16,
             background: "#ffffff",
-            border: `1px solid ${BORDER}`,
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${LAVENDER}`,
             borderRadius: 14,
             padding: "22px 24px",
           }}
@@ -392,10 +352,17 @@ export default function BestPillowHubPage() {
           <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
             We prioritise fit-to-sleep-profile first, then support consistency and value. That means we favour options that fix the most common sleep problems before recommending premium materials or brands.
           </p>
-          <ul style={{ margin: 0, paddingLeft: 20, color: TEXT, lineHeight: 1.8 }}>
-            <li>Sleep position fit first: loft, firmness, and support type matched to how you actually sleep.</li>
-            <li>Problem relevance second: neck pain, heat, allergies and snoring all change the priority order.</li>
-            <li>Value third: we include realistic UK price context so every option is actionable, not aspirational.</li>
+          <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { label: "Sleep position fit first:", text: "loft, firmness, and support type matched to how you actually sleep." },
+              { label: "Problem relevance second:", text: "neck pain, heat, allergies and snoring all change the priority order." },
+              { label: "Value third:", text: "we include realistic UK price context so every option is actionable, not aspirational." },
+            ].map((item) => (
+              <li key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 15, color: TEXT, lineHeight: 1.6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: LAVENDER, flexShrink: 0, marginTop: 6 }} />
+                <span><strong>{item.label}</strong> {item.text}</span>
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -404,7 +371,10 @@ export default function BestPillowHubPage() {
           style={{
             marginTop: 16,
             background: "#ffffff",
-            border: `1px solid ${BORDER}`,
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${LAVENDER}`,
             borderRadius: 14,
             padding: "22px 24px",
           }}
@@ -413,30 +383,42 @@ export default function BestPillowHubPage() {
           <p style={{ margin: "0 0 12px", color: TEXT2, lineHeight: 1.7 }}>
             If you are not sure which guide to open first, start with the closest profile below.
           </p>
-          <div style={{ display: "grid", gap: 10 }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+              gap: 10,
+            }}
+          >
             {decisionRows.map((row) => {
               const startPage = pillowSeoPageMap[row.start];
               return (
-                <div
+                <article
                   key={row.start}
                   style={{
                     border: `1px solid ${BORDER}`,
                     borderRadius: 10,
-                    padding: "12px 14px",
-                    display: "grid",
-                    gap: 8,
-                    gridTemplateColumns: "minmax(180px, 1.2fr) minmax(220px, 1.6fr) minmax(180px, 1fr)",
+                    padding: "13px 14px",
+                    background: "#f9f7fc",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
                   }}
                 >
-                  <p style={{ margin: 0, color: NAVY, fontWeight: 700, fontSize: 14 }}>{row.profile}</p>
-                  <p style={{ margin: 0, color: TEXT2, fontSize: 14 }}>{row.prioritise}</p>
+                  <p style={{ margin: 0, color: NAVY, fontWeight: 800, fontSize: 15, lineHeight: 1.45 }}>{row.profile}</p>
+                  <div>
+                    <p style={{ margin: "0 0 4px", color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: "uppercase" }}>
+                      Prioritise
+                    </p>
+                    <p style={{ margin: 0, color: TEXT2, fontSize: 14, lineHeight: 1.55 }}>{row.prioritise}</p>
+                  </div>
                   <Link
                     href={`/pillow/${row.start}`}
-                    style={{ color: NAVY, textDecoration: "none", fontWeight: 700, fontSize: 14, textAlign: "right" }}
+                    style={{ color: NAVY, textDecoration: "none", fontWeight: 800, fontSize: 14, marginTop: "auto", display: "inline-flex", alignItems: "center", gap: 6 }}
                   >
-                    {startPage?.h1 ?? "Open guide"} →
+                    Start here: {startPage?.h1 ?? "Open guide"} →
                   </Link>
-                </div>
+                </article>
               );
             })}
           </div>
@@ -446,7 +428,10 @@ export default function BestPillowHubPage() {
           style={{
             marginTop: 16,
             background: "#ffffff",
-            border: `1px solid ${BORDER}`,
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${LAVENDER}`,
             borderRadius: 14,
             padding: "22px 24px",
           }}
@@ -457,10 +442,17 @@ export default function BestPillowHubPage() {
             that fits your sleep position and body frame usually performs better than a premium option
             chosen for marketing claims alone.
           </p>
-          <ul style={{ margin: 0, paddingLeft: 20, color: TEXT, lineHeight: 1.8 }}>
-            <li>Need better neck alignment? Prioritise loft and support matched to your sleep position.</li>
-            <li>Need a cooler sleep surface? Prioritise breathable fills, ventilated foams and cooler covers.</li>
-            <li>Need a softer or firmer feel? Prioritise material and fill adjustability before brand name.</li>
+          <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { label: "Need better neck alignment?", text: "Prioritise loft and support matched to your sleep position." },
+              { label: "Need a cooler sleep surface?", text: "Prioritise breathable fills, ventilated foams and cooler covers." },
+              { label: "Need a softer or firmer feel?", text: "Prioritise material and fill adjustability before brand name." },
+            ].map((item) => (
+              <li key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 15, color: TEXT, lineHeight: 1.6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: LAVENDER, flexShrink: 0, marginTop: 6 }} />
+                <span><strong>{item.label}</strong> {item.text}</span>
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -485,16 +477,111 @@ export default function BestPillowHubPage() {
                 style={{
                   background: "#ffffff",
                   border: `1px solid ${BORDER}`,
+                  borderLeft: `4px solid ${LAVENDER}`,
                   borderRadius: 12,
                   padding: "16px 16px",
                   textDecoration: "none",
-                  display: "block",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0,
                 }}
               >
                 <h3 style={{ margin: "0 0 8px", color: NAVY, fontSize: 17, lineHeight: 1.35 }}>{page.h1}</h3>
-                <p style={{ margin: 0, color: TEXT2, fontSize: 14, lineHeight: 1.6 }}>{page.metaDescription}</p>
+                <p style={{ margin: "0 0 12px", color: TEXT2, fontSize: 14, lineHeight: 1.6, flex: 1 }}>{page.metaDescription}</p>
+                <span style={{ color: NAVY, fontWeight: 700, fontSize: 13 }}>Open guide →</span>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <section
+          id="compare-options"
+          style={{
+            marginTop: 24,
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${LAVENDER}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>Compare before you pick</h2>
+          <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
+            These are direct pillow product-vs-product comparisons for common decision searches.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+              gap: 10,
+            }}
+          >
+            {comparisonCards.map((card, index) => {
+              const leftProduct = card.leftProductId ? products.find((product) => product.id === card.leftProductId) : undefined;
+              const rightProduct = card.rightProductId ? products.find((product) => product.id === card.rightProductId) : undefined;
+              return (
+                <article
+                  key={card.slug}
+                  style={{
+                    border: `1px solid ${BORDER}`,
+                    borderLeft: `4px solid ${LAVENDER}`,
+                    borderRadius: 12,
+                    padding: "14px 14px 12px",
+                    background: "#fbfafd",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                    minHeight: 0,
+                  }}
+                >
+                  <p style={{ margin: 0, color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
+                    #{index + 1} · {card.label}
+                  </p>
+                  <h3 style={{ margin: 0, color: NAVY, fontSize: 16, lineHeight: 1.35 }}>{card.title}</h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+                    {[leftProduct, rightProduct].map((product) => (
+                      <div
+                        key={product?.id}
+                        style={{
+                          border: `1px solid ${BORDER}`,
+                          borderRadius: 12,
+                          background: WHITE,
+                          padding: 8,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 8,
+                        }}
+                      >
+                        {product ? (
+                          <>
+                            <Image
+                              src={product.imageUrl}
+                              alt={`${product.brand} ${product.name}`}
+                              width={120}
+                              height={120}
+                              style={{ width: "100%", height: 104, objectFit: "cover", borderRadius: 10 }}
+                            />
+                            <div>
+                              <p style={{ margin: "0 0 2px", color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: "uppercase" }}>{product.brand}</p>
+                              <p style={{ margin: 0, color: NAVY, fontSize: 14, fontWeight: 800, lineHeight: 1.35 }}>{product.name}</p>
+                            </div>
+                          </>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ margin: 0, color: TEXT2, fontSize: 14, lineHeight: 1.6, flex: 1 }}>{card.summary}</p>
+                  <Link
+                    href={`/pillow/compare/${card.slug}`}
+                    style={{ color: NAVY, textDecoration: "none", fontWeight: 800, fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6 }}
+                  >
+                    {card.cta} →
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         </section>
 

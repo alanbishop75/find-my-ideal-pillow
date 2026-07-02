@@ -256,3 +256,39 @@ TOP 5 ACTIONS:
 5. Spot-check 5 UK `amzn.to` links in the Associates dashboard and record the verification date.
 
 After these five: site flips to **GREEN** and is safe to clone for the next product.
+
+---
+
+## Launch Blueprint Addendum (Live Structure, Updated 2 July 2026)
+
+This addendum records the current implemented best-product hub structure and comparison architecture for pillow.
+
+### Best Pillow Hub Canonical Order
+
+1. Hero (dual CTA)
+2. On this page jump links
+3. Quick answer
+4. How we rank
+5. Decision matrix (2x2)
+6. How to think section
+7. Quick Buy section
+8. Browse guides
+9. Compare before you pick (direct product-vs-product)
+10. Bottom CTA
+11. FAQ
+
+### Comparison Contract (Now Applied)
+
+- Hub compare section uses direct product-vs-product cards with paired product imagery.
+- Compare section is anchored as `#compare-options` and included in jump links.
+- Hub compare CTAs route to `/pillow/compare/[slug]`.
+
+### Dedicated Compare Pages (Now Applied)
+
+- Route: `app/pillow/compare/[slug]/page.tsx`
+- Data source: `config/pillow/comparison-pages.ts`
+- Required content:
+  - key differences table
+  - both product cards
+  - UK and US buy-link areas for both products
+  - bottom-line verdict
