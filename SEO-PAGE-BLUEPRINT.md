@@ -1,9 +1,10 @@
 # SEO Page Blueprint (Pillow)
 
-Status: Draft for review
+Status: Active guardrail
 Superseded: Use SEO-PAGE-EXACT-REPLICA-SPEC.md as the canonical no-drift standard.
-Purpose: Define one consistent SEO page format to reuse across all future SEO landing pages.
-Source of truth: Current implementation in app/pillow/[slug]/page.tsx, app/pillow/[slug]/PillowSeoLandingPage.tsx, and config/pillow/seo-pages.ts.
+Purpose: Prevent format drift and enforce exact SEO page rendering parity.
+Visual golden source: Golf SEO renderer in app/golf-ball/[slug]/GolfBallSeoLandingPage.tsx.
+Pillow implementation target: app/pillow/[slug]/PillowSeoLandingPage.tsx must match the golf renderer structure, layout, and section behavior exactly, with only approved substitutions.
 
 ---
 
@@ -18,6 +19,23 @@ Each SEO page must do three things:
 
 Tone: advisory, practical, independent.
 Do not use over-claim language like guaranteed, perfect for everyone, or medical outcomes.
+
+---
+
+## 1.1) No-Drift Rule (Non-Negotiable)
+
+- Golf SEO page is the golden source for look and feel.
+- Pillow SEO pages must preserve the same section order, container widths, card pattern, CTA row pattern, jump-link behavior, and anchor IDs used by golf.
+- Allowed substitutions only:
+   - Product noun/content (golf ball -> pillow)
+   - Route paths (/golf-ball/* -> /pillow/*)
+   - Query CTA label token (non-golf uses Start Quiz)
+   - Data payload (whoItsFor/sections/keyFactors/faq/relatedSlugs)
+- Not allowed:
+   - Reordering sections
+   - Replacing chip-style jump links with list-style links
+   - Removing section IDs used by jump links
+   - Changing hero CTA layout pattern (primary CTA + Or + Quick Buy + trust micro-line)
 
 ---
 
@@ -45,7 +63,7 @@ Why: This keeps rendering, metadata, schema, and internal linking standardized.
 
 ## 3) Required Page Order (Section by Section)
 
-Use this exact order for consistency.
+Use this exact order for consistency and parity with golf.
 
 1. Metadata + canonical + robots index/follow
 2. Structured data
@@ -66,18 +84,22 @@ Use this exact order for consistency.
    - 2 minutes
    - Independent
 5. Is this guide for you? (bullet list)
-6. Quick Buy section (two-column compare card)
+6. Jump to a section (chip links)
+7. Quick verdict
+8. Best options at a glance
+9. How we ranked these options
+10. Quick Buy section (two-column compare card)
    - Quick Buy vs Quiz explainer card
    - Preset recommendation card with affiliate link
-7. Hub bridge card
+11. Hub bridge card
    - Link to /pillow/best-pillow
-8. How the matching quiz works (3-step ordered list)
-9. Educational content sections (H2/H3 blocks from sections[])
-10. Mid-page quiz CTA block
-11. What our quiz looks at (keyFactors[])
-12. FAQ section
-13. Last reviewed line
-14. Related guides
+12. How the matching quiz works (3-step ordered list)
+13. Educational content sections (H2/H3 blocks from sections[]; each H2 section must expose a stable id)
+14. Mid-page quiz CTA block
+15. What our quiz looks at (keyFactors[])
+16. FAQ section
+17. Last reviewed line + Copilot byline
+18. Related guides
 
 Outside SEO component (global layout shell):
 - Global Footer (site links, affiliate disclosure line, copyright)
@@ -118,6 +140,8 @@ Why: The hero must quickly explain value and provide both user paths.
   - Preset path (quick buy)
 - Keep all internal links as Next Link components.
 - Keep quick-buy anchor id stable: quick-buy-starting-point.
+- Keep quick-verdict, best-options-at-a-glance, and methodology sections with stable IDs.
+- Keep educational sections addressable by slugified H2 IDs.
 - Keep relatedSlugs populated (minimum 3 when possible).
 - Include lastReviewed on every page and update when content changes.
 - Footer and cookie banner are not rendered by the SEO page component; they are provided by app/layout.tsx and must remain present on production pages.
@@ -180,8 +204,11 @@ Use this as the writing brief before implementation.
 - Metadata and canonical set
 - JSON-LD scripts present
 - Hero contains both CTA paths
+- Hero CTA row matches golf layout exactly (primary CTA + Or + Quick Buy + trust micro-line)
 - Quick Buy anchor works
 - Trust tags present
+- Jump-link chips render and all targets scroll to existing IDs
+- Quick verdict, best-options, and methodology sections are present
 - Hub bridge card present
 - At least one educational section uses H3 subsections
 - FAQ rendered and included in FAQ schema

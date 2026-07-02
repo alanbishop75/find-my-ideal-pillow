@@ -7,12 +7,20 @@ import type { PillowSeoPage } from "../../../config/pillow/seo-pages";
 import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
 import { products } from "../../../config/pillow/products";
 
-const NAVY     = "#1a1a3e";
-const LAVENDER = "#9b87bc";
-const WHITE    = "#ffffff";
-const SURFACE  = "#f5f3f8";
-const BORDER   = "#e6e1ec";
-const TEXT2    = "#5a5478";
+function slugifyHeading(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const NAVY = "#0b2545";
+const LIME = "#7dbe3a";
+const LIME_DARK = "#0b2545";
+const WHITE = "#ffffff";
+const SURFACE = "#f5f8fa";
+const BORDER = "#e1e8ed";
+const TEXT2 = "#516781";
 
 const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
   "best-pillow-for-side-sleepers": {
@@ -109,6 +117,34 @@ const quickBuyReasonBySlug: Record<string, string> = {
   "best-pillow-for-shoulder-pain": "We use Winthome here because shoulder pain pages need more structured support.",
   "best-latex-pillow": "We use Talatex here because this page is about latex support and airflow.",
 };
+
+function buildDefaultQuickVerdict(page: PillowSeoPage): string[] {
+  if (page.keyFactors.length >= 3) {
+    return page.keyFactors.slice(0, 3).map((factor) => `Prioritise ${factor.charAt(0).toLowerCase()}${factor.slice(1)}.`);
+  }
+  return [
+    `Start with a profile match for ${page.breadcrumbLabel.toLowerCase()} rather than a brand-led pick.`,
+    "Use Quick Buy for the fastest baseline, then the quiz if you want a deeper fit.",
+    "Revisit your pillow choice once your support needs change, not just when prices move.",
+  ];
+}
+
+function buildDefaultToc(page: PillowSeoPage): Array<{ label: string; href: string }> {
+  const sectionLinks = page.sections.slice(0, 3).map((section) => ({
+    label: section.h2,
+    href: `#${slugifyHeading(section.h2)}`,
+  }));
+  return [
+    { label: "Quick verdict", href: "#quick-verdict" },
+    { label: "Best options at a glance", href: "#best-options-at-a-glance" },
+    { label: "How we ranked these options", href: "#how-we-ranked-these-options" },
+    ...sectionLinks,
+  ];
+}
+
+function buildDefaultMethodology(page: PillowSeoPage): string {
+  return `We rank these options by fit for ${page.breadcrumbLabel.toLowerCase()}, combining support profile, temperature behavior, and value for money. The goal is to improve sleep comfort and consistency first, then refine feel preferences.`;
+}
 
 function productMatchesTopic(product: (typeof products)[number], slug: string): number {
   let score = 0;
@@ -249,7 +285,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
           border: `1px solid ${BORDER}`,
           borderRadius: 12,
           padding: "14px 14px",
-          background: "#fbf9fc",
+          background: "#f0f7f4",
           display: "flex",
           flexDirection: "column",
           gap: 10,
@@ -264,7 +300,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
             fontWeight: 800,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            background: "#efe8f5",
+            background: "#d4e8df",
             borderRadius: 999,
             padding: "6px 10px",
             alignSelf: "flex-start",
@@ -321,7 +357,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
             fontWeight: 800,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            background: "#efe8f5",
+                    background: SURFACE,
             borderRadius: 999,
             padding: "6px 10px",
             alignSelf: "flex-start",
@@ -368,8 +404,8 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            background: LAVENDER,
-            color: NAVY,
+            background: LIME,
+            color: LIME_DARK,
             borderRadius: 999,
             padding: "11px 14px",
             fontWeight: 800,
@@ -377,7 +413,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
             width: "100%",
           }}
         >
-          View on Amazon
+          {recommendation.buttonLabel}
         </a>
       </article>
     </section>
@@ -386,10 +422,22 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
 
 export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) {
   const quizHref = `/pillow/questionnaire?ref=${page.slug}`;
+  const quickBuy = quickBuyBySlug[page.slug];
+  const quickBuyIntro = quickBuyReasonBySlug[page.slug]
+    ?? `This is a strong general-fit starting pick for shoppers looking for ${page.breadcrumbLabel.toLowerCase()}.`;
+  const { region, isLoading } = useRegion();
+  const displayRegion = isLoading ? "UK" : region;
+  const quickBuyProduct = quickBuy ? products.find((item) => item.id === quickBuy.productId) : undefined;
+  const quickBuyLink = quickBuy && quickBuyProduct
+    ? getRegionLinks(quickBuy.productId, displayRegion).find((link) => link.retailerKey === "amazon-uk" || link.retailerKey === "amazon-us")?.url
+    : undefined;
   const related = page.relatedSlugs
     .map((slug) => pillowSeoPageMap[slug])
     .filter((relatedPage): relatedPage is PillowSeoPage => Boolean(relatedPage));
   const rankedOptions = buildRankedOptions(page.slug);
+  const effectiveQuickVerdict = buildDefaultQuickVerdict(page);
+  const effectiveToc = buildDefaultToc(page);
+  const effectiveMethodology = buildDefaultMethodology(page);
 
   const cardStyle: React.CSSProperties = {
     background: WHITE,
@@ -431,15 +479,15 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        background: LAVENDER,
-        color: NAVY,
+        background: LIME,
+        color: LIME_DARK,
         borderRadius: 999,
         padding: "14px 30px",
         fontWeight: 800,
         fontSize: 16,
         textDecoration: "none",
         letterSpacing: 0.2,
-        boxShadow: "0 8px 24px -8px rgba(155,135,188,0.5)",
+        boxShadow: "0 8px 24px -8px rgba(125,190,58,0.5)",
       }}
     >
       {label}
@@ -462,20 +510,20 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
       {/* HERO — navy gradient, logo left */}
       <section
         style={{
-          background: "linear-gradient(135deg, #1a1a3e 0%, #221f4a 55%, #2c2855 100%)",
+          background: "linear-gradient(135deg, #0b2545 0%, #0e2d52 55%, #143869 100%)",
           color: "#ffffff",
           padding: "48px 20px 56px",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        <div aria-hidden style={{ position: "absolute", top: -80, right: -80, width: 280, height: 280, borderRadius: "50%", border: `2px solid ${LAVENDER}`, opacity: 0.18 }} />
+        <div aria-hidden style={{ position: "absolute", top: -80, right: -80, width: 280, height: 280, borderRadius: "50%", border: `2px solid ${LIME}`, opacity: 0.14 }} />
 
         {/* Breadcrumb */}
         <div style={{ maxWidth: 900, margin: "0 auto 24px", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>
           <Link href="/" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 6px" }}>›</span>
-          <Link href="/pillow/questionnaire" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Pillow finder</Link>
+          <Link href="/pillow/best-pillow" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Best Pillow</Link>
           <span style={{ margin: "0 6px" }}>›</span>
           <span style={{ color: "rgba(255,255,255,0.85)" }}>{page.breadcrumbLabel}</span>
         </div>
@@ -518,32 +566,37 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             <p style={{ fontSize: 16, color: "rgba(255,255,255,0.78)", margin: "0 0 24px", lineHeight: 1.55, maxWidth: 520 }}>
               {page.intro}
             </p>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10 }} className="seo-hero-cta">
-              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-                {ctaButton("Start Quiz")}
-                <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>OR</span>
-                <Link
-                  href="#quick-buy-starting-point"
-                  style={{
-                    marginTop: 8,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: LAVENDER,
-                    color: NAVY,
-                    borderRadius: 999,
-                    padding: "14px 30px",
-                    fontWeight: 800,
-                    fontSize: 16,
-                    textDecoration: "none",
-                    letterSpacing: 0.2,
-                    boxShadow: "0 8px 24px -8px rgba(155,135,188,0.5)",
-                  }}
-                >
-                  Quick Buy
-                </Link>
-              </div>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Under 2 minutes · No sign-up</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }} className="seo-hero-cta">
+              {ctaButton("Start Quiz")}
+              {quickBuy ? (
+                <>
+                  <span style={{ color: "rgba(255,255,255,0.8)", fontWeight: 700, fontSize: 16 }}>Or</span>
+                  <Link
+                    href="#quick-buy-starting-point"
+                    style={{
+                      marginTop: 8,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: LIME,
+                      color: LIME_DARK,
+                      borderRadius: 999,
+                      padding: "14px 30px",
+                      fontWeight: 800,
+                      fontSize: 16,
+                      textDecoration: "none",
+                      letterSpacing: 0.2,
+                      boxShadow: "0 8px 24px -8px rgba(125,190,58,0.5)",
+                    }}
+                  >
+                    Quick Buy
+                  </Link>
+                </>
+              ) : null}
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 6, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Fitting in less than a minute</span>
+              {quickBuy ? <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Top-rated picks, ready to buy</span> : null}
             </div>
           </div>
         </div>
@@ -603,28 +656,52 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             </section>
           )}
 
-          <section style={cardStyle} id="jump-to-a-section">
-            <h2 style={h2Style}>Jump to a section</h2>
-            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
-              <li style={bodyStyle}><Link href="#quick-verdict" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>Quick verdict</Link></li>
-              <li style={bodyStyle}><Link href="#best-options-at-a-glance" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>Best options at a glance</Link></li>
-              <li style={bodyStyle}><Link href="#how-we-ranked" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>How we ranked these options</Link></li>
-              <li style={bodyStyle}><Link href="#quick-buy-starting-point" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>Quick Buy starting point</Link></li>
-              <li style={bodyStyle}><Link href="#matching-quiz-works" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>How the matching quiz works</Link></li>
-            </ul>
-          </section>
+          {effectiveToc.length ? (
+            <section style={cardStyle} aria-label="Jump links">
+              <h2 style={h2Style}>Jump to a section</h2>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                {effectiveToc.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: `1px solid ${BORDER}`,
+                      borderRadius: 999,
+                      padding: "8px 12px",
+                      color: NAVY,
+                      textDecoration: "none",
+                      fontSize: 13,
+                      fontWeight: 700,
+                      background: WHITE,
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <section style={cardStyle} id="quick-verdict">
             <h2 style={h2Style}>Quick verdict</h2>
-            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
-              <li style={bodyStyle}>If you want the fastest route, use the Quick Buy card for a ready-to-go preset recommendation.</li>
-              <li style={bodyStyle}>If your needs span position, temperature, and support trade-offs, use the quiz for a more tailored shortlist.</li>
-              <li style={bodyStyle}>For most shoppers, the best result is the option that balances support, temperature, and budget together.</li>
+            <p style={bodyStyle}>
+              If you want the shortest route to the right choice, start here.
+            </p>
+            <ul style={{ margin: "12px 0 0", paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+              {effectiveQuickVerdict.map((line, index) => (
+                <li key={index} style={bodyStyle}>{line}</li>
+              ))}
             </ul>
           </section>
 
           <section style={cardStyle} id="best-options-at-a-glance">
             <h2 style={h2Style}>Best options at a glance</h2>
+            <p style={bodyStyle}>
+              These options cover the most common buying paths for {page.breadcrumbLabel.toLowerCase()}: strongest baseline fit, value route, and a balanced upgrade path.
+            </p>
             <div style={{ display: "grid", gap: 12 }}>
               {rankedOptions.map((product, index) => (
                 <article
@@ -638,15 +715,26 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
                     gap: 6,
                   }}
                 >
-                  <p style={{ margin: 0, fontSize: 11, fontWeight: 800, color: NAVY, textTransform: "uppercase", letterSpacing: 0.4 }}>
-                    #{index + 1} option
+                  <p style={{ margin: 0, fontSize: 11, color: NAVY, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
+                    #{index + 1} · {index === 0 ? "Best overall fit for this profile" : index === 1 ? "Best value alternative" : "Best upgrade alternative"}
                   </p>
-                  <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: NAVY }}>
-                    {product.brand} {product.name}
-                  </p>
-                  <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
-                    {bestForLine(product)}
-                  </p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 10 }}>
+                    <Image
+                      src={product.imageUrl}
+                      alt={`${product.brand} ${product.name}`}
+                      width={84}
+                      height={84}
+                      style={{ objectFit: "contain", borderRadius: 8, flexShrink: 0, background: SURFACE }}
+                    />
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      <h3 style={{ margin: 0, fontSize: 18, color: NAVY, lineHeight: 1.25 }}>
+                        {product.brand} {product.name}
+                      </h3>
+                      <p style={{ margin: 0, fontSize: 12, color: TEXT2, fontWeight: 700, lineHeight: 1.4 }}>
+                        {bestForLine(product)}
+                      </p>
+                    </div>
+                  </div>
                   <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
                     {reasonLine(product)}
                   </p>
@@ -663,7 +751,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
                           fontSize: 12,
                           fontWeight: 700,
                           color: NAVY,
-                          background: "#f8f6fb",
+                          background: SURFACE,
                           padding: "4px 10px",
                         }}
                       >
@@ -676,19 +764,21 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             </div>
           </section>
 
-          <section style={cardStyle} id="how-we-ranked">
+          <section style={cardStyle} id="how-we-ranked-these-options">
             <h2 style={h2Style}>How we ranked these options</h2>
-            <p style={bodyStyle}>
-              We rank pillows by how well each product profile matches this page topic, then adjust for support consistency, temperature behavior, and practical budget fit.
-            </p>
+            <p style={bodyStyle}>{effectiveMethodology}</p>
             <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
-              <li style={bodyStyle}>Topic fit first: sleep position and problem-specific relevance are weighted highest.</li>
-              <li style={bodyStyle}>Comfort durability next: support type, firmness profile, and adjustability influence rank stability.</li>
-              <li style={bodyStyle}>Value check always: we include realistic UK price context so picks are actionable, not theoretical.</li>
+              {(page.keyFactors.length > 0 ? page.keyFactors.slice(0, 3) : [
+                "Profile-fit over brand-led claims",
+                "Support and temperature before premium extras",
+                "Upgrade path once comfort consistency improves",
+              ]).map((line, index) => (
+                <li key={index} style={bodyStyle}>{line}</li>
+              ))}
             </ul>
           </section>
 
-          <QuickBuySection pageSlug={page.slug} />
+          {quickBuy && quickBuyProduct ? <QuickBuySection pageSlug={page.slug} /> : null}
 
           <section style={cardStyle}>
             <h2 style={h2Style}>Want the full pillow overview?</h2>
@@ -731,7 +821,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
           </section>
 
           {page.sections.map((section, index) => (
-            <section key={index} style={cardStyle}>
+            <section key={index} id={slugifyHeading(section.h2)} style={cardStyle}>
               <h2 style={h2Style}>{section.h2}</h2>
               {section.body ? <p style={bodyStyle}>{section.body}</p> : null}
               {section.subsections?.map((subsection, subsectionIndex) => (
@@ -813,7 +903,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
           </p>
           <p
             style={{
-              fontSize: 12,
+              fontSize: 11,
               color: TEXT2,
               textAlign: "center",
               marginTop: 6,
@@ -832,7 +922,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
                 <li key={relatedPage.slug}>
                   <Link
                     href={`/pillow/${relatedPage.slug}`}
-                    style={{ color: LAVENDER, textDecoration: "none", fontSize: 15, fontWeight: 600 }}
+                    style={{ color: LIME, textDecoration: "none", fontSize: 15, fontWeight: 600 }}
                   >
                     {relatedPage.h1} →
                   </Link>
