@@ -77,7 +77,14 @@ export interface PillowSeoPage {
   faq: { q: string; a: string }[];
   /** Slugs of related pages to internally link (must exist in this file) */
   relatedSlugs: string[];
-  /** ISO date (YYYY-MM-DD) — drives "Last reviewed" + sitemap lastmod */
+  /**
+   * ISO date (YYYY-MM-DD) the page was first published. Immutable once set.
+   * Drives Article `datePublished`. If omitted, falls back to lastReviewed
+   * (set this explicitly for index-priority pages to preserve the true
+   * original publish date in schema).
+   */
+  datePublished?: string;
+  /** ISO date (YYYY-MM-DD) — drives "Last reviewed", Article dateModified, and sitemap lastmod */
   lastReviewed: string;
 }
 

@@ -7,6 +7,7 @@ import PillowSeoLandingPage from "./PillowSeoLandingPage";
 type Props = { params: Promise<{ slug: string }> };
 
 const SITE_URL = getRequiredSiteUrl();
+const SEO_AUTHOR_NAME = "GitHub Copilot";
 
 export function generateStaticParams() {
   return pillowSeoPages.map((p) => ({ slug: p.slug }));
@@ -70,8 +71,8 @@ export default async function Page({ params }: Props) {
     description: page.metaDescription,
     inLanguage: "en-GB",
     mainEntityOfPage: pageUrl,
+    datePublished: `${page.datePublished ?? page.lastReviewed}T00:00:00Z`,
     dateModified: `${page.lastReviewed}T00:00:00Z`,
-    datePublished: `${page.lastReviewed}T00:00:00Z`,
     image: [
       {
         "@type": "ImageObject",
@@ -80,7 +81,7 @@ export default async function Page({ params }: Props) {
         height: 630,
       },
     ],
-    author: { "@type": "Organization", name: "FindMyIdealPillow", url: SITE_URL },
+    author: { "@type": "Organization", name: SEO_AUTHOR_NAME },
     publisher: {
       "@type": "Organization",
       name: "FindMyIdealPillow",
