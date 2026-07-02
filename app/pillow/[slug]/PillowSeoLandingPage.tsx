@@ -445,7 +445,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
     borderRadius: 16,
     padding: "24px 28px",
     marginTop: 20,
-    borderLeft: `4px solid ${LAVENDER}`,
+    borderLeft: `4px solid ${LIME}`,
   };
 
   const h2Style: React.CSSProperties = {
