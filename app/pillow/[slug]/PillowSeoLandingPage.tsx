@@ -570,9 +570,9 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             }}
           >
             {[
-              { label: "Personalised", sub: "to how you sleep" },
-              { label: "2 minutes", sub: "start to finish" },
-              { label: "Independent", sub: "no brand bias" },
+              { icon: "🎯", label: "Personalised", sub: "to how you sleep" },
+              { icon: "⏱️", label: "2 minutes", sub: "start to finish" },
+              { icon: "📋", label: "Independent", sub: "no brand bias" },
             ].map((item) => (
               <div
                 key={item.label}
@@ -583,6 +583,9 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
                   padding: "16px 8px",
                 }}
               >
+                <div style={{ fontSize: 24, lineHeight: 1, marginBottom: 4 }} aria-hidden>
+                  {item.icon}
+                </div>
                 <div style={{ fontSize: 15, fontWeight: 800, color: NAVY }}>{item.label}</div>
                 <div style={{ fontSize: 12, color: TEXT2, marginTop: 2 }}>{item.sub}</div>
               </div>
