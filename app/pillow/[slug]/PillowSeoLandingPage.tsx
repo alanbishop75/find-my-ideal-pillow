@@ -811,6 +811,17 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             Last reviewed: {formatReviewDate(page.lastReviewed)}. We update this guide when
             our verified pillow catalogue changes.
           </p>
+          <p
+            style={{
+              fontSize: 12,
+              color: TEXT2,
+              textAlign: "center",
+              marginTop: 6,
+              marginBottom: 0,
+            }}
+          >
+            Generated with GitHub Copilot.
+          </p>
         </article>
 
         {related.length > 0 && (
