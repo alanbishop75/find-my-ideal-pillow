@@ -110,6 +110,90 @@ const quickBuyReasonBySlug: Record<string, string> = {
   "best-latex-pillow": "We use Talatex here because this page is about latex support and airflow.",
 };
 
+function productMatchesTopic(product: (typeof products)[number], slug: string): number {
+  let score = 0;
+
+  const attrs = product.attributes;
+  const sleepPosition = attrs?.sleepPosition;
+
+  if (slug.includes("side-sleepers") && (sleepPosition === "side" || sleepPosition === "combination" || sleepPosition === "any")) score += 4;
+  if (slug.includes("back-sleepers") && (sleepPosition === "back" || sleepPosition === "combination" || sleepPosition === "any")) score += 4;
+  if (slug.includes("stomach-sleepers") && (sleepPosition === "stomach" || sleepPosition === "combination" || sleepPosition === "any")) score += 4;
+  if (slug.includes("combination-sleepers") && (sleepPosition === "combination" || sleepPosition === "any")) score += 4;
+
+  if (slug.includes("neck-pain") || slug.includes("snoring") || slug.includes("shoulder-pain")) {
+    if (attrs?.support === "enhanced") score += 3;
+    if (attrs?.firmness === "firm") score += 2;
+  }
+
+  if ((slug.includes("cooling") || slug.includes("hot-sleepers")) && attrs?.cooling) score += 4;
+  if (slug.includes("allergies") && attrs?.hypoallergenic) score += 4;
+  if (slug.includes("memory-foam") && attrs?.fill === "memory-foam") score += 4;
+  if (slug.includes("down-pillow") && attrs?.fill === "natural-down") score += 4;
+  if (slug.includes("latex-pillow") && attrs?.fill === "latex") score += 4;
+  if (slug.includes("budget") && attrs?.priceTier === "budget") score += 4;
+
+  if (slug.includes("firm-vs-soft")) {
+    if (attrs?.firmness === "firm" || attrs?.firmness === "medium") score += 2;
+    if (attrs?.adjustable) score += 2;
+  }
+
+  if (attrs?.priceTier === "mid") score += 1;
+  if (attrs?.adjustable) score += 1;
+
+  return score;
+}
+
+function formatFill(fill: string | undefined): string {
+  if (!fill) return "General support";
+  return fill
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function buildRankedOptions(slug: string): (typeof products)[number][] {
+  const quickBuyProductId = quickBuyBySlug[slug]?.productId;
+  const quickBuyProduct = quickBuyProductId ? products.find((item) => item.id === quickBuyProductId) : null;
+
+  const rankedPool = [...products]
+    .sort((a, b) => productMatchesTopic(b, slug) - productMatchesTopic(a, slug))
+    .filter((item, index, all) => all.findIndex((p) => p.id === item.id) === index);
+
+  const top = quickBuyProduct
+    ? [quickBuyProduct, ...rankedPool.filter((item) => item.id !== quickBuyProduct.id)]
+    : rankedPool;
+
+  return top.slice(0, 3);
+}
+
+function attributeChips(product: (typeof products)[number]): string[] {
+  const attrs = product.attributes;
+  if (!attrs) return [];
+
+  const chips: string[] = [];
+  chips.push(`${formatFill(attrs.fill)} fill`);
+  chips.push(`${attrs.firmness.replace("-", " ")} feel`);
+  chips.push(attrs.cooling ? "Cooling profile" : "Neutral temperature");
+  return chips;
+}
+
+function bestForLine(product: (typeof products)[number]): string {
+  const attrs = product.attributes;
+  if (!attrs) return "Strong all-round option for common sleep profiles.";
+  const position = attrs.sleepPosition === "any" ? "multiple sleep positions" : `${attrs.sleepPosition} sleepers`;
+  return `Best for ${position} who want ${attrs.support === "enhanced" ? "structured support" : "balanced comfort"}.`;
+}
+
+function reasonLine(product: (typeof products)[number]): string {
+  const attrs = product.attributes;
+  if (!attrs) return "Included for stable everyday performance and value.";
+  if (attrs.cooling) return "Included for better heat control and overnight comfort consistency.";
+  if (attrs.hypoallergenic) return "Included for allergy-aware materials and easier maintenance.";
+  if (attrs.adjustable) return "Included for adjustable loft so you can tune support over time.";
+  return "Included for reliable support, straightforward setup, and dependable value.";
+}
+
 function formatReviewDate(iso: string): string {
   const months = [
     "January", "February", "March", "April", "May", "June",
@@ -289,6 +373,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
   const related = page.relatedSlugs
     .map((slug) => pillowSeoPageMap[slug])
     .filter((relatedPage): relatedPage is PillowSeoPage => Boolean(relatedPage));
+  const rankedOptions = buildRankedOptions(page.slug);
 
   const cardStyle: React.CSSProperties = {
     background: WHITE,
@@ -419,7 +504,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             </p>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10 }} className="seo-hero-cta">
               <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-                {ctaButton("Find Your Ideal Pillow")}
+                {ctaButton("Start Quiz")}
                 <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>OR</span>
                 <Link
                   href="#quick-buy-starting-point"
@@ -499,10 +584,95 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             </section>
           )}
 
+          <section style={cardStyle} id="jump-to-a-section">
+            <h2 style={h2Style}>Jump to a section</h2>
+            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+              <li style={bodyStyle}><Link href="#quick-verdict" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>Quick verdict</Link></li>
+              <li style={bodyStyle}><Link href="#best-options-at-a-glance" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>Best options at a glance</Link></li>
+              <li style={bodyStyle}><Link href="#how-we-ranked" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>How we ranked these options</Link></li>
+              <li style={bodyStyle}><Link href="#quick-buy-starting-point" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>Quick Buy starting point</Link></li>
+              <li style={bodyStyle}><Link href="#matching-quiz-works" style={{ color: NAVY, textDecoration: "none", fontWeight: 700 }}>How the matching quiz works</Link></li>
+            </ul>
+          </section>
+
+          <section style={cardStyle} id="quick-verdict">
+            <h2 style={h2Style}>Quick verdict</h2>
+            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+              <li style={bodyStyle}>If you want the fastest route, use the Quick Buy card for a ready-to-go preset recommendation.</li>
+              <li style={bodyStyle}>If your needs span position, temperature, and support trade-offs, use the quiz for a more tailored shortlist.</li>
+              <li style={bodyStyle}>For most shoppers, the best result is the option that balances support, temperature, and budget together.</li>
+            </ul>
+          </section>
+
+          <section style={cardStyle} id="best-options-at-a-glance">
+            <h2 style={h2Style}>Best options at a glance</h2>
+            <div style={{ display: "grid", gap: 12 }}>
+              {rankedOptions.map((product, index) => (
+                <article
+                  key={product.id}
+                  style={{
+                    border: `1px solid ${BORDER}`,
+                    borderRadius: 12,
+                    padding: 14,
+                    background: "#ffffff",
+                    display: "grid",
+                    gap: 6,
+                  }}
+                >
+                  <p style={{ margin: 0, fontSize: 11, fontWeight: 800, color: NAVY, textTransform: "uppercase", letterSpacing: 0.4 }}>
+                    #{index + 1} option
+                  </p>
+                  <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: NAVY }}>
+                    {product.brand} {product.name}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
+                    {bestForLine(product)}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
+                    {reasonLine(product)}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
+                    {typeof product.attributes?.rrp === "number" ? `Approx. £${product.attributes.rrp}/item` : "Check latest price"}
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 2 }}>
+                    {attributeChips(product).map((chip) => (
+                      <span
+                        key={chip}
+                        style={{
+                          border: `1px solid ${BORDER}`,
+                          borderRadius: 999,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          color: NAVY,
+                          background: "#f8f6fb",
+                          padding: "4px 10px",
+                        }}
+                      >
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section style={cardStyle} id="how-we-ranked">
+            <h2 style={h2Style}>How we ranked these options</h2>
+            <p style={bodyStyle}>
+              We rank pillows by how well each product profile matches this page topic, then adjust for support consistency, temperature behavior, and practical budget fit.
+            </p>
+            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+              <li style={bodyStyle}>Topic fit first: sleep position and problem-specific relevance are weighted highest.</li>
+              <li style={bodyStyle}>Comfort durability next: support type, firmness profile, and adjustability influence rank stability.</li>
+              <li style={bodyStyle}>Value check always: we include realistic UK price context so picks are actionable, not theoretical.</li>
+            </ul>
+          </section>
+
           <QuickBuySection pageSlug={page.slug} />
 
           <section style={cardStyle}>
-            <h2 style={h2Style}>Want the full pillow overview first?</h2>
+            <h2 style={h2Style}>Want the full pillow overview?</h2>
             <p style={bodyStyle}>
               If you want to compare the whole landscape before reading a specific guide,
               start with our central best pillow page.
@@ -528,7 +698,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
             </Link>
           </section>
 
-          <section style={cardStyle}>
+          <section style={cardStyle} id="matching-quiz-works">
             <h2 style={h2Style}>How the matching quiz works</h2>
             <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10 }}>
               {[
