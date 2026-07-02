@@ -152,6 +152,15 @@ function formatFill(fill: string | undefined): string {
     .join(" ");
 }
 
+function getStringAttr(attrs: Record<string, string | number | boolean>, key: string): string | undefined {
+  const value = attrs[key];
+  return typeof value === "string" ? value : undefined;
+}
+
+function getBoolAttr(attrs: Record<string, string | number | boolean>, key: string): boolean {
+  return attrs[key] === true;
+}
+
 function buildRankedOptions(slug: string): (typeof products)[number][] {
   const quickBuyProductId = quickBuyBySlug[slug]?.productId;
   const quickBuyProduct = quickBuyProductId ? products.find((item) => item.id === quickBuyProductId) : null;
@@ -171,26 +180,33 @@ function attributeChips(product: (typeof products)[number]): string[] {
   const attrs = product.attributes;
   if (!attrs) return [];
 
+  const fill = getStringAttr(attrs, "fill");
+  const firmness = getStringAttr(attrs, "firmness");
+  const cooling = getBoolAttr(attrs, "cooling");
+
   const chips: string[] = [];
-  chips.push(`${formatFill(attrs.fill)} fill`);
-  chips.push(`${attrs.firmness.replace("-", " ")} feel`);
-  chips.push(attrs.cooling ? "Cooling profile" : "Neutral temperature");
+  chips.push(`${formatFill(fill)} fill`);
+  chips.push(`${(firmness ?? "balanced").replace("-", " ")} feel`);
+  chips.push(cooling ? "Cooling profile" : "Neutral temperature");
   return chips;
 }
 
 function bestForLine(product: (typeof products)[number]): string {
   const attrs = product.attributes;
   if (!attrs) return "Strong all-round option for common sleep profiles.";
-  const position = attrs.sleepPosition === "any" ? "multiple sleep positions" : `${attrs.sleepPosition} sleepers`;
-  return `Best for ${position} who want ${attrs.support === "enhanced" ? "structured support" : "balanced comfort"}.`;
+
+  const sleepPosition = getStringAttr(attrs, "sleepPosition");
+  const support = getStringAttr(attrs, "support");
+  const position = sleepPosition === "any" ? "multiple sleep positions" : `${sleepPosition ?? "mixed"} sleepers`;
+  return `Best for ${position} who want ${support === "enhanced" ? "structured support" : "balanced comfort"}.`;
 }
 
 function reasonLine(product: (typeof products)[number]): string {
   const attrs = product.attributes;
   if (!attrs) return "Included for stable everyday performance and value.";
-  if (attrs.cooling) return "Included for better heat control and overnight comfort consistency.";
-  if (attrs.hypoallergenic) return "Included for allergy-aware materials and easier maintenance.";
-  if (attrs.adjustable) return "Included for adjustable loft so you can tune support over time.";
+  if (getBoolAttr(attrs, "cooling")) return "Included for better heat control and overnight comfort consistency.";
+  if (getBoolAttr(attrs, "hypoallergenic")) return "Included for allergy-aware materials and easier maintenance.";
+  if (getBoolAttr(attrs, "adjustable")) return "Included for adjustable loft so you can tune support over time.";
   return "Included for reliable support, straightforward setup, and dependable value.";
 }
 
