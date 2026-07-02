@@ -85,7 +85,8 @@ Why: users with different intent can act immediately.
 - Preserve feature strip card count at 4.
 - Preserve how-it-works card count at 3.
 - Keep popular guides populated (minimum 4 when possible).
-- Keep quick-buy href anchored to the quick-buy section on the overview guide.
+- Keep top-hero Quick Buy CTA as a direct anchor deep-link to the overview guide quick-buy section.
+- Required landing behavior: click must open the overview guide and land on `#quick-buy-starting-points`, not just the top of the overview page.
 - Footer and cookie banner are global layout dependencies (provided by app/layout.tsx, not by homepage component).
 
 ---
@@ -141,6 +142,7 @@ Why: users with different intent can act immediately.
 - Hero contains logo, H1, intro, and dual CTA row
 - Primary CTA label follows vertical dictionary
 - Secondary CTA is Quick Buy
+- Quick Buy CTA target includes `#quick-buy-starting-points` and lands on that section on first navigation
 - Separator text is Or
 - Feature strip renders 4 cards
 - How it works renders 3 steps
