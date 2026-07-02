@@ -119,7 +119,7 @@ export default function HomePageClient() {
                   boxShadow: "0 8px 24px -8px rgba(155,135,188,0.6)",
                 }}
               >
-                Start fitting
+                Start Quiz
               </Link>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Fitting in less than a minute</span>
             </div>

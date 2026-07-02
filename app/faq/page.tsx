@@ -107,6 +107,13 @@ export default function FAQPage() {
           and what to expect when visiting retailer links.
         </p>
 
+        <aside style={{ marginTop: 20, border: '1px solid #e5e7eb', borderRadius: 10, background: '#f8fafc', padding: '14px 16px' }}>
+          <p style={{ margin: '0 0 6px 0', fontWeight: 700, fontSize: 14 }}>New here?</p>
+          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6 }}>
+            Start with our central guide: <a href="/pillow/best-pillow" style={{ color: '#1f2937', fontWeight: 700 }}>Best Pillow</a>.
+          </p>
+        </aside>
+
         {faqSections.map((section) => (
           <section key={section.title} style={{ marginTop: 30 }}>
             <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>{section.title}</h2>
