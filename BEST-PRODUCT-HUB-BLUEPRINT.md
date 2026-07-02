@@ -128,7 +128,7 @@ CTA dictionary:
 
 - Keep hero with two CTA panels and OR divider.
 - Keep quick-answer, ranking, and how-to-think lists in concise 3-bullet form.
-- Keep decision matrix in 2x2 profile cards.
+- Keep decision matrix in 2x2 profile cards with one icon marker per card (matching the golf-pattern visual cue).
 - Keep quick-buy cards generated from mapped guide slug list.
 - Keep guide grid generated from mapped guideCards.
 - Keep compare cards generated from comparison-pages config.
@@ -156,7 +156,7 @@ CTA dictionary:
 - Jump-link tray is present and complete
 - Quick answer section present
 - How we rank section present
-- Decision matrix is 2x2
+- Decision matrix is 2x2 and each card includes a visible icon marker
 - Quick-buy starting points block renders
 - Browse guides links are valid
 - Compare section uses direct product-vs-product cards

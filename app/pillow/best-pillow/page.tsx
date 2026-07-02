@@ -24,21 +24,25 @@ const comparisonCards = pillowComparisonPages.map((page) => ({
 
 const decisionRows = [
   {
+    icon: "🛌",
     profile: "Side sleeper with neck or shoulder issues",
     prioritise: "High loft, firm support, adjustable fill",
     start: "best-pillow-for-side-sleepers",
   },
   {
+    icon: "🌙",
     profile: "Back or stomach sleeper",
     prioritise: "Medium or low loft, softer support",
     start: "best-pillow-for-back-sleepers",
   },
   {
+    icon: "❄️",
     profile: "Hot sleeper or allergy sufferer",
     prioritise: "Breathable fills, hypoallergenic cover",
     start: "best-cooling-pillow",
   },
   {
+    icon: "🔄",
     profile: "Not sure / combination sleeper",
     prioritise: "Adjustable loft, versatile support",
     start: "best-pillow-for-combination-sleepers",
@@ -405,7 +409,26 @@ export default function BestPillowHubPage() {
                     gap: 10,
                   }}
                 >
-                  <p style={{ margin: 0, color: NAVY, fontWeight: 800, fontSize: 15, lineHeight: 1.45 }}>{row.profile}</p>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: "50%",
+                        background: "#efe8f5",
+                        border: `1px solid ${LAVENDER}`,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 15,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {row.icon}
+                    </span>
+                    <p style={{ margin: 0, color: NAVY, fontWeight: 800, fontSize: 15, lineHeight: 1.45 }}>{row.profile}</p>
+                  </div>
                   <div>
                     <p style={{ margin: "0 0 4px", color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: "uppercase" }}>
                       Prioritise
