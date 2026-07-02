@@ -3,6 +3,62 @@ import Link from "next/link";
 import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
 import HubQuickBuySection from "./HubQuickBuySectionClient";
 
+const quickAnswerBullets = [
+  "If you sleep on your side, you almost always need more loft and firmer support than a standard pillow provides.",
+  "If you sleep hot, breathable fills and ventilated covers matter more than brand name or premium materials.",
+  "If you wake with neck or shoulder pain, loft mismatch is usually the first thing to fix before buying.",
+];
+
+const comparisonOptions = [
+  {
+    label: "Best baseline for most sleepers",
+    guideSlug: "best-pillow-for-side-sleepers",
+    guideTitle: "Best Pillow for Side Sleepers",
+    summary: "Highest-loft requirement and firmness need — the profile most standard pillows underserve.",
+  },
+  {
+    label: "Best for alignment issues",
+    guideSlug: "best-pillow-for-neck-pain",
+    guideTitle: "Best Pillow for Neck Pain",
+    summary: "Structured cervical support for sleepers waking with stiffness or recurring neck pain.",
+  },
+  {
+    label: "Best for temperature control",
+    guideSlug: "best-cooling-pillow",
+    guideTitle: "Best Cooling Pillow",
+    summary: "Breathable fills and cool-touch covers for sleepers who overheat through the night.",
+  },
+  {
+    label: "Best value-first route",
+    guideSlug: "best-budget-pillow-under-30",
+    guideTitle: "Best Budget Pillow Under £30",
+    summary: "Well-matched UK options under £30 for sleepers who want performance without overspending.",
+  },
+];
+
+const decisionRows = [
+  {
+    profile: "Side sleeper with neck or shoulder issues",
+    prioritise: "High loft, firm support, adjustable fill",
+    start: "best-pillow-for-side-sleepers",
+  },
+  {
+    profile: "Back or stomach sleeper",
+    prioritise: "Medium or low loft, softer support",
+    start: "best-pillow-for-back-sleepers",
+  },
+  {
+    profile: "Hot sleeper or allergy sufferer",
+    prioritise: "Breathable fills, hypoallergenic cover",
+    start: "best-cooling-pillow",
+  },
+  {
+    profile: "Not sure / combination sleeper",
+    prioritise: "Adjustable loft, versatile support",
+    start: "best-pillow-for-combination-sleepers",
+  },
+];
+
 const NAVY = "#1a1a3e";
 const LAVENDER = "#9b87bc";
 const SURFACE = "#f5f3f8";
@@ -206,29 +262,189 @@ export default function BestPillowHubPage() {
         </div>
       </section>
 
-      <div style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
+      <main style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
         <section
+          id="quick-answer"
           style={{
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${LAVENDER}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px 0", fontSize: 24, color: NAVY }}>Quick answer</h2>
+          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
+            If you want a fast starting point before diving into all guides, use this 30-second summary.
+          </p>
+          <ul style={{ margin: 0, paddingLeft: 20, color: TEXT, lineHeight: 1.8 }}>
+            {quickAnswerBullets.map((line, index) => (
+              <li key={index}>{line}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section
+          id="jump-links"
+          style={{
+            marginTop: 16,
+            background: "#ffffff",
+            border: `1px solid ${BORDER}`,
+            borderRadius: 14,
+            padding: "16px 18px",
+          }}
+          aria-label="Jump links"
+        >
+          <h2 style={{ margin: "0 0 10px", fontSize: 20, color: NAVY }}>Jump to a section</h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {([
+              ["Quick answer", "#quick-answer"],
+              ["Compare options", "#compare-options"],
+              ["How we rank", "#how-we-rank"],
+              ["Decision matrix", "#decision-matrix"],
+              ["Quick Buy", "#quick-buy-starting-points"],
+              ["Browse guides", "#browse-guides"],
+              ["FAQ", "#faq"],
+            ] as [string, string][]).map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: `1px solid ${BORDER}`,
+                  borderRadius: 999,
+                  padding: "8px 12px",
+                  color: NAVY,
+                  textDecoration: "none",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  background: "#ffffff",
+                }}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section
+          id="compare-options"
+          style={{
+            marginTop: 16,
             background: "#ffffff",
             border: `1px solid ${BORDER}`,
             borderRadius: 14,
             padding: "22px 24px",
           }}
         >
-          <p style={{ margin: "16px 0 8px", color: TEXT2, lineHeight: 1.7 }}>
-            This guide is designed to help you compare the best pillows for different sleep types,
-            then decide whether you want a quick preset recommendation or a more tailored fitting result.
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>Best options at a glance</h2>
+          <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
+            These options represent the most common pillow decision paths: baseline support, alignment, temperature, and value.
           </p>
-          <p style={{ margin: 0, color: TEXT2, lineHeight: 1.7 }}>
-            Factors such as sleep position, body frame, firmness preference, support needs, and temperature
-            can all influence which pillow performs best for you. Start with the overview below, then use Quick Buy or the
-            fitting quiz depending on how much guidance you want.
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: 12,
+            }}
+          >
+            {comparisonOptions.map((item, index) => (
+              <article
+                key={item.guideSlug}
+                style={{
+                  border: `1px solid ${BORDER}`,
+                  borderRadius: 12,
+                  padding: "14px 14px",
+                  background: "#ffffff",
+                }}
+              >
+                <p style={{ margin: "0 0 8px", color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
+                  #{index + 1} · {item.label}
+                </p>
+                <h3 style={{ margin: "0 0 8px", color: NAVY, fontSize: 17, lineHeight: 1.35 }}>{item.guideTitle}</h3>
+                <p style={{ margin: "0 0 10px", color: TEXT2, fontSize: 14, lineHeight: 1.6 }}>{item.summary}</p>
+                <Link
+                  href={`/pillow/${item.guideSlug}`}
+                  style={{ color: NAVY, textDecoration: "none", fontWeight: 700, fontSize: 14 }}
+                >
+                  Open guide →
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          id="how-we-rank"
+          style={{
+            marginTop: 16,
+            background: "#ffffff",
+            border: `1px solid ${BORDER}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>How we rank options on this page</h2>
+          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
+            We prioritise fit-to-sleep-profile first, then support consistency and value. That means we favour options that fix the most common sleep problems before recommending premium materials or brands.
           </p>
+          <ul style={{ margin: 0, paddingLeft: 20, color: TEXT, lineHeight: 1.8 }}>
+            <li>Sleep position fit first: loft, firmness, and support type matched to how you actually sleep.</li>
+            <li>Problem relevance second: neck pain, heat, allergies and snoring all change the priority order.</li>
+            <li>Value third: we include realistic UK price context so every option is actionable, not aspirational.</li>
+          </ul>
+        </section>
+
+        <section
+          id="decision-matrix"
+          style={{
+            marginTop: 16,
+            background: "#ffffff",
+            border: `1px solid ${BORDER}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>Decision matrix: where to start</h2>
+          <p style={{ margin: "0 0 12px", color: TEXT2, lineHeight: 1.7 }}>
+            If you are not sure which guide to open first, start with the closest profile below.
+          </p>
+          <div style={{ display: "grid", gap: 10 }}>
+            {decisionRows.map((row) => {
+              const startPage = pillowSeoPageMap[row.start];
+              return (
+                <div
+                  key={row.start}
+                  style={{
+                    border: `1px solid ${BORDER}`,
+                    borderRadius: 10,
+                    padding: "12px 14px",
+                    display: "grid",
+                    gap: 8,
+                    gridTemplateColumns: "minmax(180px, 1.2fr) minmax(220px, 1.6fr) minmax(180px, 1fr)",
+                  }}
+                >
+                  <p style={{ margin: 0, color: NAVY, fontWeight: 700, fontSize: 14 }}>{row.profile}</p>
+                  <p style={{ margin: 0, color: TEXT2, fontSize: 14 }}>{row.prioritise}</p>
+                  <Link
+                    href={`/pillow/${row.start}`}
+                    style={{ color: NAVY, textDecoration: "none", fontWeight: 700, fontSize: 14, textAlign: "right" }}
+                  >
+                    {startPage?.h1 ?? "Open guide"} →
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
         </section>
 
         <section
           style={{
-            marginTop: 24,
+            marginTop: 16,
             background: "#ffffff",
             border: `1px solid ${BORDER}`,
             borderRadius: 14,
@@ -250,7 +466,7 @@ export default function BestPillowHubPage() {
 
         <HubQuickBuySection />
 
-        <section style={{ marginTop: 24 }}>
+        <section id="browse-guides" style={{ marginTop: 24 }}>
           <h2 style={{ margin: "0 0 14px 0", fontSize: 24, color: NAVY }}>Browse by sleep need and pillow type</h2>
           <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
             Use these detailed guides if you want a deeper breakdown for your specific sleep style or problem.
@@ -317,6 +533,7 @@ export default function BestPillowHubPage() {
         </section>
 
         <section
+          id="faq"
           style={{
             marginTop: 24,
             background: "#ffffff",
@@ -354,7 +571,7 @@ export default function BestPillowHubPage() {
             ))}
           </div>
         </section>
-      </div>
+      </main>
     </div>
   );
 }
