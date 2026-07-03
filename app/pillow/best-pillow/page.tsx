@@ -4,6 +4,7 @@ import Link from "next/link";
 import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
 import { products } from "../../../config/pillow/products";
 import { pillowComparisonPages } from "../../../config/pillow/comparison-pages";
+import { seoPalette } from "../../../config/pillow/seo-theme";
 import HubQuickBuySection from "./HubQuickBuySectionClient";
 
 const quickAnswerBullets = [
@@ -49,13 +50,13 @@ const decisionRows = [
   },
 ];
 
-const NAVY = "#1a1a3e";
-const LAVENDER = "#9b87bc";
-const SURFACE = "#f5f3f8";
-const WHITE = "#ffffff";
-const BORDER = "#e6e1ec";
-const TEXT = "#1a1a3e";
-const TEXT2 = "#5a5478";
+const NAVY = seoPalette.navy;
+const LAVENDER = seoPalette.lime;
+const SURFACE = seoPalette.surface;
+const WHITE = seoPalette.white;
+const BORDER = seoPalette.border;
+const TEXT = seoPalette.text;
+const TEXT2 = seoPalette.text2;
 
 export const metadata: Metadata = {
   title: "Best Pillow (2026): Find the Right Pillow for You | FindYourIdeal",
@@ -193,7 +194,7 @@ export default function BestPillowHubPage() {
                 whiteSpace: "nowrap",
               }}
             >
-              Start fitting now
+              Start Quiz now
             </Link>
           </div>
 

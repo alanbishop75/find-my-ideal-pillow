@@ -6,16 +6,17 @@ import { products } from "../../../../config/pillow/products";
 import { getRegionLinks } from "../../../../config/pillow/buy-links";
 import { pillowComparisonPageMap, pillowComparisonPages } from "../../../../config/pillow/comparison-pages";
 import { getRequiredSiteUrl } from "../../../../lib/site-url";
+import { seoPalette } from "../../../../config/pillow/seo-theme";
 
 type Props = { params: Promise<{ slug: string }> };
 
 const SITE_URL = getRequiredSiteUrl();
-const WHITE = "#ffffff";
-const NAVY = "#1a1a3e";
-const LAVENDER = "#9b87bc";
-const SURFACE = "#f5f3f8";
-const BORDER = "#e6e1ec";
-const TEXT2 = "#5a5478";
+const WHITE = seoPalette.white;
+const NAVY = seoPalette.navy;
+const LAVENDER = seoPalette.lime;
+const SURFACE = seoPalette.surface;
+const BORDER = seoPalette.border;
+const TEXT2 = seoPalette.text2;
 
 export function generateStaticParams() {
   return pillowComparisonPages.map((page) => ({ slug: page.slug }));

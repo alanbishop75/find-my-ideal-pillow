@@ -6,12 +6,13 @@ import { useRegion } from "../../../core/geo/RegionContext";
 import { getRegionLinks } from "../../../config/pillow/buy-links";
 import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
 import { products } from "../../../config/pillow/products";
+import { seoPalette } from "../../../config/pillow/seo-theme";
 
-const NAVY = "#1a1a3e";
-const LAVENDER = "#9b87bc";
-const SURFACE = "#f5f3f8";
-const BORDER = "#e6e1ec";
-const TEXT2 = "#5a5478";
+const NAVY = seoPalette.navy;
+const LAVENDER = seoPalette.lime;
+const SURFACE = seoPalette.surface;
+const BORDER = seoPalette.border;
+const TEXT2 = seoPalette.text2;
 
 const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
   "best-pillow-for-side-sleepers": {

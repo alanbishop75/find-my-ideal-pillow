@@ -6,6 +6,7 @@ import { getRegionLinks } from "../../../config/pillow/buy-links";
 import type { PillowSeoPage } from "../../../config/pillow/seo-pages";
 import { pillowSeoPageMap } from "../../../config/pillow/seo-pages";
 import { products } from "../../../config/pillow/products";
+import { seoPalette } from "../../../config/pillow/seo-theme";
 
 function slugifyHeading(value: string): string {
   return value
@@ -14,13 +15,13 @@ function slugifyHeading(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-const NAVY = "#0b2545";
-const LIME = "#7dbe3a";
-const LIME_DARK = "#0b2545";
-const WHITE = "#ffffff";
-const SURFACE = "#f5f8fa";
-const BORDER = "#e1e8ed";
-const TEXT2 = "#516781";
+const NAVY = seoPalette.navy;
+const LIME = seoPalette.lime;
+const LIME_DARK = seoPalette.limeDark;
+const WHITE = seoPalette.white;
+const SURFACE = seoPalette.surface;
+const BORDER = seoPalette.border;
+const TEXT2 = seoPalette.text2;
 
 const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
   "best-pillow-for-side-sleepers": {
@@ -507,10 +508,10 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
         }
       `}</style>
 
-      {/* HERO — navy gradient, logo left */}
+      {/* HERO — lavender gradient, logo left */}
       <section
         style={{
-          background: "linear-gradient(135deg, #0b2545 0%, #0e2d52 55%, #143869 100%)",
+          background: "linear-gradient(135deg, #1a1a3e 0%, #2a2456 55%, #3a3268 100%)",
           color: "#ffffff",
           padding: "48px 20px 56px",
           position: "relative",

@@ -8,6 +8,7 @@ import { ThemeProvider } from "../core/theme";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
+import { QuizAbandonProvider } from "../components/QuizAbandonProvider";
 import { categoryRegistry } from "../config/registry";
 import { categoryFromHost, defaultCategoryId } from "../config/domain-map";
 import { CategoryProvider } from "../core/category-context";
@@ -139,10 +140,12 @@ export default async function RootLayout({
       <body className="flex flex-col min-h-screen">
         <ThemeProvider themeName={activeTheme}>
           <CategoryProvider categoryId={categoryId} brandName={categoryRegistry[categoryId]?.meta.brandName ?? 'FindMyIdealPillow'}>
-            <Header />
-            <main className="p-0 m-0">
-              <ClientRoot>{children}</ClientRoot>
-            </main>
+            <QuizAbandonProvider>
+              <Header />
+              <main className="p-0 m-0">
+                <ClientRoot>{children}</ClientRoot>
+              </main>
+            </QuizAbandonProvider>
             <Footer />
             <CookieBanner />
           </CategoryProvider>

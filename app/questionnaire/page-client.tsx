@@ -2,7 +2,7 @@
 import React, { Suspense } from 'react';
 import { pillowQuestionnaire } from '../../config/pillow/questionnaire';
 import { useAppState } from '../client-providers';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Questionnaire } from '../../core/types';
 import { useRegion } from '../../core/geo/RegionContext';
@@ -13,6 +13,7 @@ import {
 	trackQuizAbandoned,
 	trackQuestionAnswered,
 } from '../../lib/analytics';
+import { QuizAbandonContext } from '../../components/QuizAbandonContext';
 
 interface Props {
 	questionnaire?: Questionnaire;
@@ -32,6 +33,7 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const resolvedQuestionnaire = questionnaireProp ?? pillowQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
 	const { answers, setAnswer, reset } = useAppState();
+	const { setAbandonQuiz } = useContext(QuizAbandonContext);
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
@@ -46,12 +48,20 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	useEffect(() => {
 		// Always reset answers when the questionnaire mounts.
 		reset();
+		setAbandonQuiz(() => () => {
+			if (!completedRef.current && !abandonedRef.current) {
+				abandonedRef.current = true;
+				trackEvent('quiz_abandoned', { quiz_id: resolvedQuestionnaire.id, question_index: current, seo_source: seoSource });
+				trackQuizAbandoned(seoSource, questions[current]?.id ?? 'unknown');
+			}
+		});
 		if (!startedRef.current) {
 			startedRef.current = true;
 			trackEvent('quiz_start', { quiz_id: resolvedQuestionnaire.id, seo_source: seoSource });
 			trackQuizStart(seoSource);
 		}
 		return () => {
+			setAbandonQuiz(null);
 			if (!completedRef.current && !abandonedRef.current) {
 				abandonedRef.current = true;
 				trackEvent('quiz_abandoned', { quiz_id: resolvedQuestionnaire.id, question_index: current, seo_source: seoSource });
