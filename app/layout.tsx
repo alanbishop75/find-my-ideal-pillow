@@ -57,6 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const ogImage = "/opengraph-image";
   return {
     metadataBase: new URL(siteUrl),
+    applicationName: 'Find Your Ideal Pillow',
     title,
     description,
     verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,

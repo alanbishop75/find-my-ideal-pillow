@@ -30,7 +30,7 @@ export const categoryRegistry: Record<string, CategoryConfig> = {
   'pillow': {
     id: 'pillow',
     meta: {
-      title: 'FindYourIdealPillow — Find Your Perfect Pillow',
+      title: 'Free Pillow Fitting Quiz | Find Your Ideal Pillow',
       description: 'Answer a few quick questions and get a free, personalised pillow recommendation tailored to how you sleep.',
       brandName: 'FindYourIdealPillow',
       hero: 'Answer a few questions.\nGet your ideal pillow.',
