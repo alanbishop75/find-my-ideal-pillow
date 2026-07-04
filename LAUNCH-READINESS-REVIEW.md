@@ -7,6 +7,22 @@
 
 ---
 
+## Launch Roadmap Delta (Logged 4 July 2026)
+
+Recent production changes now explicitly tracked:
+
+- Added reciprocal hub link in footer (`FindYourIdeal Hub`) for network-level internal linking.
+- Updated footer UI to match the canonical golf structure, then corrected background to pillow palette tokens.
+- Standardized browser tab branding: product-specific title format and product-specific favicon.
+- Simplified tab title copy from "Fitting Quiz" wording to cleaner "Quiz" wording.
+
+Roadmap impact:
+
+- Footer parity and cross-site trust linking are now live launch-baseline items.
+- Browser-level brand consistency is now implemented, not pending.
+
+---
+
 ## Executive Verdict
 
 - **Overall status:** **AMBER**

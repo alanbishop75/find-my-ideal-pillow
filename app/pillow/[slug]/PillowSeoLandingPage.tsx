@@ -147,11 +147,6 @@ function buildDefaultMethodology(page: PillowSeoPage): string {
   return `We rank these options by fit for ${page.breadcrumbLabel.toLowerCase()}, combining support profile, temperature behavior, and value for money. The goal is to improve sleep comfort and consistency first, then refine feel preferences.`;
 }
 
-function getAmazonLinkForRegion(productId: string, region: "UK" | "US"): string | undefined {
-  const allowedRetailers = region === "US" ? ["amazon-us"] : ["amazon-uk"];
-  return getRegionLinks(productId, region).find((link) => allowedRetailers.includes(link.retailerKey))?.url;
-}
-
 function productMatchesTopic(product: (typeof products)[number], slug: string): number {
   let score = 0;
 
@@ -510,6 +505,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
           .seo-hero-text p { margin-left: auto !important; margin-right: auto !important; }
           .seo-hero-cta { justify-content: center !important; }
           .quick-buy-grid { grid-template-columns: 1fr !important; }
+          .best-options-card { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
@@ -709,90 +705,69 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
               These options cover the most common buying paths for {page.breadcrumbLabel.toLowerCase()}: strongest baseline fit, value route, and a balanced upgrade path.
             </p>
             <div style={{ display: "grid", gap: 12 }}>
-              {rankedOptions.map((product, index) => {
-                const amazonLink = getAmazonLinkForRegion(product.id, displayRegion);
-
-                return (
+              {rankedOptions.map((product, index) => (
                 <article
                   key={product.id}
                   style={{
                     border: `1px solid ${BORDER}`,
                     borderRadius: 12,
-                    padding: 14,
-                    background: "#ffffff",
+                    padding: 16,
+                    background: WHITE,
                     display: "grid",
-                    gap: 6,
+                    gridTemplateColumns: "minmax(120px, 180px) minmax(0, 1fr)",
+                    gap: 16,
+                    alignItems: "stretch",
                   }}
+                  className="best-options-card"
                 >
-                  <p style={{ margin: 0, fontSize: 11, color: NAVY, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
-                    #{index + 1} · {index === 0 ? "Best overall fit for this profile" : index === 1 ? "Best value alternative" : "Best upgrade alternative"}
-                  </p>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 10 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    <p style={{ margin: 0, fontSize: 11, color: NAVY, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
+                      #{index + 1} · {index === 0 ? "Best overall fit for this profile" : index === 1 ? "Best value alternative" : "Best upgrade alternative"}
+                    </p>
                     <Image
                       src={product.imageUrl}
                       alt={`${product.brand} ${product.name}`}
-                      width={84}
-                      height={84}
-                      style={{ objectFit: "contain", borderRadius: 8, flexShrink: 0, background: SURFACE }}
+                      width={180}
+                      height={180}
+                      style={{ objectFit: "contain", borderRadius: 12, background: SURFACE, width: "100%", height: "auto", minHeight: 150, padding: 10 }}
                     />
-                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                      <h3 style={{ margin: 0, fontSize: 18, color: NAVY, lineHeight: 1.25 }}>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      <h3 style={{ margin: 0, fontSize: 20, color: NAVY, lineHeight: 1.2 }}>
                         {product.brand} {product.name}
                       </h3>
-                      <p style={{ margin: 0, fontSize: 12, color: TEXT2, fontWeight: 700, lineHeight: 1.4 }}>
+                      <p style={{ margin: 0, fontSize: 13, color: TEXT2, fontWeight: 700, lineHeight: 1.5 }}>
                         {bestForLine(product)}
                       </p>
+                      <p style={{ margin: 0, fontSize: 13, color: TEXT2, lineHeight: 1.6 }}>
+                        {reasonLine(product)}
+                      </p>
+                    </div>
+                    <p style={{ margin: 0, fontSize: 13, color: TEXT2, fontWeight: 700 }}>
+                      {typeof product.attributes?.rrp === "number" ? `Approx. £${product.attributes.rrp}/item` : "Check latest price"}
+                    </p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      {attributeChips(product).map((chip) => (
+                        <span
+                          key={chip}
+                          style={{
+                            border: `1px solid ${BORDER}`,
+                            borderRadius: 999,
+                            fontSize: 12,
+                            fontWeight: 700,
+                            color: NAVY,
+                            background: SURFACE,
+                            padding: "4px 10px",
+                          }}
+                        >
+                          {chip}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                  <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
-                    {reasonLine(product)}
-                  </p>
-                  <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
-                    {typeof product.attributes?.rrp === "number" ? `Approx. £${product.attributes.rrp}/item` : "Check latest price"}
-                  </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 2 }}>
-                    {attributeChips(product).map((chip) => (
-                      <span
-                        key={chip}
-                        style={{
-                          border: `1px solid ${BORDER}`,
-                          borderRadius: 999,
-                          fontSize: 12,
-                          fontWeight: 700,
-                          color: NAVY,
-                          background: SURFACE,
-                          padding: "4px 10px",
-                        }}
-                      >
-                        {chip}
-                      </span>
-                    ))}
-                  </div>
-                  {amazonLink ? (
-                    <a
-                      href={amazonLink}
-                      target="_blank"
-                      rel="sponsored nofollow noopener noreferrer"
-                      style={{
-                        marginTop: 10,
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        background: LIME,
-                        color: LIME_DARK,
-                        borderRadius: 999,
-                        padding: "10px 14px",
-                        fontWeight: 800,
-                        textDecoration: "none",
-                        width: "100%",
-                      }}
-                    >
-                      Buy on Amazon
-                    </a>
-                  ) : null}
                 </article>
-                );
-              })}
+              ))}
             </div>
           </section>
 
