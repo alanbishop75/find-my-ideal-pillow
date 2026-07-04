@@ -167,18 +167,10 @@ for (const [dir, canonical] of CANONICAL_PAGES) {
     hasCanonical ? "" : `canonical missing in ${dir}/page.tsx`);
 }
 
-// ── 6) Blueprint specs present ───────────────────────────────────────────────
-const SPECS = [
-  "LAUNCH-BLUEPRINT-START-HERE.md",
-  "HOMEPAGE-EXACT-REPLICA-SPEC.md",
-  "BEST-PRODUCT-HUB-EXACT-REPLICA-SPEC.md",
-  "SEO-PAGE-EXACT-REPLICA-SPEC.md",
-  "FOOTER-AND-UTILITY-PAGES-EXACT-REPLICA-SPEC.md",
-  "PRODUCT-ROLLOUT-MASTER-CHECKLIST.md",
-];
-for (const spec of SPECS) {
-  check(`Blueprint spec present: ${spec}`, exists(spec));
-}
+// ── 6) Blueprint specs ───────────────────────────────────────────────────────
+// The canonical blueprint (specs + generator tooling) now lives in the
+// find-my-ideal-hub repo under /blueprint/. Per-site copies were removed to keep
+// a single source of truth, so this gate no longer checks for local spec docs.
 
 // ── 7) SEO page search-quality locks ─────────────────────────────────────────
 // Static checks on the SEO route + content model that back the Search Quality
