@@ -147,6 +147,11 @@ function buildDefaultMethodology(page: PillowSeoPage): string {
   return `We rank these options by fit for ${page.breadcrumbLabel.toLowerCase()}, combining support profile, temperature behavior, and value for money. The goal is to improve sleep comfort and consistency first, then refine feel preferences.`;
 }
 
+function getAmazonLinkForRegion(productId: string, region: "UK" | "US"): string | undefined {
+  const retailerKeys = region === "US" ? ["amazon-us"] : ["amazon-uk"];
+  return getRegionLinks(productId, region).find((link) => retailerKeys.includes(link.retailerKey))?.url;
+}
+
 function productMatchesTopic(product: (typeof products)[number], slug: string): number {
   let score = 0;
 
@@ -705,7 +710,10 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
               These options cover the most common buying paths for {page.breadcrumbLabel.toLowerCase()}: strongest baseline fit, value route, and a balanced upgrade path.
             </p>
             <div style={{ display: "grid", gap: 12 }}>
-              {rankedOptions.map((product, index) => (
+              {rankedOptions.map((product, index) => {
+                const amazonLink = getAmazonLinkForRegion(product.id, displayRegion);
+
+                return (
                 <article
                   key={product.id}
                   style={{
@@ -765,9 +773,32 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
                         </span>
                       ))}
                     </div>
+                    {amazonLink ? (
+                      <a
+                        href={amazonLink}
+                        target="_blank"
+                        rel="sponsored nofollow noopener noreferrer"
+                        style={{
+                          marginTop: 2,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: LIME,
+                          color: LIME_DARK,
+                          borderRadius: 999,
+                          padding: "10px 14px",
+                          fontWeight: 800,
+                          textDecoration: "none",
+                          width: "100%",
+                        }}
+                      >
+                        Buy on Amazon
+                      </a>
+                    ) : null}
                   </div>
                 </article>
-              ))}
+                );
+              })}
             </div>
           </section>
 
