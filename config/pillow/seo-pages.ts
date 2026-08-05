@@ -483,13 +483,13 @@ const combinationSleepersUk: PillowSeoPage = {
 const neckPainUk: PillowSeoPage = {
   slug: "best-pillow-for-neck-pain",
   keyword: "best pillow for neck pain uk",
-  metaTitle: "Best Pillows for Neck Pain UK — Neck Ache & Shoulder Support",
+  metaTitle: "Best Pillow for Neck Stiffness UK (2026) — Neck Pain Support",
   metaDescription:
-    "Looking for the best pillow for neck pain? Compare pillows for neck pain, neck ache and shoulder support, then find a UK-matched option in 2 minutes.",
-  h1: "Best Pillow for Neck Pain",
+    "Best pillow for neck stiffness in the UK: compare contour, high-loft and medium-loft options for neck pain and shoulder support.",
+  h1: "Best Pillow for Neck Stiffness (UK)",
   breadcrumbLabel: "Neck pain",
   intro:
-    "If you are searching for the best pillow for neck pain, start with loft and sleep position before brand or material. A pillow that is too high, too low or too soft can keep the neck under strain for hours, which is why many people wake with neck ache, upper-shoulder tension or one-sided stiffness. The right fix is usually not the most expensive pillow on the market. It is the pillow that matches your sleep position, shoulder width and support needs. This guide explains how to choose the right pillow for neck pain in the UK, and our quiz narrows it down to verified options matched to how you sleep.",
+    "If your main issue is waking with neck stiffness, start with loft and sleep position before brand or material. A pillow that is too high, too low, or too soft can keep the neck under strain for hours, which is why many people wake with neck ache, upper-shoulder tension, or one-sided stiffness. The right fix is usually not the most expensive pillow on the market. It is the pillow that matches your sleep position, shoulder width, and support needs. This guide compares the best UK pillow types for neck stiffness and our quiz narrows it down to verified options matched to how you sleep.",
   whoItsFor: [
     "You regularly wake with a stiff or aching neck",
     "The discomfort is mostly on one side (the side you sleep on)",
@@ -520,6 +520,10 @@ const neckPainUk: PillowSeoPage = {
       ],
     },
     {
+      h2: "Quick comparison: best pillow type by neck stiffness profile",
+      body: "Use this as a fast decision layer before deep-diving into materials. For side-sleeper neck stiffness, start with a firm high-loft pillow (10-14 cm compressed) to keep the head level with the spine. For back-sleeper stiffness, start with a medium-loft contour pillow (6-9 cm) that supports the cervical curve without pushing the chin forward. For mixed-position stiffness, choose a responsive medium-loft option that stays supportive when you roll. Prioritise position-fit first, then material and budget.",
+    },
+    {
       h2: "Fill types and neck support",
       body: "Memory foam contour pillows are the most widely recommended for neck pain because they hold a fixed, cervical-curve-friendly shape all night. Solid memory foam is most consistent; shredded foam is more adjustable but may shift position during sleep. Latex contour pillows offer similar benefits with better breathability and a longer lifespan, though at a higher price point. High fill-power down and hollow fibre can work well for back sleepers but are less reliable for side sleepers with active neck issues, because fill redistributes under sustained pressure.",
     },
@@ -540,6 +544,10 @@ const neckPainUk: PillowSeoPage = {
     "Whether you need machine-washable or hypoallergenic",
   ],
   faq: [
+    {
+      q: "What is the best pillow for neck stiffness in the UK?",
+      a: "The best starting choice depends on sleep position: side sleepers usually need a firmer high-loft pillow, while back sleepers usually need a medium-loft contour shape. Position-fit and loft are more important than brand.",
+    },
     {
       q: "Can the wrong pillow cause neck pain?",
       a: "Yes — specifically, a pillow that's the wrong height for your sleep position keeps the cervical spine out of alignment for the entire night. Switching to a correctly-lofted pillow resolves this cause of pain, though it won't address neck pain from other sources.",
