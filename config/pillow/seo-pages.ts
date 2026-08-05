@@ -483,10 +483,10 @@ const combinationSleepersUk: PillowSeoPage = {
 const neckPainUk: PillowSeoPage = {
   slug: "best-pillow-for-neck-pain",
   keyword: "best pillow for neck pain uk",
-  metaTitle: "Best Pillow for Neck Stiffness UK (2026) — Neck Pain Support",
+  metaTitle: "Best Pillow for Neck Stiffness (2026) — Neck Pain Support",
   metaDescription:
-    "Best pillow for neck stiffness in the UK: compare contour, high-loft and medium-loft options for neck pain and shoulder support.",
-  h1: "Best Pillow for Neck Stiffness (UK)",
+    "Best pillow for neck stiffness: compare contour, high-loft and medium-loft options for neck pain and shoulder support.",
+  h1: "Best Pillow for Neck Stiffness (2026)",
   breadcrumbLabel: "Neck pain",
   intro:
     "If your main issue is waking with neck stiffness, start with loft and sleep position before brand or material. A pillow that is too high, too low, or too soft can keep the neck under strain for hours, which is why many people wake with neck ache, upper-shoulder tension, or one-sided stiffness. The right fix is usually not the most expensive pillow on the market. It is the pillow that matches your sleep position, shoulder width, and support needs. This guide compares the best UK pillow types for neck stiffness and our quiz narrows it down to verified options matched to how you sleep.",
@@ -545,7 +545,7 @@ const neckPainUk: PillowSeoPage = {
   ],
   faq: [
     {
-      q: "What is the best pillow for neck stiffness in the UK?",
+      q: "What is the best pillow for neck stiffness?",
       a: "The best starting choice depends on sleep position: side sleepers usually need a firmer high-loft pillow, while back sleepers usually need a medium-loft contour shape. Position-fit and loft are more important than brand.",
     },
     {
