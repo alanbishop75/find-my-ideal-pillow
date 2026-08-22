@@ -800,6 +800,45 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
                 );
               })}
             </div>
+
+            {page.slug === "best-pillow-for-side-sleepers" ? (
+              <div style={{ marginTop: 16, overflowX: "auto" }}>
+                <h3 style={{ margin: "0 0 10px", fontSize: 16, color: NAVY }}>Side Sleeper Pillow Comparison</h3>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 640, background: WHITE, border: `1px solid ${BORDER}` }}>
+                  <thead>
+                    <tr style={{ background: SURFACE }}>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Pillow</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Fill</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Firmness</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Why Included</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Price Check</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rankedOptions.map((product) => {
+                      const amazonLink = getAmazonLinkForRegion(product.id, displayRegion);
+                      const attrs = product.attributes;
+
+                      return (
+                        <tr key={`${product.id}-side-sleeper-table`}>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: NAVY, borderBottom: `1px solid ${BORDER}`, fontWeight: 700 }}>{product.brand} {product.name}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}` }}>{formatFill(getStringAttr(attrs, "fill"))}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}`, textTransform: "capitalize" }}>{(getStringAttr(attrs, "firmness") ?? "balanced").replace("-", " ")}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}` }}>{reasonLine(product)}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}` }}>
+                            {amazonLink ? (
+                              <a href={amazonLink} target="_blank" rel="sponsored nofollow noopener noreferrer" style={{ color: NAVY, fontWeight: 700, textDecoration: "underline" }}>
+                                Check current price
+                              </a>
+                            ) : "Check current price"}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
           </section>
 
           <section style={cardStyle} id="how-we-ranked-these-options">
