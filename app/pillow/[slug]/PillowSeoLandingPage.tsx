@@ -119,6 +119,12 @@ const quickBuyReasonBySlug: Record<string, string> = {
   "best-latex-pillow": "We use Talatex here because this page is about latex support and airflow.",
 };
 
+const comparisonTitleBySlug: Record<string, string> = {
+  "best-pillow-for-side-sleepers": "Side Sleeper Pillow Comparison",
+  "best-cooling-pillow": "Best Cooling Pillows Compared",
+  "best-pillow-for-snoring": "Snoring Pillow Comparison",
+};
+
 function buildDefaultQuickVerdict(page: PillowSeoPage): string[] {
   if (page.keyFactors.length >= 3) {
     return page.keyFactors.slice(0, 3).map((factor) => `Prioritise ${factor.charAt(0).toLowerCase()}${factor.slice(1)}.`);
@@ -801,9 +807,9 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
               })}
             </div>
 
-            {page.slug === "best-pillow-for-side-sleepers" ? (
+            {comparisonTitleBySlug[page.slug] ? (
               <div style={{ marginTop: 16, overflowX: "auto" }}>
-                <h3 style={{ margin: "0 0 10px", fontSize: 16, color: NAVY }}>Side Sleeper Pillow Comparison</h3>
+                <h3 style={{ margin: "0 0 10px", fontSize: 16, color: NAVY }}>{comparisonTitleBySlug[page.slug]}</h3>
                 <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 640, background: WHITE, border: `1px solid ${BORDER}` }}>
                   <thead>
                     <tr style={{ background: SURFACE }}>
@@ -820,7 +826,7 @@ export default function PillowSeoLandingPage({ page }: { page: PillowSeoPage }) 
                       const attrs = product.attributes;
 
                       return (
-                        <tr key={`${product.id}-side-sleeper-table`}>
+                        <tr key={`${product.id}-decision-table`}>
                           <td style={{ padding: "10px 12px", fontSize: 13, color: NAVY, borderBottom: `1px solid ${BORDER}`, fontWeight: 700 }}>{product.brand} {product.name}</td>
                           <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}` }}>{formatFill(getStringAttr(attrs, "fill"))}</td>
                           <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}`, textTransform: "capitalize" }}>{(getStringAttr(attrs, "firmness") ?? "balanced").replace("-", " ")}</td>
