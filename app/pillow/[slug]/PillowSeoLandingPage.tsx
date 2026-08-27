@@ -123,6 +123,7 @@ const comparisonTitleBySlug: Record<string, string> = {
   "best-pillow-for-side-sleepers": "Side Sleeper Pillow Comparison",
   "best-cooling-pillow": "Best Cooling Pillows Compared",
   "best-pillow-for-snoring": "Snoring Pillow Comparison",
+  "best-pillow-for-shoulder-pain": "Best Pillows for Neck and Shoulder Pain Compared",
 };
 
 function buildDefaultQuickVerdict(page: PillowSeoPage): string[] {
