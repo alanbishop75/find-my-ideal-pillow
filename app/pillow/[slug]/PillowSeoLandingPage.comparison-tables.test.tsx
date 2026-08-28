@@ -27,6 +27,7 @@ function renderSlug(slug: string): string {
 describe("PillowSeoLandingPage comparison table gating", () => {
   it.each([
     ["best-pillow-for-side-sleepers", "Side Sleeper Pillow Comparison"],
+    ["best-pillow-for-back-sleepers", "Best Pillows for Back Sleepers Compared"],
     ["best-cooling-pillow", "Best Cooling Pillows Compared"],
     ["best-pillow-for-snoring", "Snoring Pillow Comparison"],
     ["best-pillow-for-shoulder-pain", "Best Pillows for Neck and Shoulder Pain Compared"],
