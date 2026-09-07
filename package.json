@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "seo:gsc-report": "node scripts/analyze-gsc.mjs",
+    "seo:pillow:inventory": "node scripts/export-pillow-content-snapshot.mjs",
+    "seo:pillow:validate-inventory": "node scripts/validate-pillow-seo-audit-inventory.mjs",
+    "seo:pillow:gsc-fetch": "node scripts/fetch-pillow-gsc.mjs",
+    "seo:pillow:report": "node scripts/run-pillow-seo-report.mjs",
     "test": "jest --config jest.config.js",
     "typecheck": "tsc --noEmit",
     "test:unit": "jest --config jest.config.js",
@@ -16,6 +20,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "googleapis": "^167.0.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"
