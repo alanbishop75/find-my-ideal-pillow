@@ -106,17 +106,19 @@ function BuyLinksSection({ links, tokens, onCtaClick }: BuyLinksProps) {
   );
 }
 
+function ProductImage({ image, title, size, background }: { image: string; title: string; size: number; background: string }) {
+  const fallbackImage = "/images/pillow.jpeg";
+  const [imageSrc, setImageSrc] = React.useState(image);
+  return <Image src={imageSrc} alt={title} width={size} height={size}
+    onError={() => { if (imageSrc !== fallbackImage) setImageSrc(fallbackImage); }}
+    style={{ objectFit: "contain", borderRadius: 8, background, flexShrink: 0 }} />;
+}
+
 // ── Card ──────────────────────────────────────────────────────────────────────
 
 export function ResultsCard({ image, title, explanation, badges, buyLinks, label, isBest, priceTier, priceHint, onCtaClick }: ResultsCardProps) {
   const { tokens } = useTheme();
-  const fallbackImage = "/images/pillow.jpeg";
   const imageSize = 88;
-  const [imageSrc, setImageSrc] = React.useState(image);
-
-  React.useEffect(() => {
-    setImageSrc(image);
-  }, [image]);
 
   const hasBuyLinks = buyLinks && buyLinks.length > 0;
   const medalBorder =
@@ -161,18 +163,7 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
     >
       {/* Horizontal product row — label lives inside text column like golf ball */}
       <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 12 }}>
-        <Image
-          src={imageSrc}
-          alt={title}
-          width={imageSize}
-          height={imageSize}
-          onError={() => {
-            if (imageSrc !== fallbackImage) {
-              setImageSrc(fallbackImage);
-            }
-          }}
-          style={{ objectFit: "contain", borderRadius: 8, background: tokens.surfaceAlt, flexShrink: 0 }}
-        />
+        <ProductImage key={image} image={image} title={title} size={imageSize} background={tokens.surfaceAlt} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <h3 style={{ fontSize: 20, fontWeight: 800, color: tokens.textPrimary, margin: "0 0 2px 0", lineHeight: 1.13 }}>{title}</h3>
           {label && (
