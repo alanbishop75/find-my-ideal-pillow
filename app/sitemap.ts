@@ -3,59 +3,52 @@ import { pillowSeoPages } from '../config/pillow/seo-pages';
 import { getRequiredSiteUrl } from '../lib/site-url';
 
 const SITE_URL = getRequiredSiteUrl();
-const GENERATED_AT = new Date();
-
-function latestDate(dateA: Date, dateB: Date): Date {
-  return dateA > dateB ? dateA : dateB;
+function credibleLastModified(value: string | undefined, now = new Date()): Date | undefined {
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return undefined;
+  const date = new Date(`${value}T00:00:00.000Z`);
+  if (Number.isNaN(date.getTime()) || date > now || date.toISOString().slice(0, 10) !== value) return undefined;
+  return date;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
       url: `${SITE_URL}/pillow/best-pillow`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/about`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
       url: `${SITE_URL}/privacy-policy`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/terms`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/contact`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'yearly',
       priority: 0.4,
     },
     {
       url: `${SITE_URL}/faq`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${SITE_URL}/affiliate-disclosure`,
-      lastModified: GENERATED_AT,
       changeFrequency: 'yearly',
       priority: 0.4,
     },
@@ -63,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const seoLandingPages: MetadataRoute.Sitemap = pillowSeoPages.map((page) => ({
     url: `${SITE_URL}/pillow/${page.slug}`,
-    lastModified: latestDate(new Date(page.lastReviewed), GENERATED_AT),
+    lastModified: credibleLastModified(page.lastReviewed),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));
