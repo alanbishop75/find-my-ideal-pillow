@@ -10,7 +10,7 @@ jobs:
   blocking-gate:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_SITE_URL: https://findmyidealpillow.com
+      NEXT_PUBLIC_SITE_URL: https://www.findyouridealpillow.com
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
