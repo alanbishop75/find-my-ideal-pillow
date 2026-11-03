@@ -13,7 +13,7 @@ test.describe('FindMyIdealPillow MVP E2E Smoke', () => {
   test('Homepage renders and navigates to questionnaire', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1, name: /find your ideal pillow/i })).toBeVisible();
-    await page.getByRole('link', { name: /start fitting/i }).click();
+    await page.getByRole('link', { name: /start quiz/i }).click();
     await expect(page).toHaveURL(/questionnaire/);
   });
 
@@ -24,9 +24,9 @@ test.describe('FindMyIdealPillow MVP E2E Smoke', () => {
 
     await expect(page).toHaveURL(/results/);
     await expect(page.getByText(/best-fit pillows/i)).toBeVisible();
-    await expect(page.getByText(/Best Match/i)).toBeVisible();
-    await expect(page.getByText(/Strong Alternative/i)).toBeVisible();
-    await expect(page.getByText(/Best Value/i)).toBeVisible();
+    await expect(page.getByText(/Your Best Match/i, { exact: true })).toBeVisible();
+    await expect(page.getByText('Strong Alternative', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Best Value', { exact: true }).first()).toBeVisible();
   });
 
   test('Footer links and contact page are reachable', async ({ page }) => {

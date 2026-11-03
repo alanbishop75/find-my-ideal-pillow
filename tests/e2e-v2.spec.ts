@@ -17,7 +17,7 @@ test.describe('FindMyIdealPillow MVP E2E V2', () => {
 
     await expect(page).toHaveURL(/results/);
     await expect(page.getByText(/best-fit pillows/i)).toBeVisible();
-    await expect(page.getByText(/Best Match/i)).toBeVisible();
-    await expect(page.getByText(/Best Value/i)).toBeVisible();
+    await expect(page.getByText(/Your Best Match/i, { exact: true })).toBeVisible();
+    await expect(page.getByText('Best Value', { exact: true }).first()).toBeVisible();
   });
 });
