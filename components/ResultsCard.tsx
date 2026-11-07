@@ -112,9 +112,11 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
   const { tokens } = useTheme();
   const fallbackImage = "/images/pillow.jpeg";
   const imageSize = 88;
-  const [failedImage, setFailedImage] = React.useState<string | null>(null);
-  const imageSrc = failedImage === image ? fallbackImage : image;
+  const [imageSrc, setImageSrc] = React.useState(image);
 
+  React.useEffect(() => {
+    setImageSrc(image);
+  }, [image]);
 
   const hasBuyLinks = buyLinks && buyLinks.length > 0;
   const medalBorder =
@@ -166,7 +168,7 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
           height={imageSize}
           onError={() => {
             if (imageSrc !== fallbackImage) {
-              setFailedImage(image);
+              setImageSrc(fallbackImage);
             }
           }}
           style={{ objectFit: "contain", borderRadius: 8, background: tokens.surfaceAlt, flexShrink: 0 }}
