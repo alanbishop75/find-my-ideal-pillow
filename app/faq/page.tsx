@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -110,7 +111,7 @@ export default function FAQPage() {
         <aside style={{ marginTop: 20, border: '1px solid #e5e7eb', borderRadius: 10, background: '#f8fafc', padding: '14px 16px' }}>
           <p style={{ margin: '0 0 6px 0', fontWeight: 700, fontSize: 14 }}>New here?</p>
           <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6 }}>
-            Start with our central guide: <a href="/pillow/best-pillow" style={{ color: '#1f2937', fontWeight: 700 }}>Best Pillow</a>.
+            Start with our central guide: <Link href="/pillow/best-pillow" style={{ color: '#1f2937', fontWeight: 700 }}>Best Pillow</Link>.
           </p>
         </aside>
 
