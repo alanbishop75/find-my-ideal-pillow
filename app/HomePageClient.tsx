@@ -125,7 +125,7 @@ export default function HomePageClient() {
             </div>
             <span style={{ fontWeight: 700, color: "#ffffff", fontSize: 16, display: "flex", alignItems: "center", paddingTop: 14 }}>Or</span>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-              <Link
+              <a
                 href="/pillow/best-pillow#quick-buy-starting-points"
                 style={{
                   display: "inline-flex",
@@ -142,7 +142,7 @@ export default function HomePageClient() {
                 }}
               >
                 Quick Buy
-              </Link>
+              </a>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Top-rated picks, ready to buy</span>
             </div>
           </div>
