@@ -114,6 +114,9 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
   const imageSize = 88;
   const [imageSrc, setImageSrc] = React.useState(image);
 
+  React.useEffect(() => {
+    setImageSrc(image);
+  }, [image]);
 
   const hasBuyLinks = buyLinks && buyLinks.length > 0;
   const medalBorder =
@@ -159,7 +162,7 @@ export function ResultsCard({ image, title, explanation, badges, buyLinks, label
       {/* Horizontal product row — label lives inside text column like golf ball */}
       <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 12 }}>
         <Image
-          src={imageSrc === fallbackImage ? fallbackImage : imageSrc}
+          src={imageSrc}
           alt={title}
           width={imageSize}
           height={imageSize}
